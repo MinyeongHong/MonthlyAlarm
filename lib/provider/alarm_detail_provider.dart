@@ -31,7 +31,7 @@ class AlarmDetailViewModel extends StateNotifier<Alarm> {
     state = state.copyWith(date: newDate);
   }
 
-  void selectTime(DateTime newTime) {
+  void selectTime(TimeOfDay newTime) {
     state = state.copyWith(time: newTime);
   }
 

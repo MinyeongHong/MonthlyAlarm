@@ -28,53 +28,58 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0),
-      child: InkWell(
-        onTap: widget.onTap,
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 4.0),
-          decoration: BoxDecoration(
-            color:
-                widget.isOn ? AppTheme.transParentBlue : AppTheme.backgroundGrey,
-            borderRadius: BorderRadius.circular(22),
-          ),
-          child: Row(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                    width: 20,
-                    height: 20,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: widget.isOn ? AppTheme.blue : Colors.transparent,
-                        border: Border.all(
-                            color: widget.isOn
-                                ? AppTheme.blue
-                                : AppTheme.disableGrey)),
-                    child: widget.isOn
-                        ? Center(
-                            child: Icon(
-                              Icons.check,
-                              color: Colors.white,
-                              size: 13,
-                            ),
-                          )
-                        : SizedBox.shrink()),
-              ),
-              Text(
-                widget.title,
-                style: AppTheme.body1,
-              ),
-              Spacer(),
-              if (widget.isOn && widget.isCustom)
+      child: Material(
+        elevation: widget.isOn ? 5.0 : 0.0,
+        shadowColor: AppTheme.backgroundBlue,
+        borderRadius:  BorderRadius.circular(22),
+        child: GestureDetector(
+          onTap: widget.onTap,
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 4.0),
+            decoration: BoxDecoration(
+              color:
+                  widget.isOn ? AppTheme.transParentBlue : AppTheme.backgroundBlue,
+              borderRadius: BorderRadius.circular(22),
+            ),
+            child: Row(
+              children: [
                 Padding(
-                  padding: const EdgeInsets.only(right: 16.0),
-                  child: Text(
-                    '매월 ${widget.day}일',
-                    style: TextStyle(color: AppTheme.blue),
-                  ),
+                  padding: const EdgeInsets.all(10.0),
+                  child: Container(
+                      width: 20,
+                      height: 20,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: widget.isOn ? AppTheme.defaultBlue : Colors.transparent,
+                          border: Border.all(
+                              color: widget.isOn
+                                  ? AppTheme.defaultBlue
+                                  : AppTheme.disableGrey)),
+                      child: widget.isOn
+                          ? Center(
+                              child: Icon(
+                                Icons.check,
+                                color: Colors.white,
+                                size: 13,
+                              ),
+                            )
+                          : SizedBox.shrink()),
                 ),
-            ],
+                Text(
+                  widget.title,
+                  style: AppTheme.body1,
+                ),
+                Spacer(),
+                if (widget.isOn && widget.isCustom)
+                  Padding(
+                    padding: const EdgeInsets.only(right: 16.0),
+                    child: Text(
+                      '매월 ${widget.day}일',
+                      style: TextStyle(color: AppTheme.defaultBlue),
+                    ),
+                  ),
+              ],
+            ),
           ),
         ),
       ),

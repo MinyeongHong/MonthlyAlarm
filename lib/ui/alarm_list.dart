@@ -5,6 +5,7 @@ import 'package:monthly_alarm_app/repository/alarm_repository.dart';
 import 'package:monthly_alarm_app/repository/local_notification.dart';
 import 'package:monthly_alarm_app/ui/add_alarm.dart';
 
+import '../app_theme.dart';
 import '../string.dart';
 
 class AlarmListScreen extends StatefulWidget {
@@ -26,15 +27,35 @@ class _AlarmListScreenState extends State<AlarmListScreen> {
     final light_dark = box.get('mode');
     print(light_dark);
     return Scaffold(
+      backgroundColor: AppTheme.backgroundBlue,
       appBar: AppBar(
-        leading: IconButton(icon: Icon(Icons.add),onPressed:(){Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (_) =>  AddAlarmScreen(),
-          ),
-        );
-        }),
-        title: Text('Alarm'),
-        actions: [IconButton(onPressed: (){}, icon:Icon(CupertinoIcons.map))],
+        leading: IconButton(
+            icon: Icon(
+              Icons.add,
+              color: AppTheme.accentBlue,
+            ),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => AddAlarmScreen(),
+                ),
+              );
+            }),
+        title: Text(
+          'Alarm',
+          style: AppTheme.title1,
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: Icon(
+                CupertinoIcons.map,
+                color: AppTheme.accentBlue,
+              ))
+        ],
       ),
       body: SafeArea(
         child: Center(
@@ -47,15 +68,17 @@ class _AlarmListScreenState extends State<AlarmListScreen> {
               },
               child: Text('ThemeData 바꾸기'),
             ),
-            ElevatedButton(onPressed: (){
-              AlarmRepository().clear();
-              print(AlarmRepository().readAll().length);
-
-            }, child: Text('click for Hive')),
-            ElevatedButton(onPressed: (){
-             LocalNotification.sampleNotification();
-
-            }, child: Text('click for Noti'))
+            ElevatedButton(
+                onPressed: () {
+                  AlarmRepository().clear();
+                  print(AlarmRepository().readAll().length);
+                },
+                child: Text('click for Hive')),
+            ElevatedButton(
+                onPressed: () {
+                  LocalNotification.sampleNotification();
+                },
+                child: Text('click for Noti'))
           ]),
         ),
       ),

@@ -7,6 +7,7 @@ import 'package:monthly_alarm_app/ui/widget/custom_radio.dart';
 import 'package:monthly_alarm_app/ui/widget/number_picker.dart';
 import 'package:monthly_alarm_app/ui/widget/option_field.dart';
 import 'package:monthly_alarm_app/ui/widget/text_edit_field.dart';
+import 'package:monthly_alarm_app/ui/widget/time_picker.dart';
 
 import '../data/alarm.dart';
 import '../provider/alarm_detail_provider.dart';
@@ -28,13 +29,30 @@ class AddAlarmScreen extends ConsumerWidget {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      backgroundColor: AppTheme.backgroundBlue,
       appBar: AppBar(
-        leading: CloseButton(),
-        title: const Text('Add Alarm'),
-        actions: [IconButton(icon: Icon(Icons.check),onPressed: (){},)]
-      ),
-      body: Container(
-        color: AppTheme.backgroundGrey,
+          leading: const CloseButton(
+            color: AppTheme.accentBlue,
+          ),
+          title: const Text(
+            'Add Alarm',
+            style: AppTheme.title1,
+          ),
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+          actions: [
+            IconButton(
+              icon: Icon(
+                Icons.check,
+                color: AppTheme.accentBlue,
+              ),
+              onPressed: () {
+                print(alarm);
+              },
+            )
+          ]),
+      body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,7 +71,13 @@ class AddAlarmScreen extends ConsumerWidget {
             Spacer(
               flex: 1,
             ),
-            _title('날짜 설정'),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                '날짜 설정',
+                style: AppTheme.title1,
+              ),
+            ),
             CustomRadioButton(
               title: '매월 1일',
               isOn: ref.watch(dayTypeProvider) == AlarmDate.first,
@@ -94,26 +118,30 @@ class AddAlarmScreen extends ConsumerWidget {
             Spacer(
               flex: 1,
             ),
-            _title('시간 설정'),
-            GestureDetector(
-              child: Container(
-                height: 40,
-                decoration: BoxDecoration(
-                  color: AppTheme.selectedGrey,
-                  borderRadius: BorderRadius.circular(22),
-                ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                '시간 설정',
+                style: AppTheme.title1,
               ),
             ),
+            TimePicker(vm:vm),
             Spacer(
               flex: 1,
             ),
-            _title('미리 알림'),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                '미리 알림',
+                style: AppTheme.title1,
+              ),
+            ),
             OptionField(
               onTap: () => vm.dayBeforeOneDayOn(),
               isOn: alarm.bfOneDayOn,
               title: '하루 전 알림',
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             OptionField(
@@ -121,7 +149,7 @@ class AddAlarmScreen extends ConsumerWidget {
               isOn: alarm.bfThreeDayOn,
               title: '3일 전 알림',
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             OptionField(
@@ -137,103 +165,4 @@ class AddAlarmScreen extends ConsumerWidget {
       ),
     );
   }
-
-  Padding _title(String title) {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 20),
-      child: Text(
-        title,
-        style: AppTheme.title1,
-      ),
-    );
-  }
-
-// _radioField() {
-//   var _gVal = AlarmDate.first;
-//   return Column(
-//     children: [
-//       GestureDetector(
-//         child: Container(
-//           //  height: 40,
-//           decoration: BoxDecoration(
-//             color: alarm.isBeforeOn.elementAt(0)
-//                 ? AppTheme.selectedGrey
-//                 : AppTheme.backgroundGrey,
-//             borderRadius: BorderRadius.circular(22),
-//           ),
-//           child: Row(
-//             children: [
-//               Radio<bool>(
-//                 value: ref.read(beforeDayProvider.notifier).state.first,
-//                 groupValue: true,
-//                 onChanged: (value) async {
-//                   vm.dayBeforeAlarmOn(0);
-//                 },
-//               ),
-//               const Text(
-//                 '매월 1일',
-//                 style: AppTheme.title1,
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//       SizedBox(
-//         height: 5,
-//       ),
-//       GestureDetector(
-//         child: Container(
-//           //  height: 40,
-//           decoration: BoxDecoration(
-//             //  color: AppTheme.selectedGrey,
-//             borderRadius: BorderRadius.circular(22),
-//           ),
-//           child: Row(
-//             children: [
-//               Radio<AlarmDate>(
-//                 value: AlarmDate.last,
-//                 groupValue: _gVal,
-//                 onChanged: (value) {
-//                   setState(() {});
-//                 },
-//               ),
-//               const Text(
-//                 '매월 1일',
-//                 style: AppTheme.title1,
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//       SizedBox(
-//         height: 5,
-//       ),
-//       GestureDetector(
-//         child: Container(
-//           //  height: 40,
-//           decoration: BoxDecoration(
-//             color: AppTheme.selectedGrey,
-//             borderRadius: BorderRadius.circular(22),
-//           ),
-//           child: Row(
-//             children: [
-//               Radio<AlarmDate>(
-//                 value: AlarmDate.first,
-//                 groupValue: _gVal,
-//                 onChanged: (value) {
-//                   setState(() {});
-//                 },
-//               ),
-//               const Text(
-//                 '매월 1일',
-//                 style: AppTheme.title1,
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     ],
-//   );
-// }
-
 }

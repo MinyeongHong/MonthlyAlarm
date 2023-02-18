@@ -1,5 +1,6 @@
 import 'dart:core';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 part 'alarm.g.dart';
@@ -19,7 +20,7 @@ class Alarm extends HiveObject {
   String? content;
 
   @HiveField(4)
-  DateTime? time;
+  TimeOfDay time;
 
   @HiveField(5)
   final DateTime createdAt;
@@ -44,7 +45,7 @@ class Alarm extends HiveObject {
     this.title,
     this.isOn = false,
     this.content,
-    this.time,
+    this.time = const TimeOfDay(hour: 0,minute: 0),
     required this.createdAt,
     this.updatedAt,
     required this.date,
@@ -58,7 +59,7 @@ class Alarm extends HiveObject {
           String? title,
           bool? isOn,
           String? content,
-          DateTime? time,
+          TimeOfDay? time,
           DateTime? createdAt,
           DateTime? updatedAt,
           int? date,

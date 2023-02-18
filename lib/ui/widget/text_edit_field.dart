@@ -32,7 +32,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Material(
       borderRadius: BorderRadius.circular(42),
       elevation: 5,
-      shadowColor: AppTheme.backgroundGrey,
+      shadowColor: AppTheme.backgroundBlue,
       child: TextFormField(
         controller: textController,
         decoration: InputDecoration(

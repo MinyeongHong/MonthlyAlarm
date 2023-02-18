@@ -75,7 +75,7 @@ class _NumberPickerState extends State<NumberPicker> {
                             child: Text(
                               '${selectedDay}일이 없는 달에는 알람이 울리지 않습니다.',
                               style: TextStyle(
-                                  color: AppTheme.blue,
+                                  color: AppTheme.accentBlue,
                                   fontStyle: FontStyle.italic),
                             ),
                           )),

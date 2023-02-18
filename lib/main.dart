@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
         builder: (context, Box box, widget) {
           final lightDark = box.get('mode', defaultValue: 'light');
           return MaterialApp(
-            color: AppTheme.backgroundGrey,
+            color: AppTheme.backgroundBlue,
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
               brightness: Brightness.light,
@@ -48,10 +48,6 @@ class MyApp extends StatelessWidget {
                 ? ThemeData(brightness: Brightness.light)
                 : ThemeData(brightness: Brightness.dark),
             home: AlarmListScreen(),
-            // CupertinoApp(
-            //   // theme: CupertinoThemeData(brightness: Brightness.light),
-            //   home: const AlarmListScreen(),
-            // )
           );
         });
   }
