@@ -1,19 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_it/get_it.dart';
 import 'package:monthly_alarm_app/repository/alarm_repository.dart';
+import 'package:monthly_alarm_app/usecase/create_alarm.dart';
 
 import '../data/alarm.dart';
-import '../ui/add_alarm.dart';
+import '../ui/add_alarm_screen.dart';
+import '../usecase/update_alarm.dart';
 
 final alarmDetailProvider = StateNotifierProvider<AlarmDetailViewModel, Alarm>(
-        (ref) => AlarmDetailViewModel());
+    (ref) => AlarmDetailViewModel());
 
 class AlarmDetailViewModel extends StateNotifier<Alarm> {
   AlarmDetailViewModel()
       : super(Alarm(
-      alarmId: '', createdAt: DateTime.now(), date: DateTime.now().day));
+          alarmId: '',
+          createdAt: DateTime.now(),
+          date: DateTime.now().day,
+          isOn: true,
+          time: DateTime(DateTime.now().year, DateTime.now().month,
+              DateTime.now().day, 0, 0, 0),
+        ));
 
   AlarmDate? dateType;
+  CreateAlarm createAlarm = GetIt.I.get();
+  UpdateAlarm updateAlarm = GetIt.I.get();
 
   dayBeforeOneDayOn() {
     state = state.copyWith(bfOneDayOn: !state.bfOneDayOn);
@@ -31,15 +42,20 @@ class AlarmDetailViewModel extends StateNotifier<Alarm> {
     state = state.copyWith(date: newDate);
   }
 
-  void selectTime(TimeOfDay newTime) {
+  void selectTime(DateTime newTime) {
     state = state.copyWith(time: newTime);
   }
 
-  void saveText([String title = 'title', String content = 'content']) {
+  Future<void> saveText(
+      [String title = 'title', String content = 'content']) async {
     state = state.copyWith(title: title, content: content);
   }
 
-  void saveAlarm() {
-    AlarmRepository().create(state);
+  Future<void> save() async {
+    await createAlarm.call(state);
+  }
+
+  Future<void> update() async {
+    await updateAlarm.call(state);
   }
 }

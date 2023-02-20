@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:monthly_alarm_app/repository/alarm_repository.dart';
 import 'package:monthly_alarm_app/repository/local_notification.dart';
-import 'package:monthly_alarm_app/ui/add_alarm.dart';
+import 'package:monthly_alarm_app/ui/add_alarm_screen.dart';
 
 import '../app_theme.dart';
 import '../string.dart';
@@ -71,7 +71,6 @@ class _AlarmListScreenState extends State<AlarmListScreen> {
             ElevatedButton(
                 onPressed: () {
                   AlarmRepository().clear();
-                  print(AlarmRepository().readAll().length);
                 },
                 child: Text('click for Hive')),
             ElevatedButton(

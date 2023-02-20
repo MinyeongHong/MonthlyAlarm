@@ -5,12 +5,13 @@ import 'package:monthly_alarm_app/provider/alarm_list_provider.dart';
 import 'package:monthly_alarm_app/provider/user_provider.dart';
 import 'package:monthly_alarm_app/repository/local_notification.dart';
 import 'package:monthly_alarm_app/string.dart';
-import 'package:monthly_alarm_app/ui/alarm_list.dart';
+import 'package:monthly_alarm_app/ui/alarm_list_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'app_theme.dart';
 import 'data/alarm.dart';
+import 'di.dart';
 
 void main() async {
   await Hive.initFlutter();
@@ -20,6 +21,7 @@ void main() async {
   await Hive.openBox<Alarm>(strAlarm);
 
   LocalNotification.initialize();
+  setupGetIt();
 
   runApp(
     const ProviderScope(
@@ -33,6 +35,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     LocalNotification.requestPermission();
     return ValueListenableBuilder<Box>(
         valueListenable: Hive.box(strAppMode).listenable(),

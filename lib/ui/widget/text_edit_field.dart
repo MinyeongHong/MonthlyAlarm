@@ -38,20 +38,25 @@ class _CustomTextFieldState extends State<CustomTextField> {
         decoration: InputDecoration(
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(42),
-                borderSide: BorderSide(width: 0.0, color: Colors.transparent)),
+                borderSide: const BorderSide(width: 0.0, color: Colors.transparent)),
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(42),
-                borderSide: BorderSide(width: 0.0, color: Colors.transparent)),
+                borderSide: const BorderSide(width: 0.0, color: Colors.transparent)),
             hintText: widget.hintText,
             hintStyle: AppTheme.body1.apply(color: AppTheme.defaultGrey),
             fillColor: AppTheme.white,
             filled: true,
-            suffixIcon: IconButton(
-              icon: Icon(Icons.cancel,color: AppTheme.defaultGrey,),
-              onPressed: () {
-                textController.clear();
-              },
-            )),
+            suffixIcon: textController.text.isNotEmpty
+                ? IconButton(
+                    icon: const Icon(
+                      Icons.cancel,
+                      color: AppTheme.defaultGrey,
+                    ),
+                    onPressed: () {
+                      textController.clear();
+                    },
+                  )
+                : const SizedBox.shrink()),
       ),
     );
   }

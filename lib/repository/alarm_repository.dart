@@ -6,28 +6,32 @@ import '../data/alarm.dart';
 class AlarmRepository {
   final Box<Alarm> alarmBox = Hive.box(strAlarm);
 
-  create(Alarm newAlarm) {
-    alarmBox.put(newAlarm.alarmId, newAlarm);
+  Future<Alarm> create(Alarm newAlarm) async {
+    return await alarmBox.put(newAlarm.alarmId, newAlarm).then((_) => newAlarm);
   }
 
-  List<Alarm> readAll() {
-    return alarmBox.values.toList();
+  Future<void> update(Alarm newAlarm) async {
+    return await alarmBox.put(newAlarm.alarmId, newAlarm);
   }
 
-  Alarm? read(index) {
-    return alarmBox.getAt(index);
+  Future<List<Alarm>> readAll() async {
+    return await alarmBox.values.toList();
   }
 
-  delete(String id) {
-    alarmBox.delete(id);
+  Future<Alarm?> read(index) async {
+    return await alarmBox.getAt(index);
   }
 
-  deleteAll(List<Alarm> idList) {
+  Future<void> delete(String id) async {
+    await alarmBox.delete(id);
+  }
+
+  Future<void> deleteAll(List<Alarm> idList) async {
     idList.map((e) => e.alarmId);
-    alarmBox.deleteAll(idList);
+    await alarmBox.deleteAll(idList);
   }
 
-  clear() {
-    alarmBox.clear();
+  Future<void> clear() async {
+    await alarmBox.clear();
   }
 }

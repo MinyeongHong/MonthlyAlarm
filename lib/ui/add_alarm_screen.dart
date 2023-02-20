@@ -43,12 +43,13 @@ class AddAlarmScreen extends ConsumerWidget {
           elevation: 0.0,
           actions: [
             IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.check,
                 color: AppTheme.accentBlue,
               ),
-              onPressed: () {
-                print(alarm);
+              onPressed: () async {
+                await vm.saveText(titleController.text,contentController.text);
+                await vm.save();
               },
             )
           ]),
@@ -61,18 +62,18 @@ class AddAlarmScreen extends ConsumerWidget {
               controller: titleController,
               hintText: 'Title',
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             CustomTextField(
               controller: contentController,
               hintText: 'Content',
             ),
-            Spacer(
+            const Spacer(
               flex: 1,
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
               child: Text(
                 '날짜 설정',
                 style: AppTheme.title1,
@@ -115,22 +116,22 @@ class AddAlarmScreen extends ConsumerWidget {
               isCustom: true,
               day: alarm.date,
             ),
-            Spacer(
+            const Spacer(
               flex: 1,
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
               child: Text(
                 '시간 설정',
                 style: AppTheme.title1,
               ),
             ),
             TimePicker(vm:vm),
-            Spacer(
+            const Spacer(
               flex: 1,
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
               child: Text(
                 '미리 알림',
                 style: AppTheme.title1,
@@ -157,7 +158,7 @@ class AddAlarmScreen extends ConsumerWidget {
               isOn: alarm.bfOneWeekOn,
               title: '7일 전 알림',
             ),
-            Spacer(
+            const Spacer(
               flex: 3,
             ),
           ],

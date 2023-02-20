@@ -10,8 +10,8 @@ class AlarmListNotifier extends StateNotifier<List<Alarm>> {
   AlarmListNotifier([List<Alarm>? initialAlarm]) : super(initialAlarm ?? []);
 
   void update() {
-    var newData = AlarmRepository().readAll();
-    state = newData;
+    // var newData = AlarmRepository().readAll();
+    // state = newData;
   }
 
   void delete(String id) {

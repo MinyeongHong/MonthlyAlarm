@@ -14,6 +14,7 @@ class TimePicker extends StatefulWidget {
 }
 
 class _TimePickerState extends State<TimePicker> {
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -32,8 +33,8 @@ class _TimePickerState extends State<TimePicker> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(widget.vm.state.time.hour.toString() + ' : '+
-                    widget.vm.state.time.minute.toString(),style: AppTheme.title1,),
+                Text('${widget.vm.state.time!.hour} : ${widget.vm.state.time!
+                    .minute}', style: AppTheme.title1,),
                 _toggle()
               ],
             ),
@@ -47,15 +48,16 @@ class _TimePickerState extends State<TimePicker> {
   }
 
   _toggle() {
-    bool _isPM = (widget.vm.state.time.hour > 12 ||
-        (widget.vm.state.time.hour == 12 && widget.vm.state.time.minute >= 0));
+    bool isPM = (widget.vm.state.time!.hour > 12 ||
+        (widget.vm.state.time!.hour == 12 &&
+            widget.vm.state.time!.minute >= 0));
 
     return Row(
       children: [
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(7),
-            color: _isPM ?Colors.transparent :AppTheme.defaultBlue,
+            color: isPM ? Colors.transparent : AppTheme.defaultBlue,
           ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -65,7 +67,7 @@ class _TimePickerState extends State<TimePicker> {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(7),
-            color: _isPM? AppTheme.defaultBlue : Colors.transparent,
+            color: isPM ? AppTheme.defaultBlue : Colors.transparent,
           ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -77,7 +79,14 @@ class _TimePickerState extends State<TimePicker> {
   }
 
   Future<void> _selectTime(BuildContext context) async {
-    TimeOfDay selectedTime = TimeOfDay.now();
+    DateTime? selectedTime = widget.vm.state.time;
+    final initialTime = DateTime(DateTime
+        .now()
+        .year, DateTime
+        .now()
+        .month, DateTime
+        .now()
+        .day, 0, 0, 0);
 
     await showCupertinoModalPopup(
       context: context,
@@ -105,7 +114,7 @@ class _TimePickerState extends State<TimePicker> {
                     TextButton(
                       child: Text('확인', style: AppTheme.body1),
                       onPressed: () {
-                        widget.vm.selectTime(selectedTime);
+                        widget.vm.selectTime(selectedTime ?? initialTime);
                         Navigator.pop(context);
                       },
                     )
@@ -114,9 +123,9 @@ class _TimePickerState extends State<TimePicker> {
               ),
               Expanded(
                 child: CupertinoDatePicker(
-                  initialDateTime: DateTime.now(),
+                  initialDateTime: selectedTime ?? initialTime,
                   onDateTimeChanged: (DateTime newDateTime) {
-                    selectedTime = TimeOfDay.fromDateTime(newDateTime);
+                    selectedTime = newDateTime;
                   },
                   mode: CupertinoDatePickerMode.time,
                 ),

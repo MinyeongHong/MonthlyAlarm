@@ -20,7 +20,7 @@ class Alarm extends HiveObject {
   String? content;
 
   @HiveField(4)
-  TimeOfDay time;
+  DateTime? time;
 
   @HiveField(5)
   final DateTime createdAt;
@@ -45,7 +45,7 @@ class Alarm extends HiveObject {
     this.title,
     this.isOn = false,
     this.content,
-    this.time = const TimeOfDay(hour: 0,minute: 0),
+    this.time,
     required this.createdAt,
     this.updatedAt,
     required this.date,
@@ -59,7 +59,7 @@ class Alarm extends HiveObject {
           String? title,
           bool? isOn,
           String? content,
-          TimeOfDay? time,
+          DateTime? time,
           DateTime? createdAt,
           DateTime? updatedAt,
           int? date,
