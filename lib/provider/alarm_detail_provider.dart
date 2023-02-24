@@ -3,24 +3,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
 import 'package:monthly_alarm_app/repository/alarm_repository.dart';
 import 'package:monthly_alarm_app/usecase/create_alarm.dart';
+import 'package:uuid/uuid.dart';
 
 import '../data/alarm.dart';
 import '../ui/add_alarm_screen.dart';
 import '../usecase/update_alarm.dart';
 
-final alarmDetailProvider = StateNotifierProvider<AlarmDetailViewModel, Alarm>(
-    (ref) => AlarmDetailViewModel());
+final alarmDetailProvider =
+    StateNotifierProvider.autoDispose<AlarmDetailViewModel, Alarm>(
+        (ref) => AlarmDetailViewModel());
 
 class AlarmDetailViewModel extends StateNotifier<Alarm> {
-  AlarmDetailViewModel()
-      : super(Alarm(
-          alarmId: '',
-          createdAt: DateTime.now(),
-          date: DateTime.now().day,
-          isOn: true,
-          time: DateTime(DateTime.now().year, DateTime.now().month,
-              DateTime.now().day, 0, 0, 0),
-        ));
+  AlarmDetailViewModel() : super(Alarm.emptyAlarm());
 
   AlarmDate? dateType;
   CreateAlarm createAlarm = GetIt.I.get();
@@ -44,6 +38,16 @@ class AlarmDetailViewModel extends StateNotifier<Alarm> {
 
   void selectTime(DateTime newTime) {
     state = state.copyWith(time: newTime);
+  }
+
+  void toggleTime() {
+    var preTime = state.time;
+
+    if (preTime!.hour > 12) {
+      state = state.copyWith(time: preTime.subtract(Duration(hours: 12)));
+    } else {
+      state = state.copyWith(time: preTime.add(Duration(hours: 12)));
+    }
   }
 
   Future<void> saveText(

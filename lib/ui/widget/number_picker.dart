@@ -84,16 +84,6 @@ class _NumberPickerState extends State<NumberPicker> {
               ],
             ),
           ),
-          // ElevatedButton(
-          //     onPressed: () {
-          //       Navigator.pop(context, 'ok');
-          //     },
-          //     child: Text('확인')),
-          // ElevatedButton(
-          //     onPressed: () {
-          //       Navigator.pop(context, 'cancel');
-          //     },
-          //     child: Text('취소')),
         ],
       ),
     );

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:monthly_alarm_app/app_theme.dart';
+import 'package:monthly_alarm_app/provider/alarm_list_provider.dart';
 import 'package:monthly_alarm_app/ui/widget/custom_radio.dart';
 import 'package:monthly_alarm_app/ui/widget/number_picker.dart';
 import 'package:monthly_alarm_app/ui/widget/option_field.dart';
@@ -15,17 +16,37 @@ import '../provider/alarm_detail_provider.dart';
 enum AlarmDate { first, last, custom, none }
 
 final dayTypeProvider = StateProvider<AlarmDate>((ref) => AlarmDate.none);
-
-final titleController = TextEditingController();
-final contentController = TextEditingController();
-
-class AddAlarmScreen extends ConsumerWidget {
-  const AddAlarmScreen({Key? key}) : super(key: key);
+class AddAlarmScreen extends ConsumerStatefulWidget {
+  final AlarmListViewModel listVm;
+  const AddAlarmScreen({Key? key, required this.listVm}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<AddAlarmScreen> createState() => _AddAlarmScreenState();
+}
+
+class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
+  late final TextEditingController titleController;
+  late final TextEditingController contentController;
+
+
+  @override
+  void initState() {
+    super.initState();
+    titleController = TextEditingController();
+    contentController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    titleController.dispose();
+    contentController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     Alarm alarm = ref.watch(alarmDetailProvider);
-    AlarmDetailViewModel vm = ref.watch(alarmDetailProvider.notifier);
+    AlarmDetailViewModel vm = ref.read(alarmDetailProvider.notifier);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -48,8 +69,13 @@ class AddAlarmScreen extends ConsumerWidget {
                 color: AppTheme.accentBlue,
               ),
               onPressed: () async {
-                await vm.saveText(titleController.text,contentController.text);
-                await vm.save();
+                if(vm.dateType != AlarmDate.none) {
+                  await vm.saveText(
+                      titleController.text, contentController.text);
+                  await vm.save();
+                  await widget.listVm.loadAll();
+                  Navigator.pop(context);
+                }
               },
             )
           ]),
@@ -112,6 +138,16 @@ class AddAlarmScreen extends ConsumerWidget {
                     barrierDismissible: true,
                     context: context,
                     builder: (BuildContext context) => NumberPicker(vm: vm));
+
+                if (alarm.date == 1) {
+                  ref
+                      .read(dayTypeProvider.notifier)
+                      .update((state) => state = AlarmDate.first);
+                } else {
+                  ref
+                      .read(dayTypeProvider.notifier)
+                      .update((state) => state = AlarmDate.custom);
+                }
               },
               isCustom: true,
               day: alarm.date,
@@ -126,7 +162,7 @@ class AddAlarmScreen extends ConsumerWidget {
                 style: AppTheme.title1,
               ),
             ),
-            TimePicker(vm:vm),
+            TimePicker(vm: vm),
             const Spacer(
               flex: 1,
             ),

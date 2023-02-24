@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:monthly_alarm_app/provider/alarm_detail_provider.dart';
-
+import 'package:intl/intl.dart';
 import '../../app_theme.dart';
 
 class TimePicker extends StatefulWidget {
@@ -33,8 +33,7 @@ class _TimePickerState extends State<TimePicker> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('${widget.vm.state.time!.hour} : ${widget.vm.state.time!
-                    .minute}', style: AppTheme.title1,),
+                Text(DateFormat.Hm().format(widget.vm.state.time!),style: AppTheme.title1,),
                 _toggle()
               ],
             ),
@@ -54,24 +53,30 @@ class _TimePickerState extends State<TimePicker> {
 
     return Row(
       children: [
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(7),
-            color: isPM ? Colors.transparent : AppTheme.defaultBlue,
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text('AM'),
+        GestureDetector(
+          onTap: widget.vm.toggleTime,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(7),
+              color: isPM ? Colors.transparent : AppTheme.defaultBlue,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('AM'),
+            ),
           ),
         ),
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(7),
-            color: isPM ? AppTheme.defaultBlue : Colors.transparent,
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text('PM'),
+        GestureDetector(
+          onTap: widget.vm.toggleTime,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(7),
+              color: isPM ? AppTheme.defaultBlue : Colors.transparent,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text('PM'),
+            ),
           ),
         )
       ],

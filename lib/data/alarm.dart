@@ -2,6 +2,7 @@ import 'dart:core';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:uuid/uuid.dart';
 
 part 'alarm.g.dart';
 
@@ -78,6 +79,20 @@ class Alarm extends HiveObject {
           bfOneDayOn: bfOneDayOn ?? this.bfOneDayOn,
           bfThreeDayOn: bfThreeDayOn ?? this.bfThreeDayOn,
           bfOneWeekOn: bfOneWeekOn ?? this.bfOneWeekOn);
+
+  static Alarm emptyAlarm() => Alarm(
+      alarmId: const Uuid().v1(),
+      title: '',
+      content: '',
+      isOn: true,
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+      date: DateTime.now().day,
+      time: DateTime(DateTime.now().year, DateTime.now().month,
+          DateTime.now().day, 0, 0, 0),
+      bfOneDayOn: false,
+      bfThreeDayOn: false,
+      bfOneWeekOn: false);
 }
 
 // @override

@@ -1,31 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:monthly_alarm_app/repository/alarm_repository.dart';
 import 'package:monthly_alarm_app/repository/local_notification.dart';
 import 'package:monthly_alarm_app/ui/add_alarm_screen.dart';
 
 import '../app_theme.dart';
+import '../data/alarm.dart';
+import '../provider/alarm_list_provider.dart';
 import '../string.dart';
 
-class AlarmListScreen extends StatefulWidget {
+class AlarmListScreen extends ConsumerWidget {
   const AlarmListScreen({Key? key}) : super(key: key);
 
   @override
-  State<AlarmListScreen> createState() => _AlarmListScreenState();
-}
-
-class _AlarmListScreenState extends State<AlarmListScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
+    AlarmListViewModel vm = ref.read(alarmListProvider.notifier);
+    vm.loadAll();
     final box = Hive.box(strAppMode);
     final light_dark = box.get('mode');
     print(light_dark);
+
     return Scaffold(
       backgroundColor: AppTheme.backgroundBlue,
       appBar: AppBar(
@@ -37,7 +33,7 @@ class _AlarmListScreenState extends State<AlarmListScreen> {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (_) => AddAlarmScreen(),
+                  builder: (_) => AddAlarmScreen(listVm:vm),
                 ),
               );
             }),
@@ -72,15 +68,41 @@ class _AlarmListScreenState extends State<AlarmListScreen> {
                 onPressed: () {
                   AlarmRepository().clear();
                 },
-                child: Text('click for Hive')),
+                child: Text('하이브 클리어')),
+            ElevatedButton(
+                onPressed: () {
+                 vm.loadAll();
+                },
+                child: Text('refresh list')),
+
             ElevatedButton(
                 onPressed: () {
                   LocalNotification.sampleNotification();
                 },
-                child: Text('click for Noti'))
+                child: Text('click for Noti')),
+            Expanded(
+              child: ListView.builder(
+                  itemCount: vm.state.length,
+                  itemBuilder: (BuildContext ctx, int idx) {
+                    print(vm.state.length);
+                    var alarm = vm.state[idx];
+                    print(alarm);
+                    return Container(
+                      child: Column(
+                        children: [
+                          Text(alarm.alarmId),
+                          Text(alarm.date.toString()),
+                          Text(alarm.title.toString()),
+                          Text(alarm.time.toString()),
+                        ],
+                      ),
+                    );
+                  }),
+            ),
           ]),
         ),
       ),
     );
   }
 }
+

@@ -1,9 +1,11 @@
 import 'package:hive/hive.dart';
 import 'package:monthly_alarm_app/string.dart';
+import 'package:uuid/uuid.dart';
 
 import '../data/alarm.dart';
 
 class AlarmRepository {
+
   final Box<Alarm> alarmBox = Hive.box(strAlarm);
 
   Future<Alarm> create(Alarm newAlarm) async {
@@ -15,11 +17,11 @@ class AlarmRepository {
   }
 
   Future<List<Alarm>> readAll() async {
-    return await alarmBox.values.toList();
+    return alarmBox.values.toList();
   }
 
   Future<Alarm?> read(index) async {
-    return await alarmBox.getAt(index);
+    return alarmBox.getAt(index);
   }
 
   Future<void> delete(String id) async {
