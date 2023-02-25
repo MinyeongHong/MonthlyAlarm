@@ -17,11 +17,17 @@ class AlarmRepository {
   }
 
   Future<List<Alarm>> readAll() async {
-    return alarmBox.values.toList();
+    var result =  alarmBox.values.toList();
+    result.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+    return result;
   }
 
-  Future<Alarm?> read(index) async {
+  Future<Alarm?> readByIndex(index) async {
     return alarmBox.getAt(index);
+  }
+
+  Future<Alarm?> readById(String id) async {
+    return alarmBox.get(id);
   }
 
   Future<void> delete(String id) async {

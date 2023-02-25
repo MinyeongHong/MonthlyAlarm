@@ -6,8 +6,8 @@ class AppTheme {
   //bright theme
   static const white = Color(0xFFFFFFFF);
   static const defaultBlack = Color(0xFF343434);
-
   static const defaultGrey = Color(0xFFC7C7CC);
+
   static const lightGrey = Color(0xFFE8E9EB);
   static const cancelGrey = Color(0xFF8E8E93);
   static const disableGrey = Color(0xFFA7A7A7);
@@ -22,7 +22,6 @@ class AppTheme {
   static const title1 = TextStyle(
     fontFamily: 'AppleSDGothicNeo',
     fontWeight: FontWeight.w400,
-    fontStyle: FontStyle.normal,
     fontSize: 20,
     color: AppTheme.defaultBlack,
   );
@@ -30,8 +29,21 @@ class AppTheme {
   static const body1 = TextStyle(
     fontFamily: 'AppleSDGothicNeo',
     fontWeight: FontWeight.w400,
-    fontStyle: FontStyle.normal,
     fontSize: 17,
+    color: AppTheme.defaultBlack,
+  );
+
+  static const sub1 = TextStyle(
+    fontFamily: 'AppleSDGothicNeo',
+    fontWeight: FontWeight.w400,
+    fontSize: 13,
+    color: AppTheme.defaultBlack,
+  );
+
+  static const sub2 = TextStyle(
+    fontFamily: 'AppleSDGothicNeo',
+    fontWeight: FontWeight.w300,
+    fontSize: 10,
     color: AppTheme.defaultBlack,
   );
 }

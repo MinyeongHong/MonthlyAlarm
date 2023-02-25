@@ -40,6 +40,7 @@ class _TimePickerState extends State<TimePicker> {
           ),
         ),
         onTap: () {
+          FocusScope.of(context).unfocus();
           _selectTime(context);
         },
       ),

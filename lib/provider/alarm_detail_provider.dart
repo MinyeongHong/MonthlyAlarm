@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
 import 'package:monthly_alarm_app/repository/alarm_repository.dart';
 import 'package:monthly_alarm_app/usecase/create_alarm.dart';
+import 'package:monthly_alarm_app/usecase/read_alarm.dart';
 import 'package:uuid/uuid.dart';
 
 import '../data/alarm.dart';
@@ -17,6 +18,7 @@ class AlarmDetailViewModel extends StateNotifier<Alarm> {
   AlarmDetailViewModel() : super(Alarm.emptyAlarm());
 
   AlarmDate? dateType;
+
   CreateAlarm createAlarm = GetIt.I.get();
   UpdateAlarm updateAlarm = GetIt.I.get();
 
@@ -62,4 +64,5 @@ class AlarmDetailViewModel extends StateNotifier<Alarm> {
   Future<void> update() async {
     await updateAlarm.call(state);
   }
+
 }

@@ -43,7 +43,22 @@ class _NumberPickerState extends State<NumberPicker> {
             ),
             child: Column(
               children: [
-                Material(child: Text('매월 ${selectedDay}일')),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                  TextButton(onPressed: (){
+                    Navigator.pop(context);
+                  }, child: Text('취소')),
+                  DefaultTextStyle(
+                    style: AppTheme.body1,
+                    child: Text(
+                      '매월 ${selectedDay}일',
+                    ),
+                  ),
+                  TextButton(onPressed: (){
+                    Navigator.pop(context,selectedDay);
+                  }, child: Text('확인')),
+                ]),
                 Expanded(
                   child: CupertinoPicker(
                     scrollController: controller,
@@ -52,7 +67,6 @@ class _NumberPickerState extends State<NumberPicker> {
                       setState(() {
                         selectedDay = index + 1;
                       });
-                      widget.vm.selectDate(selectedDay);
                     },
                     children: List<Widget>.generate(
                         31,

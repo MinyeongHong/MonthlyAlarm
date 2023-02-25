@@ -5,20 +5,30 @@ import 'package:monthly_alarm_app/usecase/load_alarms.dart';
 
 import '../data/alarm.dart';
 import '../repository/alarm_repository.dart';
+import '../usecase/read_alarm.dart';
 
-final alarmListProvider = StateNotifierProvider((ref) => AlarmListViewModel());
+final alarmListProvider = StateNotifierProvider<AlarmListViewModel,List<Alarm>>((ref) => AlarmListViewModel());
 
 class AlarmListViewModel extends StateNotifier<List<Alarm>> {
   AlarmListViewModel([List<Alarm>? initialAlarm]) : super(initialAlarm ?? []);
 
   LoadAlarms loadAlarms = GetIt.I.get();
+  ReadAlarm readAlarm = GetIt.I.get();
 
-  void update() {
+
+  Future<Alarm?> load(String id) async {
+    return await readAlarm.call(id);
   }
 
   Future<void> loadAll() async {
     state = await loadAlarms.call();
-    print(state.length);
+  }
+
+  void toggle(String id,bool val) {
+    state = [
+      for (final e in state)
+        e.alarmId == id? e.copyWith(isOn: val) : e
+    ];
   }
 
   void delete(String id) {

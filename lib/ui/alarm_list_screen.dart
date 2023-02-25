@@ -5,9 +5,11 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:monthly_alarm_app/repository/alarm_repository.dart';
 import 'package:monthly_alarm_app/repository/local_notification.dart';
 import 'package:monthly_alarm_app/ui/add_alarm_screen.dart';
+import 'package:monthly_alarm_app/ui/widget/alarm_tile.dart';
 
 import '../app_theme.dart';
 import '../data/alarm.dart';
+import '../provider/alarm_detail_provider.dart';
 import '../provider/alarm_list_provider.dart';
 import '../string.dart';
 
@@ -15,12 +17,14 @@ class AlarmListScreen extends ConsumerWidget {
   const AlarmListScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context,WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     AlarmListViewModel vm = ref.read(alarmListProvider.notifier);
+    List<Alarm> alarmList = ref.watch(alarmListProvider);
+
     vm.loadAll();
+
     final box = Hive.box(strAppMode);
-    final light_dark = box.get('mode');
-    print(light_dark);
+    final lightDark = box.get('mode');
 
     return Scaffold(
       backgroundColor: AppTheme.backgroundBlue,
@@ -33,7 +37,7 @@ class AlarmListScreen extends ConsumerWidget {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (_) => AddAlarmScreen(listVm:vm),
+                  builder: (_) => AddAlarmScreen(listVm: vm),
                 ),
               );
             }),
@@ -48,61 +52,57 @@ class AlarmListScreen extends ConsumerWidget {
           IconButton(
               onPressed: () {},
               icon: Icon(
-                CupertinoIcons.map,
+                CupertinoIcons.bars,
                 color: AppTheme.accentBlue,
               ))
         ],
       ),
       body: SafeArea(
         child: Center(
-          child: Column(children: [
-            TextButton(
-              onPressed: () {
-                light_dark == 'light'
-                    ? box.put('mode', 'dark')
-                    : box.put('mode', 'light');
-              },
-              child: Text('ThemeData 바꾸기'),
-            ),
-            ElevatedButton(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Column(children: [
+              TextButton(
                 onPressed: () {
-                  AlarmRepository().clear();
+                  lightDark == 'light'
+                      ? box.put('mode', 'dark')
+                      : box.put('mode', 'light');
                 },
-                child: Text('하이브 클리어')),
-            ElevatedButton(
-                onPressed: () {
-                 vm.loadAll();
-                },
-                child: Text('refresh list')),
+                child: Text('ThemeData 바꾸기'),
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    AlarmRepository().clear();
+                  },
+                  child: Text('hive DB 클리어')),
+              ElevatedButton(
+                  onPressed: () {
+                    LocalNotification.sampleNotification();
+                  },
+                  child: Text('click for Noti')),
+              Expanded(
+                child: ListView.builder(
+                    itemCount: alarmList.length,
+                    itemBuilder: (BuildContext ctx, int idx) {
+                      var alarm = ref.watch(alarmListProvider)[idx];
 
-            ElevatedButton(
-                onPressed: () {
-                  LocalNotification.sampleNotification();
-                },
-                child: Text('click for Noti')),
-            Expanded(
-              child: ListView.builder(
-                  itemCount: vm.state.length,
-                  itemBuilder: (BuildContext ctx, int idx) {
-                    print(vm.state.length);
-                    var alarm = vm.state[idx];
-                    print(alarm);
-                    return Container(
-                      child: Column(
-                        children: [
-                          Text(alarm.alarmId),
-                          Text(alarm.date.toString()),
-                          Text(alarm.title.toString()),
-                          Text(alarm.time.toString()),
-                        ],
-                      ),
-                    );
-                  }),
-            ),
-          ]),
+                      return AlarmTile(
+                        idx: idx,
+                        onToggle: (bool val) {
+                          alarm.isOn = val;
+                         // vm.toggle(alarm.alarmId, val);
+                        },
+                        onTap: () {
+                          vm.load(alarm.alarmId);
+                          Navigator.push(context, MaterialPageRoute(builder: (_)=>AddAlarmScreen(listVm: vm)));
+                        },
+                      );
+                    }),
+              ),
+            ]),
+          ),
         ),
       ),
     );
   }
 }
-

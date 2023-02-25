@@ -7,7 +7,7 @@ class ReadAlarm {
 
   ReadAlarm(this.repository);
 
-  Future<Alarm?> call(int index) async {
-    return await repository.read(index);
+  Future<Alarm?> call(String id) async {
+    return await repository.readById(id);
   }
 }
