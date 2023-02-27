@@ -81,126 +81,128 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
             ]),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomTextField(
-                controller: titleController,
-                hintText: 'Title',
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              CustomTextField(
-                controller: contentController,
-                hintText: 'Content',
-              ),
-              const Spacer(
-                flex: 1,
-              ),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  '날짜 설정',
-                  style: AppTheme.title1,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomTextField(
+                  controller: titleController,
+                  hintText: 'Title',
                 ),
-              ),
-              CustomRadioButton(
-                title: '매월 1일',
-                isOn: ref.watch(dayTypeProvider) == AlarmDate.first,
-                onTap: () {
-                  FocusScope.of(context).unfocus();
-                  ref.read(dayTypeProvider.notifier).state = AlarmDate.first;
-                  vm.selectDate(1);
-                },
-                isCustom: false,
-              ),
-              CustomRadioButton(
-                title: '매월 말일',
-                isOn: ref.watch(dayTypeProvider) == AlarmDate.last,
-                onTap: () {
-                  FocusScope.of(context).unfocus();
-                  ref
-                      .read(dayTypeProvider.notifier)
-                      .update((state) => state = AlarmDate.last);
-                  vm.selectDate(-1);
-                },
-                isCustom: false,
-              ),
-              CustomRadioButton(
-                title: '직접 지정',
-                isOn: ref.watch(dayTypeProvider) == AlarmDate.custom,
-                onTap: () async {
-                  FocusScope.of(context).unfocus();
-                  vm.selectDate(DateTime.now().day);
+                const SizedBox(
+                  height: 20,
+                ),
+                CustomTextField(
+                  controller: contentController,
+                  hintText: 'Content',
+                ),
+                // const Spacer(
+                //   flex: 1,
+                // ),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    '날짜 설정',
+                    style: AppTheme.title1,
+                  ),
+                ),
+                CustomRadioButton(
+                  title: '매월 1일',
+                  isOn: ref.watch(dayTypeProvider) == AlarmDate.first,
+                  onTap: () {
+                    FocusScope.of(context).unfocus();
+                    ref.read(dayTypeProvider.notifier).state = AlarmDate.first;
+                    vm.selectDate(1);
+                  },
+                  isCustom: false,
+                ),
+                CustomRadioButton(
+                  title: '매월 말일',
+                  isOn: ref.watch(dayTypeProvider) == AlarmDate.last,
+                  onTap: () {
+                    FocusScope.of(context).unfocus();
+                    ref
+                        .read(dayTypeProvider.notifier)
+                        .update((state) => state = AlarmDate.last);
+                    vm.selectDate(-1);
+                  },
+                  isCustom: false,
+                ),
+                CustomRadioButton(
+                  title: '직접 지정',
+                  isOn: ref.watch(dayTypeProvider) == AlarmDate.custom,
+                  onTap: () async {
+                    FocusScope.of(context).unfocus();
+                    vm.selectDate(DateTime.now().day);
 
-                  var result = await showCupertinoModalPopup<int?>(
-                      barrierDismissible: true,
-                      context: context,
-                      builder: (BuildContext context) => NumberPicker(vm: vm));
+                    var result = await showCupertinoModalPopup<int?>(
+                        barrierDismissible: true,
+                        context: context,
+                        builder: (BuildContext context) => NumberPicker(vm: vm));
 
-                  if(result!=null){
-                    vm.selectDate(result);
-                    if (result == 1) {
-                      ref
-                          .read(dayTypeProvider.notifier)
-                          .update((state) => state = AlarmDate.first);
-                    } else {
-                      ref
-                          .read(dayTypeProvider.notifier)
-                          .update((state) => state = AlarmDate.custom);
+                    if(result!=null){
+                      vm.selectDate(result);
+                      if (result == 1) {
+                        ref
+                            .read(dayTypeProvider.notifier)
+                            .update((state) => state = AlarmDate.first);
+                      } else {
+                        ref
+                            .read(dayTypeProvider.notifier)
+                            .update((state) => state = AlarmDate.custom);
+                      }
                     }
-                  }
-                },
-                isCustom: true,
-                day: alarm.date,
-              ),
-              const Spacer(
-                flex: 1,
-              ),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  '시간 설정',
-                  style: AppTheme.title1,
+                  },
+                  isCustom: true,
+                  day: alarm.date,
                 ),
-              ),
-              TimePicker(vm: vm),
-              const Spacer(
-                flex: 1,
-              ),
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  '미리 알림',
-                  style: AppTheme.title1,
+                // const Spacer(
+                //   flex: 1,
+                // ),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    '시간 설정',
+                    style: AppTheme.title1,
+                  ),
                 ),
-              ),
-              OptionField(
-                onTap: () => vm.dayBeforeOneDayOn(),
-                isOn: alarm.bfOneDayOn,
-                title: '하루 전 알림',
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              OptionField(
-                onTap: () => vm.dayBeforeThreeDayOn(),
-                isOn: alarm.bfThreeDayOn,
-                title: '3일 전 알림',
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              OptionField(
-                onTap: () => vm.dayBeforeOneWeekOn(),
-                isOn: alarm.bfOneWeekOn,
-                title: '7일 전 알림',
-              ),
-              const Spacer(
-                flex: 3,
-              ),
-            ],
+                TimePicker(vm: vm),
+                // const Spacer(
+                //   flex: 1,
+                // ),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    '미리 알림',
+                    style: AppTheme.title1,
+                  ),
+                ),
+                OptionField(
+                  onTap: () => vm.dayBeforeOneDayOn(),
+                  isOn: alarm.bfOneDayOn,
+                  title: '하루 전 알림',
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                OptionField(
+                  onTap: () => vm.dayBeforeThreeDayOn(),
+                  isOn: alarm.bfThreeDayOn,
+                  title: '3일 전 알림',
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                OptionField(
+                  onTap: () => vm.dayBeforeOneWeekOn(),
+                  isOn: alarm.bfOneWeekOn,
+                  title: '7일 전 알림',
+                ),
+                // const Spacer(
+                //   flex: 3,
+                // ),
+              ],
+            ),
           ),
         ),
       ),

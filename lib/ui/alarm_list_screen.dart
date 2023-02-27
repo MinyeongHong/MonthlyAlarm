@@ -91,7 +91,11 @@ class AlarmListScreen extends ConsumerWidget {
                         idx: idx,
                         onToggle: (bool val) {
                           alarm.isOn = val;
-                          // vm.toggle(alarm.alarmId, val);
+                          if(!val) {
+                            LocalNotification.offNotification(alarm.alarmId);
+                          }else{
+                            LocalNotification.scheduleMonthlyNotification(alarm);
+                          }
                         },
                         onTap: () {
                           vm.load(alarm.alarmId);

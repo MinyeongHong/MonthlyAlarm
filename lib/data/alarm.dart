@@ -2,6 +2,7 @@ import 'dart:core';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
 part 'alarm.g.dart';
@@ -83,7 +84,7 @@ class Alarm extends HiveObject {
           bfOneWeekOn: bfOneWeekOn ?? this.bfOneWeekOn);
 
   static Alarm emptyAlarm() => Alarm(
-      alarmId: const Uuid().v1(),
+      alarmId: DateFormat('MMdHms').format(DateTime.now()),
       title: '',
       content: '',
       isOn: true,
@@ -97,29 +98,8 @@ class Alarm extends HiveObject {
       bfOneWeekOn: false);
 }
 
-// @override
-// List<Object?> get props => [alarmId];
-//
-// factory Alarm.fromJson(Map<String, dynamic> json) {
-//   return Alarm(
-//     alarmId: json["alarmId"],
-//     title: json["title"],
-//     isOn: json["isOn"],
-//     content: json["content"],
-//     time: json["time"],
-//     createdAt: json["createdAt"],
-//     updatedAt: json["updatedAt"],
-//   );
-// }
-//
-// Map<String, dynamic> toJson() {
-//   return {
-//     "alarmId": alarmId,
-//     "title": title,
-//     "isOn": isOn,
-//     "content": content,
-//     "time": time,
-//     "createdAt": createdAt,
-//     "updatedAt": updatedAt,
-//   };
-// }
+extension IntUid on String {
+  int toIntUid() {
+    return int.parse(this);
+  }
+}

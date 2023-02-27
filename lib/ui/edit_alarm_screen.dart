@@ -52,8 +52,7 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
     Alarm alarm = ref.watch(alarmDetailProvider);
     AlarmDetailViewModel vm = ref.read(alarmDetailProvider.notifier);
     AlarmListViewModel listVm = ref.read(alarmListProvider.notifier);
-    print('123123');
-    print(vm.dateType);
+
     return GestureDetector(
       onTap:()=> FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -87,8 +86,8 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
             ]),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
+            //crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomTextField(
                 controller: titleController,

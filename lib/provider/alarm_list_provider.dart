@@ -5,6 +5,7 @@ import 'package:monthly_alarm_app/usecase/load_alarms.dart';
 
 import '../data/alarm.dart';
 import '../repository/alarm_repository.dart';
+import '../repository/local_notification.dart';
 import '../usecase/read_alarm.dart';
 
 final alarmListProvider = StateNotifierProvider<AlarmListViewModel,List<Alarm>>((ref) => AlarmListViewModel());
@@ -36,6 +37,9 @@ class AlarmListViewModel extends StateNotifier<List<Alarm>> {
       for (final e in state)
         if (e.alarmId != id) e,
     ];
+
+   LocalNotification.offNotification(id);
+
   }
 
 }

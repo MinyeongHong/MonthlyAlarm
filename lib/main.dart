@@ -8,6 +8,8 @@ import 'package:monthly_alarm_app/string.dart';
 import 'package:monthly_alarm_app/ui/alarm_list_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:timezone/data/latest.dart';
+import 'package:timezone/standalone.dart';
 
 import 'app_theme.dart';
 import 'data/alarm.dart';
@@ -20,7 +22,9 @@ void main() async {
   await Hive.openBox(strAppMode,);
   await Hive.openBox<Alarm>(strAlarm);
 
-  LocalNotification.initialize();
+  await LocalNotification.initialize();
+  initializeTimeZones();
+
   setupGetIt();
 
   runApp(

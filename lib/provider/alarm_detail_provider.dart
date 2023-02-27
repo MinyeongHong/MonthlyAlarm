@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
+import 'package:intl/intl.dart';
 import 'package:monthly_alarm_app/repository/alarm_repository.dart';
 import 'package:monthly_alarm_app/usecase/create_alarm.dart';
 import 'package:monthly_alarm_app/usecase/read_alarm.dart';
 import 'package:uuid/uuid.dart';
 
 import '../data/alarm.dart';
+import '../repository/local_notification.dart';
 import '../usecase/update_alarm.dart';
 
 final dayTypeProvider = StateProvider<AlarmDate>((ref) => AlarmDate.custom);
@@ -64,10 +66,12 @@ class AlarmDetailViewModel extends StateNotifier<Alarm> {
 
   Future<void> save() async {
     await createAlarm.call(state);
+    await LocalNotification.scheduleMonthlyNotification(state);
   }
 
   Future<void> update() async {
     await updateAlarm.call(state);
+    await LocalNotification.scheduleMonthlyNotification(state);
   }
 }
 
