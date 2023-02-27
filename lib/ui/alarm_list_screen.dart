@@ -12,6 +12,7 @@ import '../data/alarm.dart';
 import '../provider/alarm_detail_provider.dart';
 import '../provider/alarm_list_provider.dart';
 import '../string.dart';
+import 'edit_alarm_screen.dart';
 
 class AlarmListScreen extends ConsumerWidget {
   const AlarmListScreen({Key? key}) : super(key: key);
@@ -37,7 +38,7 @@ class AlarmListScreen extends ConsumerWidget {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (_) => AddAlarmScreen(listVm: vm),
+                  builder: (_) => AddAlarmScreen(),
                 ),
               );
             }),
@@ -90,11 +91,15 @@ class AlarmListScreen extends ConsumerWidget {
                         idx: idx,
                         onToggle: (bool val) {
                           alarm.isOn = val;
-                         // vm.toggle(alarm.alarmId, val);
+                          // vm.toggle(alarm.alarmId, val);
                         },
                         onTap: () {
                           vm.load(alarm.alarmId);
-                          Navigator.push(context, MaterialPageRoute(builder: (_)=>AddAlarmScreen(listVm: vm)));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (_) =>
+                                      EditAlarmScreen(alarm)));
                         },
                       );
                     }),

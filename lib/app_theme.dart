@@ -17,12 +17,20 @@ class AppTheme {
   static const contentBlue = Color(0xFFF8FAFC);
   static const defaultBlue = Color(0xFF62ACF5);
   static const accentBlue = Color(0xFF007AFF);
+  static const accentFontBlue = Color(0xFF168BFE);
   static const transParentBlue = Color(0xFFE8F0F8);
 
   static const title1 = TextStyle(
     fontFamily: 'AppleSDGothicNeo',
     fontWeight: FontWeight.w400,
     fontSize: 20,
+    color: AppTheme.defaultBlack,
+  );
+
+  static const title2 = TextStyle(
+    fontFamily: 'AppleSDGothicNeo',
+    fontWeight: FontWeight.w200,
+    fontSize: 18,
     color: AppTheme.defaultBlack,
   );
 

@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:monthly_alarm_app/app_theme.dart';
 
-import '../../data/alarm.dart';
 import '../../provider/alarm_list_provider.dart';
 
 class AlarmTile extends ConsumerWidget {
@@ -22,8 +21,6 @@ class AlarmTile extends ConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref)  {
     final alarmState = ref.watch(alarmListProvider)[idx];
-    final switchProvider = StateProvider((ref) => alarmState.isOn);
-    final switchState = ref.watch(switchProvider);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6.0),
@@ -40,33 +37,38 @@ class AlarmTile extends ConsumerWidget {
                 width: 1,
                 color: Color(0xFFFBFBFB),
               ),
-              color: AppTheme.contentBlue,
+              color: alarmState.isOn ?AppTheme.transParentBlue :AppTheme.contentBlue,
             ),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(27, 28, 12, 28),
               child: Row(
                 children: [
-                  Text(
-                    alarmState.title.toString(),
-                    style: AppTheme.title1,
+                  Expanded(
+                    child: Text(
+                      alarmState.title.toString(),
+                      maxLines: null,
+                      style: AppTheme.title2.apply(color: alarmState.isOn ? AppTheme.defaultBlack : AppTheme.disableGrey),
+                    ),
                   ),
                   Spacer(),
                   Column(
                     children: [
+                      SizedBox(height: 10,),
                       Text(
                         alarmState.date == -1 ? '매월 말일' : '매월 ${alarmState.date}일',
-                        style: AppTheme.sub1,
+                        style: AppTheme.sub1.apply(color: alarmState.isOn ? AppTheme.defaultBlack : AppTheme.disableGrey),
                       ),
                       Text(
-                        DateFormat('hh:mm').format(alarmState.time!),
-                        style: AppTheme.sub2,
+                        DateFormat.Hm().format(alarmState.time!),
+                        style: AppTheme.sub2.apply(color: alarmState.isOn ? AppTheme.defaultBlack : AppTheme.disableGrey),
                       ),
                     ],
                   ),
+                  SizedBox(width: 15,),
                   CupertinoSwitch(
                     activeColor: AppTheme.defaultBlue,
                       trackColor: AppTheme.lightGrey,
-                      value: switchState,
+                      value: alarmState.isOn,
                       onChanged: (val) =>onToggle.call(val)
                     ),
                 ],

@@ -51,8 +51,10 @@ class LocalNotification {
       ),
     );
 
-    await _flutterLocalNotificationsPlugin.show(
-        0, "plain title", "plain body", platformChannelSpecifics,
-        payload: "item x");
+      await _flutterLocalNotificationsPlugin.show(
+          0, "plain title", "plain body", platformChannelSpecifics,
+          payload: "item x");
   }
+
+
 }

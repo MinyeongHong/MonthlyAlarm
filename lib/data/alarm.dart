@@ -6,6 +6,8 @@ import 'package:uuid/uuid.dart';
 
 part 'alarm.g.dart';
 
+enum AlarmDate { first, last, custom }
+
 @HiveType(typeId: 0)
 class Alarm extends HiveObject {
   @HiveField(0)

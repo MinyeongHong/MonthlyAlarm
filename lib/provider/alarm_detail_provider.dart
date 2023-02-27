@@ -7,17 +7,22 @@ import 'package:monthly_alarm_app/usecase/read_alarm.dart';
 import 'package:uuid/uuid.dart';
 
 import '../data/alarm.dart';
-import '../ui/add_alarm_screen.dart';
 import '../usecase/update_alarm.dart';
 
-final alarmDetailProvider =
-    StateNotifierProvider.autoDispose<AlarmDetailViewModel, Alarm>(
-        (ref) => AlarmDetailViewModel());
+final dayTypeProvider = StateProvider<AlarmDate>((ref) => AlarmDate.custom);
+
+// final alarmDetailProvider =
+//     StateNotifierProvider.autoDispose<AlarmDetailViewModel, Alarm>(
+//         (ref) => AlarmDetailViewModel());
 
 class AlarmDetailViewModel extends StateNotifier<Alarm> {
-  AlarmDetailViewModel() : super(Alarm.emptyAlarm());
+  AlarmDetailViewModel([Alarm? alarm]) : super(alarm ?? Alarm.emptyAlarm());
 
-  AlarmDate? dateType;
+  AlarmDate get dateType {
+    print('change date');
+    print(state.date.parseType());
+  return state.date.parseType();
+}
 
   CreateAlarm createAlarm = GetIt.I.get();
   UpdateAlarm updateAlarm = GetIt.I.get();
@@ -64,5 +69,12 @@ class AlarmDetailViewModel extends StateNotifier<Alarm> {
   Future<void> update() async {
     await updateAlarm.call(state);
   }
+}
 
+extension TypeParsing on int {
+  AlarmDate parseType() {
+    if(this == 1) return AlarmDate.first;
+    else if(this == -1) return AlarmDate.last;
+    else return AlarmDate.custom;
+  }
 }
