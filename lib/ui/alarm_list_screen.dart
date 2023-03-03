@@ -9,7 +9,7 @@ import 'package:monthly_alarm_app/ui/widget/alarm_tile.dart';
 
 import '../app_theme.dart';
 import '../data/alarm.dart';
-import '../provider/alarm_detail_provider.dart';
+import '../provider/alarm_detail_viewmodel.dart';
 import '../provider/alarm_list_provider.dart';
 import '../string.dart';
 import 'edit_alarm_screen.dart';
@@ -38,7 +38,7 @@ class AlarmListScreen extends ConsumerWidget {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (_) => EditAlarmScreen()
+                  builder: (_) => AddAlarmScreen()
                       //AddAlarmScreen(),
                 ),
               );

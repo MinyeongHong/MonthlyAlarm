@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../app_theme.dart';
-import '../../provider/alarm_detail_provider.dart';
+import '../../provider/alarm_detail_viewmodel.dart';
 
 class NumberPicker extends StatefulWidget {
   final AlarmDetailViewModel vm;

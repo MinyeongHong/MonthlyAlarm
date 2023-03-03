@@ -1,7 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:monthly_alarm_app/provider/alarm_detail_provider.dart';
+import 'package:monthly_alarm_app/provider/alarm_detail_viewmodel.dart';
 import 'package:intl/intl.dart';
 import '../../app_theme.dart';
 

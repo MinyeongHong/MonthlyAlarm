@@ -1,24 +1,26 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
-import 'package:intl/intl.dart';
-import 'package:monthly_alarm_app/repository/alarm_repository.dart';
 import 'package:monthly_alarm_app/usecase/create_alarm.dart';
-import 'package:monthly_alarm_app/usecase/read_alarm.dart';
-import 'package:uuid/uuid.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../data/alarm.dart';
 import '../repository/local_notification.dart';
 import '../usecase/update_alarm.dart';
 
+part 'alarm_detail_viewmodel.g.dart';
+
 final dayTypeProvider = StateProvider<AlarmDate>((ref) => AlarmDate.custom);
 
-// final alarmDetailProvider =
-//     StateNotifierProvider.autoDispose<AlarmDetailViewModel, Alarm>(
-//         (ref) => AlarmDetailViewModel());
+@riverpod
+class AlarmDetailViewModel extends _$AlarmDetailViewModel {
+  AlarmDetailViewModel([Alarm? alarm]): initVal = alarm;
 
-class AlarmDetailViewModel extends StateNotifier<Alarm> {
-  AlarmDetailViewModel([Alarm? alarm]) : super(alarm ?? Alarm.emptyAlarm());
+  Alarm? initVal;
+
+  @override
+  Alarm build(){
+    return initVal ?? Alarm.emptyAlarm();
+  }
 
   AlarmDate get dateType {
   return state.date.parseType();
