@@ -28,6 +28,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         },
         controller: widget.controller,
         decoration: InputDecoration(
+          isDense: true,
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(42),
                 borderSide:

@@ -23,28 +23,28 @@ class AppTheme {
   static const title1 = TextStyle(
     fontFamily: 'AppleSDGothicNeo',
     fontWeight: FontWeight.w400,
-    fontSize: 20,
+    fontSize: 18,
     color: AppTheme.defaultBlack,
   );
 
   static const title2 = TextStyle(
     fontFamily: 'AppleSDGothicNeo',
     fontWeight: FontWeight.w200,
-    fontSize: 18,
+    fontSize: 16,
     color: AppTheme.defaultBlack,
   );
 
   static const body1 = TextStyle(
     fontFamily: 'AppleSDGothicNeo',
     fontWeight: FontWeight.w400,
-    fontSize: 17,
+    fontSize: 15,
     color: AppTheme.defaultBlack,
   );
 
   static const sub1 = TextStyle(
     fontFamily: 'AppleSDGothicNeo',
     fontWeight: FontWeight.w400,
-    fontSize: 13,
+    fontSize: 12,
     color: AppTheme.defaultBlack,
   );
 

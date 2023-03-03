@@ -38,7 +38,8 @@ class AlarmListScreen extends ConsumerWidget {
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (_) => AddAlarmScreen(),
+                  builder: (_) => EditAlarmScreen()
+                      //AddAlarmScreen(),
                 ),
               );
             }),
@@ -103,7 +104,7 @@ class AlarmListScreen extends ConsumerWidget {
                               context,
                               MaterialPageRoute(
                                   builder: (_) =>
-                                      EditAlarmScreen(alarm)));
+                                      EditAlarmScreen(alarm:alarm)));
                         },
                       );
                     }),

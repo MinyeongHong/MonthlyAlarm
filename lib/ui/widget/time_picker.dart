@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:monthly_alarm_app/provider/alarm_detail_provider.dart';
@@ -29,11 +30,11 @@ class _TimePickerState extends State<TimePicker> {
             borderRadius: BorderRadius.circular(22),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 4.0,vertical: 8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(DateFormat.Hm().format(widget.vm.state.time!),style: AppTheme.title1,),
+                Text(DateFormat.Hm().format(widget.vm.state.time!),style: AppTheme.title2,),
                 _toggle()
               ],
             ),
@@ -62,8 +63,8 @@ class _TimePickerState extends State<TimePicker> {
               color: isPM ? Colors.transparent : AppTheme.defaultBlue,
             ),
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text('AM'),
+              padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 6),
+              child: AutoSizeText('AM',minFontSize:8,maxFontSize: 11,style: TextStyle(color: isPM ? AppTheme.defaultBlack:AppTheme.white),),
             ),
           ),
         ),
@@ -75,8 +76,8 @@ class _TimePickerState extends State<TimePicker> {
               color: isPM ? AppTheme.defaultBlue : Colors.transparent,
             ),
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text('PM'),
+              padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 6),
+              child: AutoSizeText('PM',minFontSize:8,maxFontSize: 11,style: TextStyle(color: isPM ? AppTheme.white:AppTheme.defaultBlack),),
             ),
           ),
         )

@@ -1,3 +1,5 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:monthly_alarm_app/app_theme.dart';
 
@@ -17,35 +19,25 @@ class OptionField extends StatefulWidget {
 class _OptionFieldState extends State<OptionField> {
   @override
   Widget build(BuildContext context) {
-    return Material(
-      elevation: 2,
-      shadowColor: AppTheme.backgroundBlue,
-      child: GestureDetector(
-        onTap: widget.onTap,
-        child: Container(
-          decoration: BoxDecoration(
-              color: AppTheme.white,
-            //borderRadius: BorderRadius.circular(22)
-          ),
-          padding: EdgeInsets.all(8),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 6),
-                  child: Text(
-                    widget.title,
-                    style: AppTheme.body1.apply(color: widget.isOn ? AppTheme.defaultBlue : AppTheme.defaultGrey,),
-                  ),
-                ),
+    return GestureDetector(
+      onTap: widget.onTap,
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(5, 2.5, 5, 2.5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: AutoSizeText(
+                widget.title,
+                maxFontSize: 14,
+                style: AppTheme.body1.apply(color: widget.isOn ? AppTheme.defaultBlue : AppTheme.disableGrey),
               ),
-              Icon(
-                Icons.check,
-                color: widget.isOn ? AppTheme.defaultBlue : AppTheme.defaultGrey,
-              ),
-            ],
-          ),
+            ),
+            Icon(
+              CupertinoIcons.checkmark_alt,
+              color: widget.isOn ? AppTheme.defaultBlue : AppTheme.disableGrey,
+            ),
+          ],
         ),
       ),
     );

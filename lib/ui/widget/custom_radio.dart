@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:monthly_alarm_app/provider/alarm_detail_provider.dart';
 
@@ -27,58 +28,67 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0),
+      padding: const EdgeInsets.symmetric(vertical: 4.0,horizontal: 1),
       child: Material(
-        elevation: widget.isOn ? 5.0 : 0.0,
+        elevation: widget.isOn ? 3.0 : 0.0,
         shadowColor: AppTheme.backgroundBlue,
-        borderRadius:  BorderRadius.circular(22),
+        borderRadius: BorderRadius.circular(22),
         child: GestureDetector(
           onTap: widget.onTap,
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 4.0),
             decoration: BoxDecoration(
-              color:
-                  widget.isOn ? AppTheme.transParentBlue : AppTheme.backgroundBlue,
+              color: widget.isOn
+                  ? AppTheme.transParentBlue
+                  : AppTheme.backgroundBlue,
               borderRadius: BorderRadius.circular(22),
             ),
-            child: Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Container(
-                      width: 20,
-                      height: 20,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: widget.isOn ? AppTheme.defaultBlue : Colors.transparent,
-                          border: Border.all(
-                              color: widget.isOn
-                                  ? AppTheme.defaultBlue
-                                  : AppTheme.disableGrey)),
-                      child: widget.isOn
-                          ? Center(
-                              child: Icon(
-                                Icons.check,
-                                color: Colors.white,
-                                size: 13,
-                              ),
-                            )
-                          : SizedBox.shrink()),
-                ),
-                Text(
-                  widget.title,
-                  style: AppTheme.body1,
-                ),
-                Spacer(),
-                if (widget.isOn && widget.isCustom)
-                  Padding(
-                    padding: const EdgeInsets.only(right: 16.0),
-                    child: Text(
-                      '매월 ${widget.day}일',
-                      style: TextStyle(color: AppTheme.defaultBlue),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 6.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  RichText(
+                    text: TextSpan(
+                      text: '',
+                      style: TextStyle(fontSize: 12, color: AppTheme.defaultBlack),
+                      children: [
+                        WidgetSpan(
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 8),
+                            child: Container(
+                                width: 15,
+                                height: 15,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: widget.isOn
+                                        ? AppTheme.defaultBlue
+                                        : Colors.transparent,
+                                    border: Border.all(
+                                        color: widget.isOn
+                                            ? AppTheme.defaultBlue
+                                            : AppTheme.disableGrey)),
+                                child: widget.isOn
+                                    ? Icon(
+                                        Icons.check,
+                                        color: Colors.white,
+                                        size: 12,
+                                      )
+                                    : SizedBox.shrink()),
+                          ),
+                        ),
+                        WidgetSpan(child: AutoSizeText(widget.title,maxFontSize: 15,)),
+                      ],
                     ),
                   ),
-              ],
+                  if (widget.isOn && widget.isCustom)
+                    AutoSizeText(
+                      '매월 ${widget.day}일',
+                      style: TextStyle(color: AppTheme.defaultBlue),
+                      maxFontSize: 12,
+                    ),
+                ],
+              ),
             ),
           ),
         ),

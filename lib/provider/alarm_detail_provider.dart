@@ -21,8 +21,6 @@ class AlarmDetailViewModel extends StateNotifier<Alarm> {
   AlarmDetailViewModel([Alarm? alarm]) : super(alarm ?? Alarm.emptyAlarm());
 
   AlarmDate get dateType {
-    print('change date');
-    print(state.date.parseType());
   return state.date.parseType();
 }
 

@@ -14,9 +14,9 @@ import '../data/alarm.dart';
 import '../provider/alarm_detail_provider.dart';
 
 class EditAlarmScreen extends ConsumerStatefulWidget {
-  final Alarm alarm;
+  final Alarm? alarm;
 
-  const EditAlarmScreen(this.alarm, {Key? key}) : super(key: key);
+  const EditAlarmScreen({this.alarm, Key? key}) : super(key: key);
 
   @override
   ConsumerState<EditAlarmScreen> createState() => _EditAlarmScreenState();
@@ -31,11 +31,9 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
   @override
   void initState() {
     super.initState();
-    titleController = TextEditingController(text: widget.alarm.title);
-    contentController = TextEditingController(text: widget.alarm.content);
+    titleController = TextEditingController(text: widget.alarm?.title ?? '');
+    contentController = TextEditingController(text: widget.alarm?.content ?? '');
     alarmDetailProvider = StateNotifierProvider<AlarmDetailViewModel, Alarm>((ref) {
-      final dayState = ref.watch(dayTypeProvider);
-
       return AlarmDetailViewModel(widget.alarm);
     });
   }
