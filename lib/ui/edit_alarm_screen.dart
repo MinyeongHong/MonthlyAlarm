@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:monthly_alarm_app/app_theme.dart';
-import 'package:monthly_alarm_app/provider/alarm_list_provider.dart';
+import 'package:monthly_alarm_app/provider/alarm_list_viewmodel.dart';
 import 'package:monthly_alarm_app/ui/widget/custom_radio.dart';
 import 'package:monthly_alarm_app/ui/widget/number_picker.dart';
 import 'package:monthly_alarm_app/ui/widget/option_field.dart';
@@ -15,9 +15,9 @@ import '../data/alarm.dart';
 import '../provider/alarm_detail_viewmodel.dart';
 
 class EditAlarmScreen extends ConsumerStatefulWidget {
-  final Alarm? alarm;
+  final Alarm alarm;
 
-  const EditAlarmScreen({this.alarm, Key? key}) : super(key: key);
+  const EditAlarmScreen({required this.alarm, Key? key}) : super(key: key);
 
   @override
   ConsumerState<EditAlarmScreen> createState() => _EditAlarmScreenState();
@@ -31,8 +31,8 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
   @override
   void initState() {
     super.initState();
-    titleController = TextEditingController(text: widget.alarm?.title ?? '');
-    contentController = TextEditingController(text: widget.alarm?.content ?? '');
+    titleController = TextEditingController(text: widget.alarm.title);
+    contentController = TextEditingController(text: widget.alarm.content);
   }
 
   @override
@@ -44,9 +44,9 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Alarm alarm = ref.watch(alarmDetailViewModelProvider);
-    AlarmDetailViewModel vm = ref.read(alarmDetailViewModelProvider.notifier);
-    AlarmListViewModel listVm = ref.read(alarmListProvider.notifier);
+    Alarm alarm = ref.watch(alarmDetailViewModelProvider(widget.alarm));
+    AlarmDetailViewModel vm = ref.read(alarmDetailViewModelProvider(widget.alarm).notifier);
+    AlarmListViewModel listVm = ref.read(alarmListViewModelProvider.notifier);
 
     return GestureDetector(
       onTap:()=> FocusScope.of(context).unfocus(),
@@ -73,7 +73,7 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
                 onPressed: () async {
                     await vm.saveText(
                         titleController.text, contentController.text);
-                    await vm.save();
+                    await vm.update();
                     await listVm.loadAll();
                     Navigator.pop(context);
                 },

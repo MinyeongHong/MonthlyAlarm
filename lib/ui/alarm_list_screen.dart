@@ -10,7 +10,7 @@ import 'package:monthly_alarm_app/ui/widget/alarm_tile.dart';
 import '../app_theme.dart';
 import '../data/alarm.dart';
 import '../provider/alarm_detail_viewmodel.dart';
-import '../provider/alarm_list_provider.dart';
+import '../provider/alarm_list_viewmodel.dart';
 import '../string.dart';
 import 'edit_alarm_screen.dart';
 
@@ -19,8 +19,8 @@ class AlarmListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    AlarmListViewModel vm = ref.read(alarmListProvider.notifier);
-    List<Alarm> alarmList = ref.watch(alarmListProvider);
+    AlarmListViewModel vm = ref.read(alarmListViewModelProvider.notifier);
+    List<Alarm> alarmList = ref.watch(alarmListViewModelProvider);
 
     vm.loadAll();
 
@@ -86,7 +86,7 @@ class AlarmListScreen extends ConsumerWidget {
                 child: ListView.builder(
                     itemCount: alarmList.length,
                     itemBuilder: (BuildContext ctx, int idx) {
-                      var alarm = ref.watch(alarmListProvider)[idx];
+                      var alarm = ref.watch(alarmListViewModelProvider)[idx];
 
                       return AlarmTile(
                         idx: idx,

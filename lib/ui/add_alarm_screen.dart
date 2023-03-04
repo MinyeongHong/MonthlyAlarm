@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:monthly_alarm_app/app_theme.dart';
-import 'package:monthly_alarm_app/provider/alarm_list_provider.dart';
+import 'package:monthly_alarm_app/provider/alarm_list_viewmodel.dart';
 import 'package:monthly_alarm_app/ui/widget/custom_radio.dart';
 import 'package:monthly_alarm_app/ui/widget/number_picker.dart';
 import 'package:monthly_alarm_app/ui/widget/option_field.dart';
@@ -41,9 +41,9 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Alarm alarm = ref.watch(alarmDetailViewModelProvider);
-    AlarmDetailViewModel vm = ref.read(alarmDetailViewModelProvider.notifier);
-    AlarmListViewModel listVm = ref.read(alarmListProvider.notifier);
+    Alarm alarm = ref.watch(alarmDetailViewModelProvider());
+    AlarmDetailViewModel vm = ref.read(alarmDetailViewModelProvider().notifier);
+    AlarmListViewModel listVm = ref.read(alarmListViewModelProvider.notifier);
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -104,30 +104,25 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                     children: [
                       CustomRadioButton(
                         title: '매월 1일',
-                        isOn: ref.watch(dayTypeProvider) == AlarmDate.first,
+                        isOn: vm.dateType == AlarmDate.first,
                         onTap: () {
                           FocusScope.of(context).unfocus();
-                          ref.read(dayTypeProvider.notifier).state =
-                              AlarmDate.first;
                           vm.selectDate(1);
                         },
                         isCustom: false,
                       ),
                       CustomRadioButton(
                         title: '매월 말일',
-                        isOn: ref.watch(dayTypeProvider) == AlarmDate.last,
+                        isOn: vm.dateType == AlarmDate.last,
                         onTap: () {
                           FocusScope.of(context).unfocus();
-                          ref
-                              .read(dayTypeProvider.notifier)
-                              .update((state) => state = AlarmDate.last);
                           vm.selectDate(-1);
                         },
                         isCustom: false,
                       ),
                       CustomRadioButton(
                         title: '직접 지정',
-                        isOn: ref.watch(dayTypeProvider) == AlarmDate.custom,
+                        isOn: vm.dateType == AlarmDate.custom,
                         onTap: () async {
                           FocusScope.of(context).unfocus();
                           vm.selectDate(DateTime.now().day);
@@ -135,21 +130,9 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                           var result = await showCupertinoModalPopup<int?>(
                               barrierDismissible: true,
                               context: context,
-                              builder: (BuildContext context) =>
-                                  NumberPicker(vm: vm));
+                              builder: (BuildContext context) => NumberPicker(vm: vm));
 
-                          if (result != null) {
-                            vm.selectDate(result);
-                            if (result == 1) {
-                              ref
-                                  .read(dayTypeProvider.notifier)
-                                  .update((state) => state = AlarmDate.first);
-                            } else {
-                              ref
-                                  .read(dayTypeProvider.notifier)
-                                  .update((state) => state = AlarmDate.custom);
-                            }
-                          }
+                          if(result != null) vm.selectDate(result);
                         },
                         isCustom: true,
                         day: alarm.date,

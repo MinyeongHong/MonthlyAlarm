@@ -9,16 +9,11 @@ import '../usecase/update_alarm.dart';
 
 part 'alarm_detail_viewmodel.g.dart';
 
-final dayTypeProvider = StateProvider<AlarmDate>((ref) => AlarmDate.custom);
-
 @riverpod
 class AlarmDetailViewModel extends _$AlarmDetailViewModel {
-  AlarmDetailViewModel([Alarm? alarm]): initVal = alarm;
-
-  Alarm? initVal;
 
   @override
-  Alarm build(){
+  Alarm build([Alarm? initVal]){
     return initVal ?? Alarm.emptyAlarm();
   }
 

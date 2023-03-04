@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:monthly_alarm_app/app_theme.dart';
 
-import '../../provider/alarm_list_provider.dart';
+import '../../provider/alarm_list_viewmodel.dart';
 
 class AlarmTile extends ConsumerWidget {
   final void Function(bool) onToggle;
@@ -20,7 +20,7 @@ class AlarmTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref)  {
-    final alarmState = ref.watch(alarmListProvider)[idx];
+    final alarmState = ref.watch(alarmListViewModelProvider)[idx];
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6.0),
