@@ -19,8 +19,9 @@ class AlarmTile extends ConsumerWidget {
       : super(key: key);
 
   @override
-  Widget build(BuildContext context,WidgetRef ref)  {
+  Widget build(BuildContext context, WidgetRef ref) {
     final alarmState = ref.watch(alarmListViewModelProvider)[idx];
+ //   final userState = ref.watch(userViewModelProvider);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6.0),
@@ -28,49 +29,78 @@ class AlarmTile extends ConsumerWidget {
         onTap: onTap,
         child: Material(
           borderRadius: BorderRadius.circular(22),
-          shadowColor: AppTheme.backgroundBlue,
-          elevation: 5,
+        //  shadowColor: AppTheme.backgroundBlueLight,
+          elevation:true
+          //userState.themeMode == AppThemeMode.light
+              ? 5 : 0,
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(22),
-              border: Border.all(
-                width: 1,
-                color: Color(0xFFFBFBFB),
-              ),
-              color: alarmState.isOn ?AppTheme.transParentBlue :AppTheme.contentBlue,
-            ),
+                    borderRadius: BorderRadius.circular(22),
+                    border: Border.all(
+                      width: 1,
+                      color: Color(0xFFFBFBFB),
+                    ),
+                    color: alarmState.isOn
+                        ? AppTheme.lightBlueLight
+                        : AppTheme.disabledBlueLight),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(27, 28, 12, 28),
               child: Row(
                 children: [
+                  if (ref.watch(editModeProvider))
+                    Container(
+                        decoration: BoxDecoration(shape: BoxShape.circle),
+                        child: Checkbox(
+                          onChanged: (bool? value) {},
+                          value: true,
+                        )),
                   Expanded(
                     child: Text(
                       alarmState.title.toString(),
                       maxLines: null,
-                      style: AppTheme.title2.apply(color: alarmState.isOn ? AppTheme.defaultBlack : AppTheme.disableGrey),
+                      style: AppTheme.title2.apply(
+                          color: alarmState.isOn
+                              ?AppTheme.defaultTextLight
+                              : AppTheme.disabledLight2),
                     ),
                   ),
                   Spacer(),
                   Column(
                     children: [
-                      SizedBox(height: 10,),
+                      SizedBox(
+                        height: 10,
+                      ),
                       Text(
-                        alarmState.date == -1 ? '매월 말일' : '매월 ${alarmState.date}일',
-                        style: AppTheme.sub1.apply(color: alarmState.isOn ? AppTheme.defaultBlack : AppTheme.disableGrey),
+                        alarmState.date == -1
+                            ? '매월 말일'
+                            : '매월 ${alarmState.date}일',
+                        style: AppTheme.sub1.apply(
+                            color: alarmState.isOn
+                                ? AppTheme.defaultTextLight
+                                : AppTheme.disabledLight2),
                       ),
                       Text(
                         DateFormat.Hm().format(alarmState.time!),
-                        style: AppTheme.sub2.apply(color: alarmState.isOn ? AppTheme.defaultBlack : AppTheme.disableGrey),
+                        style: AppTheme.sub2.apply(
+                            color: alarmState.isOn
+                                ? AppTheme.defaultTextLight
+                                : AppTheme.disabledLight2),
                       ),
                     ],
                   ),
-                  SizedBox(width: 15,),
-                  CupertinoSwitch(
-                    activeColor: AppTheme.defaultBlue,
-                      trackColor: AppTheme.lightGrey,
-                      value: alarmState.isOn,
-                      onChanged: (val) =>onToggle.call(val)
-                    ),
+                  SizedBox(
+                    width: 15,
+                  ),
+                  Visibility(
+                    visible: !ref.watch(editModeProvider),
+                    child: CupertinoSwitch(
+                        activeColor: AppTheme.defaultBlueLight,
+                        // trackColor: userState.themeMode == AppThemeMode.light
+                        //     ? AppTheme.lightGrey
+                        //     : AppTheme.selectedNavy,
+                        value: alarmState.isOn,
+                        onChanged: (val) => onToggle.call(val)),
+                  ),
                 ],
               ),
             ),

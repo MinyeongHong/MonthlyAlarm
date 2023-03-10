@@ -25,13 +25,13 @@ class CustomRadioButton extends StatefulWidget {
 }
 
 class _CustomRadioButtonState extends State<CustomRadioButton> {
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0,horizontal: 1),
       child: Material(
         elevation: widget.isOn ? 3.0 : 0.0,
-        shadowColor: AppTheme.backgroundBlue,
         borderRadius: BorderRadius.circular(22),
         child: GestureDetector(
           onTap: widget.onTap,
@@ -39,8 +39,8 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
             padding: const EdgeInsets.symmetric(vertical: 4.0),
             decoration: BoxDecoration(
               color: widget.isOn
-                  ? AppTheme.transParentBlue
-                  : AppTheme.backgroundBlue,
+                  ? AppTheme.inputFieldLight
+                  : AppTheme.transparent,
               borderRadius: BorderRadius.circular(22),
             ),
             child: Padding(
@@ -51,7 +51,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                   RichText(
                     text: TextSpan(
                       text: '',
-                      style: TextStyle(fontSize: 12, color: AppTheme.defaultBlack),
+                      style: TextStyle(fontSize: 12, color: AppTheme.defaultTextLight),
                       children: [
                         WidgetSpan(
                           child: Padding(
@@ -62,12 +62,12 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                                 decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: widget.isOn
-                                        ? AppTheme.defaultBlue
-                                        : Colors.transparent,
+                                        ? AppTheme.defaultBlueLight
+                                        : AppTheme.transparent,
                                     border: Border.all(
                                         color: widget.isOn
-                                            ? AppTheme.defaultBlue
-                                            : AppTheme.disableGrey)),
+                                            ? AppTheme.defaultBlueLight
+                                            : AppTheme.disabledLight1)),
                                 child: widget.isOn
                                     ? Icon(
                                         Icons.check,
@@ -77,14 +77,15 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                                     : SizedBox.shrink()),
                           ),
                         ),
-                        WidgetSpan(child: AutoSizeText(widget.title,maxFontSize: 15,)),
+                        WidgetSpan(child: AutoSizeText(widget.title,maxFontSize: 15,style: TextStyle(color: widget.isOn ?AppTheme.defaultTextLight
+                            :AppTheme.defaultGreyLight2),)),
                       ],
                     ),
                   ),
                   if (widget.isOn && widget.isCustom)
                     AutoSizeText(
                       '매월 ${widget.day}일',
-                      style: TextStyle(color: AppTheme.defaultBlue),
+                      style: TextStyle(color: AppTheme.defaultBlueLight),
                       maxFontSize: 12,
                     ),
                 ],

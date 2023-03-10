@@ -20,7 +20,7 @@ class _TimePickerState extends State<TimePicker> {
   Widget build(BuildContext context) {
     return Material(
       elevation: 2,
-      shadowColor: AppTheme.backgroundBlue,
+     // shadowColor: AppTheme.backgroundBlueLight,
       borderRadius: BorderRadius.circular(22),
       child: GestureDetector(
         child: Container(
@@ -60,11 +60,11 @@ class _TimePickerState extends State<TimePicker> {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(7),
-              color: isPM ? Colors.transparent : AppTheme.defaultBlue,
+              color: isPM ? Colors.transparent : AppTheme.defaultBlueLight,
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 6),
-              child: AutoSizeText('AM',minFontSize:8,maxFontSize: 11,style: TextStyle(color: isPM ? AppTheme.defaultBlack:AppTheme.white),),
+              child: AutoSizeText('AM',minFontSize:8,maxFontSize: 11,style: TextStyle(color: isPM ? AppTheme.defaultTextLight:AppTheme.white),),
             ),
           ),
         ),
@@ -73,11 +73,11 @@ class _TimePickerState extends State<TimePicker> {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(7),
-              color: isPM ? AppTheme.defaultBlue : Colors.transparent,
+              color: isPM ? AppTheme.defaultBlueLight : Colors.transparent,
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 6),
-              child: AutoSizeText('PM',minFontSize:8,maxFontSize: 11,style: TextStyle(color: isPM ? AppTheme.white:AppTheme.defaultBlack),),
+              child: AutoSizeText('PM',minFontSize:8,maxFontSize: 11,style: TextStyle(color: isPM ? AppTheme.white:AppTheme.defaultTextLight),),
             ),
           ),
         )

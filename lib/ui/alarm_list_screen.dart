@@ -6,6 +6,7 @@ import 'package:monthly_alarm_app/repository/alarm_repository.dart';
 import 'package:monthly_alarm_app/repository/local_notification.dart';
 import 'package:monthly_alarm_app/ui/add_alarm_screen.dart';
 import 'package:monthly_alarm_app/ui/widget/alarm_tile.dart';
+import 'package:monthly_alarm_app/ui/widget/popup_menu.dart';
 
 import '../app_theme.dart';
 import '../data/alarm.dart';
@@ -21,42 +22,24 @@ class AlarmListScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     AlarmListViewModel vm = ref.read(alarmListViewModelProvider.notifier);
     List<Alarm> alarmList = ref.watch(alarmListViewModelProvider);
-
     vm.loadAll();
 
-    final box = Hive.box(strAppMode);
-    final lightDark = box.get('mode');
-
     return Scaffold(
-      backgroundColor: AppTheme.backgroundBlue,
       appBar: AppBar(
         leading: IconButton(
             icon: Icon(
               Icons.add,
-              color: AppTheme.accentBlue,
             ),
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (_) => AddAlarmScreen()
-                      //AddAlarmScreen(),
                 ),
               );
             }),
-        title: Text(
-          'Alarm',
-          style: AppTheme.title1,
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
+        title: Text('Alarm',),
         actions: [
-          IconButton(
-              onPressed: () {},
-              icon: Icon(
-                CupertinoIcons.bars,
-                color: AppTheme.accentBlue,
-              ))
+          PopupMenu(),
         ],
       ),
       body: SafeArea(
@@ -64,14 +47,6 @@ class AlarmListScreen extends ConsumerWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(children: [
-              TextButton(
-                onPressed: () {
-                  lightDark == 'light'
-                      ? box.put('mode', 'dark')
-                      : box.put('mode', 'light');
-                },
-                child: Text('ThemeData 바꾸기'),
-              ),
               ElevatedButton(
                   onPressed: () {
                     AlarmRepository().clear();
@@ -79,6 +54,7 @@ class AlarmListScreen extends ConsumerWidget {
                   child: Text('hive DB 클리어')),
               ElevatedButton(
                   onPressed: () {
+                    LocalNotification.requestPermission();
                     LocalNotification.sampleNotification();
                   },
                   child: Text('click for Noti')),

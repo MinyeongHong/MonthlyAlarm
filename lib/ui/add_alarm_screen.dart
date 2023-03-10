@@ -44,28 +44,21 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
     Alarm alarm = ref.watch(alarmDetailViewModelProvider());
     AlarmDetailViewModel vm = ref.read(alarmDetailViewModelProvider().notifier);
     AlarmListViewModel listVm = ref.read(alarmListViewModelProvider.notifier);
+    bool isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: AppTheme.backgroundBlue,
         appBar: AppBar(
-            leading: const CloseButton(
-              color: AppTheme.accentBlue,
-            ),
+            leading: const CloseButton(),
             title: const Text(
               'Add Alarm',
-              style: AppTheme.title1,
             ),
-            centerTitle: true,
-            backgroundColor: Colors.transparent,
-            elevation: 0.0,
             actions: [
               IconButton(
                 icon: const Icon(
                   Icons.check,
-                  color: AppTheme.accentBlue,
                 ),
                 onPressed: () async {
                   await vm.saveText(
@@ -83,21 +76,62 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _title('알람 설정'),
-                SizedBox(
-                  child: CustomTextField(
-                    controller: titleController,
-                    hintText: 'Title',
-                  ),
-                ),
+                isDark
+                    ? Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(42),
+                          boxShadow: const [
+                            BoxShadow(color: Color(0xFF414F5E)),
+                            BoxShadow(
+                                color: AppTheme.inputFieldDark,
+                                spreadRadius: -2.0,
+                                blurRadius: 3.0,
+                                offset: Offset(-1, 3)),
+                          ],
+                        ),
+                        child: CustomTextField(
+                          controller: titleController,
+                          hintText: 'Title',
+                        ),
+                      )
+                    : Material(
+                        borderRadius: BorderRadius.circular(42),
+                        elevation: 5,
+                        child: CustomTextField(
+                          controller: titleController,
+                          hintText: 'Title',
+                        ),
+                      ),
                 const SizedBox(
                   height: 20,
                 ),
                 SizedBox(
-                  child: CustomTextField(
-                    controller: contentController,
-                    hintText: 'Content',
-                  ),
-                ),
+                    child: isDark
+                        ? Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(42),
+                              boxShadow: const [
+                                BoxShadow(color: Color(0xFF414F5E)),
+                                BoxShadow(
+                                    color: AppTheme.inputFieldDark,
+                                    spreadRadius: -2.0,
+                                    blurRadius: 3.0,
+                                    offset: Offset(-1, 3)),
+                              ],
+                            ),
+                            child: CustomTextField(
+                              controller: contentController,
+                              hintText: 'Content',
+                            ),
+                          )
+                        : Material(
+                            borderRadius: BorderRadius.circular(42),
+                            elevation: 5,
+                            child: CustomTextField(
+                              controller: contentController,
+                              hintText: 'Content',
+                            ),
+                          )),
                 _title('날짜 설정'),
                 SizedBox(
                   child: Column(
@@ -130,9 +164,10 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                           var result = await showCupertinoModalPopup<int?>(
                               barrierDismissible: true,
                               context: context,
-                              builder: (BuildContext context) => NumberPicker(vm: vm));
+                              builder: (BuildContext context) =>
+                                  NumberPicker(vm: vm));
 
-                          if(result != null) vm.selectDate(result);
+                          if (result != null) vm.selectDate(result);
                         },
                         isCustom: true,
                         day: alarm.date,

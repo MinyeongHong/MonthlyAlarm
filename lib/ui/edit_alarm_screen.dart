@@ -52,23 +52,15 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
       onTap:()=> FocusScope.of(context).unfocus(),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        backgroundColor: AppTheme.backgroundBlue,
         appBar: AppBar(
-            leading: const CloseButton(
-              color: AppTheme.accentBlue,
-            ),
-            title: const Text(
+            leading: const CloseButton(),
+            title: Text(
               'Edit Alarm',
-              style: AppTheme.title1,
             ),
-            centerTitle: true,
-            backgroundColor: Colors.transparent,
-            elevation: 0.0,
             actions: [
               IconButton(
                 icon: const Icon(
                   Icons.check,
-                  color: AppTheme.accentBlue,
                 ),
                 onPressed: () async {
                     await vm.saveText(

@@ -5,8 +5,7 @@ import 'package:uuid/uuid.dart';
 import '../data/alarm.dart';
 
 class AlarmRepository {
-
-  final Box<Alarm> alarmBox = Hive.box(strAlarm);
+  final Box<Alarm> alarmBox = Hive.box(stringAlarm);
 
   Future<Alarm> create(Alarm newAlarm) async {
     return await alarmBox.put(newAlarm.alarmId, newAlarm).then((_) => newAlarm);
