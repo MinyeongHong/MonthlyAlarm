@@ -30,7 +30,7 @@ class _SystemHash {
 }
 
 String _$AlarmListViewModelHash() =>
-    r'23d9657325007f77801e73404a70b25c31db8241';
+    r'c1a933d2307bc0dc16820023591272c36b99cbe6';
 
 /// See also [AlarmListViewModel].
 final alarmListViewModelProvider =
@@ -46,4 +46,74 @@ typedef AlarmListViewModelRef = AutoDisposeNotifierProviderRef<List<Alarm>>;
 abstract class _$AlarmListViewModel extends AutoDisposeNotifier<List<Alarm>> {
   @override
   List<Alarm> build();
+}
+
+String _$menuModeHash() => r'dd58f7c0770c8d9864cea5535efd0a2e255e89dd';
+
+/// See also [menuMode].
+class MenuModeProvider extends AutoDisposeProvider<int> {
+  MenuModeProvider(
+    this.item,
+  ) : super(
+          (ref) => menuMode(
+            ref,
+            item,
+          ),
+          from: menuModeProvider,
+          name: r'menuModeProvider',
+          debugGetCreateSourceHash:
+              const bool.fromEnvironment('dart.vm.product')
+                  ? null
+                  : _$menuModeHash,
+        );
+
+  final int? item;
+
+  @override
+  bool operator ==(Object other) {
+    return other is MenuModeProvider && other.item == item;
+  }
+
+  @override
+  int get hashCode {
+    var hash = _SystemHash.combine(0, runtimeType.hashCode);
+    hash = _SystemHash.combine(hash, item.hashCode);
+
+    return _SystemHash.finish(hash);
+  }
+}
+
+typedef MenuModeRef = AutoDisposeProviderRef<int>;
+
+/// See also [menuMode].
+final menuModeProvider = MenuModeFamily();
+
+class MenuModeFamily extends Family<int> {
+  MenuModeFamily();
+
+  MenuModeProvider call(
+    int? item,
+  ) {
+    return MenuModeProvider(
+      item,
+    );
+  }
+
+  @override
+  AutoDisposeProvider<int> getProviderOverride(
+    covariant MenuModeProvider provider,
+  ) {
+    return call(
+      provider.item,
+    );
+  }
+
+  @override
+  List<ProviderOrFamily>? get allTransitiveDependencies => null;
+
+  @override
+  List<ProviderOrFamily>? get dependencies => null;
+
+  @override
+  String? get name => r'menuModeProvider';
 }

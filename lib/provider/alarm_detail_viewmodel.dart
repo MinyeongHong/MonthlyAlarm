@@ -13,13 +13,13 @@ part 'alarm_detail_viewmodel.g.dart';
 class AlarmDetailViewModel extends _$AlarmDetailViewModel {
 
   @override
-  Alarm build([Alarm? initVal]){
+  Alarm build([Alarm? initVal]) {
     return initVal ?? Alarm.emptyAlarm();
   }
 
   AlarmDate get dateType {
-  return state.date.parseType();
-}
+    return state.date.parseType();
+  }
 
   CreateAlarm createAlarm = GetIt.I.get();
   UpdateAlarm updateAlarm = GetIt.I.get();
@@ -54,8 +54,8 @@ class AlarmDetailViewModel extends _$AlarmDetailViewModel {
     }
   }
 
-  Future<void> saveText(
-      [String title = 'title', String content = 'content']) async {
+  Future<void> saveText(String title, String content) async {
+    if(title.isEmpty) title = '새 알람';
     state = state.copyWith(title: title, content: content);
   }
 
@@ -65,6 +65,7 @@ class AlarmDetailViewModel extends _$AlarmDetailViewModel {
   }
 
   Future<void> update() async {
+    await LocalNotification.offNotification(state.alarmId);
     await updateAlarm.call(state);
     await LocalNotification.scheduleMonthlyNotification(state);
   }
@@ -72,8 +73,11 @@ class AlarmDetailViewModel extends _$AlarmDetailViewModel {
 
 extension TypeParsing on int {
   AlarmDate parseType() {
-    if(this == 1) return AlarmDate.first;
-    else if(this == -1) return AlarmDate.last;
-    else return AlarmDate.custom;
+    if (this == 1)
+      return AlarmDate.first;
+    else if (this == -1)
+      return AlarmDate.last;
+    else
+      return AlarmDate.custom;
   }
 }
