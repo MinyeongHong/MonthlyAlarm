@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:monthly_alarm_app/ui/widget/setting_popup.dart';
 
 import '../app_theme.dart';
 import '../provider/setting_viewmodel.dart';
@@ -73,41 +74,12 @@ class SettingScreen extends ConsumerWidget {
           Consumer(builder: (context, ref, child) {
             return ListTile(
               title: Text('테마 변경'),
-              trailing:Text(ref.watch(settingViewModelProvider()).mode.toString()),
+              trailing:Text(ref.watch(settingViewModelProvider).mode.toString()),
               onTap: () async {
-                await showDialog<ThemeMode?>(
+                await showDialog<void>(
+                  barrierColor: Colors.black26,
                   context: context,
-                  builder: (ctx) => AlertDialog(
-                    title: Consumer(
-                      builder: (context, ref, child) =>Column(
-                        children: [
-                          Container(
-                            color: ref.watch(settingViewModelProvider()).mode ==  ThemeMode.system ? Colors.greenAccent : Colors.grey,
-                            child: InkWell(onTap: (){
-                              ref.read(settingViewModelProvider().notifier).setSystemTheme();
-
-                            },child: Text('시스템 모드',),),
-                          ),
-                          Container(
-                            color: ref.watch(settingViewModelProvider()).mode ==  ThemeMode.light ? Colors.greenAccent : Colors.grey,
-                            child: InkWell(onTap: (){
-                              ref.read(settingViewModelProvider().notifier).setLightTheme();
-
-                            },child: Text('라이트 모드',),),
-                          ),
-
-                          Container(
-                            color: ref.watch(settingViewModelProvider()).mode ==  ThemeMode.dark ? Colors.greenAccent : Colors.grey,
-                            child: InkWell(onTap: (){
-                              ref.read(settingViewModelProvider().notifier).setDarkTheme();
-
-                            },child: Text('다크 모드',),),
-                          ),
-                        ],
-                      ),
-                    ),
-                    content: SizedBox.shrink(),
-                  ),
+                  builder: (context) => SettingModePopUp()
                 );
               },
             );

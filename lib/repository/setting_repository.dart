@@ -1,5 +1,4 @@
-import 'package:hive/hive.dart';
-import 'package:monthly_alarm_app/data/user.dart';
+import 'package:flutter/material.dart';
 import 'package:monthly_alarm_app/string.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
@@ -13,18 +12,33 @@ class SettingRepository {
   }
 
   static SharedPreferences? _prefsInstance;
+  ThemeMode? prefsAppTheme;
 
-  static Future<SharedPreferences?> init() async {
+  Future<SharedPreferences?> init() async {
     _prefsInstance = await _instance;
+    prefsAppTheme = getTheme();
     return _prefsInstance;
   }
 
+  ThemeMode getTheme(){
+    String? theme = _prefsInstance!.getString(stringThemeMode);
+
+    print('get Theme is ${theme}');
+
+    if(theme == stringLight) return ThemeMode.light;
+    else if(theme == stringDark) return ThemeMode.dark;
+    return ThemeMode.system;
+  }
+
   Future<void> setLightTheme() async {
-    _prefsInstance!.setString(stringThemeMode, stringLight);
+    await _prefsInstance!.setString(stringThemeMode, stringLight);
+    print('set Theme is ${_prefsInstance!.getString(stringThemeMode)}');
   }
 
   Future<void> setDarkTheme() async {
-    _prefsInstance!.setString(stringThemeMode, stringDark);
+    await _prefsInstance!.setString(stringThemeMode, stringDark);
+    print('set Theme is ${_prefsInstance!.getString(stringThemeMode)}');
+
   }
 
   Future<void> setSystemTheme() async {

@@ -7,6 +7,15 @@ import 'package:uuid/uuid.dart';
 
 part 'alarm.g.dart';
 
+enum AppLanguage {
+  system,
+  ko,
+  en,
+  es,
+  zh,
+  ja,
+}
+
 enum AlarmDate { first, last, custom }
 
 @HiveType(typeId: 0)

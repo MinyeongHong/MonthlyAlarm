@@ -220,7 +220,6 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
       padding: EdgeInsets.symmetric(vertical: 16),
       child: AutoSizeText(
         title,
-        // style: AppTheme.title1,
         maxFontSize: 18,
       ),
     );

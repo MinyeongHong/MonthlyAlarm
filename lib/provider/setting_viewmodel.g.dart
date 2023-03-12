@@ -29,89 +29,20 @@ class _SystemHash {
   }
 }
 
-String _$SettingViewModelHash() => r'446609617d6428f8dc0f686271fdf7e353213966';
+String _$SettingViewModelHash() => r'ab82a413b9031e49f9b9ed1cb43af0f03d46260d';
 
 /// See also [SettingViewModel].
-class SettingViewModelProvider
-    extends AutoDisposeNotifierProviderImpl<SettingViewModel, ThemeSettings> {
-  SettingViewModelProvider([
-    this.setting,
-  ]) : super(
-          () => SettingViewModel()..setting = setting,
-          from: settingViewModelProvider,
-          name: r'settingViewModelProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$SettingViewModelHash,
-        );
-
-  final ThemeSettings? setting;
-
-  @override
-  bool operator ==(Object other) {
-    return other is SettingViewModelProvider && other.setting == setting;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, setting.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-
-  @override
-  ThemeSettings runNotifierBuild(
-    covariant _$SettingViewModel notifier,
-  ) {
-    return notifier.build(
-      setting,
-    );
-  }
-}
-
+final settingViewModelProvider =
+    AutoDisposeNotifierProvider<SettingViewModel, ThemeSettings>(
+  SettingViewModel.new,
+  name: r'settingViewModelProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$SettingViewModelHash,
+);
 typedef SettingViewModelRef = AutoDisposeNotifierProviderRef<ThemeSettings>;
 
-/// See also [SettingViewModel].
-final settingViewModelProvider = SettingViewModelFamily();
-
-class SettingViewModelFamily extends Family<ThemeSettings> {
-  SettingViewModelFamily();
-
-  SettingViewModelProvider call([
-    ThemeSettings? setting,
-  ]) {
-    return SettingViewModelProvider(
-      setting,
-    );
-  }
-
+abstract class _$SettingViewModel extends AutoDisposeNotifier<ThemeSettings> {
   @override
-  AutoDisposeNotifierProviderImpl<SettingViewModel, ThemeSettings>
-      getProviderOverride(
-    covariant SettingViewModelProvider provider,
-  ) {
-    return call(
-      provider.setting,
-    );
-  }
-
-  @override
-  List<ProviderOrFamily>? get allTransitiveDependencies => null;
-
-  @override
-  List<ProviderOrFamily>? get dependencies => null;
-
-  @override
-  String? get name => r'settingViewModelProvider';
-}
-
-abstract class _$SettingViewModel
-    extends BuildlessAutoDisposeNotifier<ThemeSettings> {
-  late final ThemeSettings? setting;
-
-  ThemeSettings build([
-    ThemeSettings? setting,
-  ]);
+  ThemeSettings build();
 }

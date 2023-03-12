@@ -13,7 +13,7 @@ class AppTheme {
   static const accentBlueLight = Color(0xFF007AFF);
   static const defaultBlueLight = Color(0xFF46A2FD);
   static const lightBlueLight = Color(0xFFE8F0F8);
-  static const disabledBlueLight = Color(0xFFF8FAFC);
+  static const transparentBlueLight = Color(0xFFF8FAFC);
   static const backgroundBlueLight = Color(0xFFF6F7F8);
   static const inputFieldLight = Color(0xFFE8F0F8);
 
@@ -28,7 +28,7 @@ class AppTheme {
   static const accentBlueDark = Color(0xFFCAE3FF);
   static const defaultBlueDark = Color(0xFF85C0FB);
   static const lightBlueDark = Color(0xFF70A3DC);
-  static const disabledBlueDark = Color(0xFF506175);
+  static const transparentBlueDark = Color(0xFF506175);
   static const backgroundBlueDark = Color(0xFF55677B);
   static const inputFieldDark = Color(0xFF4A596B);
 
@@ -100,59 +100,66 @@ class AppTheme {
 }
 
 final ThemeData lightTheme = ThemeData(
-    brightness: Brightness.light,
-    primaryColor: AppTheme.defaultBlueLight,
-    scaffoldBackgroundColor: AppTheme.backgroundBlueLight,
-    backgroundColor: AppTheme.backgroundBlueLight,
-    shadowColor: AppTheme.backgroundBlueLight,
-    appBarTheme: AppBarTheme(
-      color: AppTheme.transparent,
-      centerTitle: true,
-      elevation: 0.0,
-      titleTextStyle: AppTheme.title1.apply(color: AppTheme.defaultTextLight),
-      iconTheme: const IconThemeData(
-        color: AppTheme.accentBlueLight,
-      ),
-    ),
+  dialogTheme: DialogTheme(
+    backgroundColor: AppTheme.transparentBlueLight,
+    elevation: 5,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22.0)),
+  ),
+  brightness: Brightness.light,
+  primaryColor: AppTheme.defaultBlueLight,
+  scaffoldBackgroundColor: AppTheme.backgroundBlueLight,
+  backgroundColor: AppTheme.backgroundBlueLight,
+  shadowColor: AppTheme.backgroundBlueLight,
+  appBarTheme: AppBarTheme(
+    color: AppTheme.transparent,
+    centerTitle: true,
+    elevation: 0.0,
+    titleTextStyle: AppTheme.title1.apply(color: AppTheme.defaultTextLight),
     iconTheme: const IconThemeData(
       color: AppTheme.accentBlueLight,
     ),
-    inputDecorationTheme: InputDecorationTheme(
-      isDense: true,
-      border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(42),
-          borderSide:
-          const BorderSide(width: 0.0, color: Colors.transparent)),
-      enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(42),
-          borderSide:
-          const BorderSide(width: 0.0, color: Colors.transparent)),
-      focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(42),
-          borderSide:
-          const BorderSide(width: 0.0, color: Colors.transparent)),
-      hintStyle: AppTheme.body1.apply(color: AppTheme.defaultGreyLight2),
-      fillColor: AppTheme.white,
-      filled: true,
-    ),
+  ),
+  iconTheme: const IconThemeData(
+    color: AppTheme.accentBlueLight,
+  ),
+  inputDecorationTheme: InputDecorationTheme(
+    isDense: true,
+    border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(42),
+        borderSide: const BorderSide(width: 0.0, color: Colors.transparent)),
+    enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(42),
+        borderSide: const BorderSide(width: 0.0, color: Colors.transparent)),
+    focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(42),
+        borderSide: const BorderSide(width: 0.0, color: Colors.transparent)),
+    hintStyle: AppTheme.body1.apply(color: AppTheme.defaultGreyLight2),
+    fillColor: AppTheme.white,
+    filled: true,
+  ),
   dividerColor: AppTheme.dividerLight,
   disabledColor: AppTheme.disabledLight1,
 );
 
 final ThemeData darkTheme = ThemeData(
+  dialogTheme: DialogTheme(
+    backgroundColor: AppTheme.backgroundBlueDark,
+    elevation: 5,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22.0)),
+  ),
   brightness: Brightness.dark,
   primaryColor: AppTheme.defaultBlueDark,
   primaryColorDark: AppTheme.defaultBlueDark,
   scaffoldBackgroundColor: AppTheme.backgroundBlueDark,
-  backgroundColor: AppTheme.backgroundBlueDark,
   shadowColor: AppTheme.backgroundBlueDark,
+  dialogBackgroundColor: AppTheme.transparentBlueDark,
   appBarTheme: AppBarTheme(
     color: AppTheme.transparent,
     centerTitle: true,
     elevation: 0.0,
     titleTextStyle: AppTheme.title1.apply(color: AppTheme.defaultTextDark),
     iconTheme: const IconThemeData(
-       color: AppTheme.accentBlueDark,
+      color: AppTheme.accentBlueDark,
     ),
   ),
   iconTheme: const IconThemeData(
@@ -162,21 +169,17 @@ final ThemeData darkTheme = ThemeData(
     isDense: true,
     border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(42),
-        borderSide:
-        const BorderSide(width: 0.0, color: Colors.transparent)),
+        borderSide: const BorderSide(width: 0.0, color: Colors.transparent)),
     enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(42),
-        borderSide:
-        const BorderSide(width: 0.0, color: Colors.transparent)),
+        borderSide: const BorderSide(width: 0.0, color: Colors.transparent)),
     focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(42),
-        borderSide:
-        const BorderSide(width: 0.0, color: Colors.transparent)),
+        borderSide: const BorderSide(width: 0.0, color: Colors.transparent)),
     hintStyle: AppTheme.body1.apply(color: AppTheme.defaultGreyDark2),
-   // fillColor: AppTheme.inputFieldDark,
+    // fillColor: AppTheme.inputFieldDark,
     filled: true,
   ),
   dividerColor: AppTheme.dividerDark,
   disabledColor: AppTheme.disabledDark1,
-
 );

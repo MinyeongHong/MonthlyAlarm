@@ -83,13 +83,13 @@ class _NumberPickerState extends State<NumberPicker> {
                       child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(12),
-                              color: AppTheme.transParentBlue),
+                              color: AppTheme.defaultBlueLight),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
                               '${selectedDay}일이 없는 달에는 알람이 울리지 않습니다.',
                               style: TextStyle(
-                                  color: AppTheme.accentBlue,
+                                  color: AppTheme.accentBlueLight,
                                   fontStyle: FontStyle.italic),
                             ),
                           )),

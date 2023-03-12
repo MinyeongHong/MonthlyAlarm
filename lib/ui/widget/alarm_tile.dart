@@ -42,7 +42,7 @@ class AlarmTile extends ConsumerWidget {
                     ),
                     color: alarmState.isOn
                         ? AppTheme.lightBlueLight
-                        : AppTheme.disabledBlueLight),
+                        : AppTheme.transparentBlueLight),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(27, 28, 12, 28),
               child: Row(

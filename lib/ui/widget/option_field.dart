@@ -30,12 +30,12 @@ class _OptionFieldState extends State<OptionField> {
               child: AutoSizeText(
                 widget.title,
                 maxFontSize: 14,
-                style: AppTheme.body1.apply(color: widget.isOn ? AppTheme.defaultBlue : AppTheme.disableGrey),
+                style: AppTheme.body1.apply(color: widget.isOn ? AppTheme.defaultBlueLight : AppTheme.disabledLight2),
               ),
             ),
             Icon(
               CupertinoIcons.checkmark_alt,
-              color: widget.isOn ? AppTheme.defaultBlue : AppTheme.disableGrey,
+              color: widget.isOn ? AppTheme.defaultBlueLight : AppTheme.disabledLight2,
             ),
           ],
         ),
