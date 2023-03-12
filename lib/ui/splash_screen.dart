@@ -18,9 +18,7 @@ import '../string.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
   SplashScreen(
-     {
-    Key? key,
-  }) : super(key: key);
+     {Key? key,}) : super(key: key);
 
   @override
   ConsumerState<SplashScreen> createState() => _SplashScreenState();
@@ -28,34 +26,20 @@ class SplashScreen extends ConsumerStatefulWidget {
 
 class _SplashScreenState extends ConsumerState<SplashScreen> {
 
-  Future<void> initSetting() async {
-    await Hive.initFlutter();
-    Hive.registerAdapter(AlarmAdapter());
-    await Hive.openBox<Alarm>(stringAlarm);
-    setupGetIt();
-    await LocalNotification.initialize();
-    await Upgrader().initialize();
-    initializeTimeZones();
-  }
-
   @override
   void initState(){
     super.initState();
+    Future.delayed(Duration(seconds: 1, milliseconds: 500), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => AlarmListScreen()),
+      );
+    });
+
   }
 
   @override
   Widget build(BuildContext context) {
-    //ref.read(settingViewModelProvider.notifier).init();
-
-    // Timer(const Duration(milliseconds: 2500), () {
-    //   // if (true) {
-    //   //   exit(0);
-    //   // } else {
-    //   Navigator.push(
-    //       context, MaterialPageRoute(builder: (context) => AlarmListScreen()));
-    //   // }
-    // });
-
     return WillPopScope(
       onWillPop: () async => false,
       child: MediaQuery(
@@ -63,9 +47,9 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
         child: UpgradeAlert(
           upgrader: Upgrader(),
           child: Scaffold(
-            backgroundColor: Colors.indigo,
-            body: Center(child: InkWell(onTap: (){  Navigator.push(
-                context, MaterialPageRoute(builder: (context) => AlarmListScreen()));}, child: FlutterLogo())),
+            body:Center(
+              child: Text('this is splash sceen')
+            ),
           ),
         ),
       ),

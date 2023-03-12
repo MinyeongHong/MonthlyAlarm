@@ -13,7 +13,7 @@ class AppTheme {
   static const accentBlueLight = Color(0xFF007AFF);
   static const defaultBlueLight = Color(0xFF46A2FD);
   static const lightBlueLight = Color(0xFFE8F0F8);
-  static const transparentBlueLight = Color(0xFFF8FAFC);
+  static const transparentBlueLight = Color(0xFFF2F3F3);
   static const backgroundBlueLight = Color(0xFFF6F7F8);
   static const inputFieldLight = Color(0xFFE8F0F8);
 
@@ -39,34 +39,6 @@ class AppTheme {
   static const defaultGreyDark1 = Color(0xFFB3B3B7);
   static const defaultGreyDark2 = Color(0xFFC7C7CC);
   static const defaultTextDark = Color(0xFFFFFFFF);
-
-  // //bright theme
-  // static const lightGrey = Color(0xFFE8E9EB);
-  // static const cancelGrey = Color(0xFF8E8E93);
-  // static const disableGrey = Color(0xFFA7A7A7);
-  // static const selectedGrey = Color(0xFFF2F2F7);
-  //
-  // static const backgroundBlue = Color(0xFFF6F7F8);
-  // static const selectedBlue = Color(0xFFE8F0F8);
-  // static const unselectedBlue = Color(0xFFF8FAFC);
-  // static const defaultBlue = Color(0xFF62ACF5);
-  // static const accentBlue = Color(0xFF007AFF);
-  // static const accentFontBlue = Color(0xFF168BFE);
-
-  //dark theme
-  // static const lightGrey = Color(0xFFE8E9EB);
-  // static const cancelGrey = Color(0xFF8E8E93);
-  //  static const disableDarkGrey = Color(0xFFE8E9EB);
-  //  //static const selectedGrey = Color(0xFFF2F2F7);
-  //
-  //  static const backgroundNavy = Color(0xFF55677B);
-  //  static const selectedNavy = Color(0xFF313F50);
-  //  static const unselectedNavy = Color(0xFF4A596B);
-  //  static const defaultNavy = Color(0xFF62ACF5);
-  //  static const accentNavy = Color(0xFFCAE3FF);
-  //  //static const accentFontNavy = Color(0xFF168BFE);
-  //  static const transParentNavy = Color(0xFF4A596B);
-  //
 
   static const title1 = TextStyle(
     fontFamily: 'AppleSDGothicNeo',
@@ -125,13 +97,13 @@ final ThemeData lightTheme = ThemeData(
   inputDecorationTheme: InputDecorationTheme(
     isDense: true,
     border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(42),
+        borderRadius: BorderRadius.circular(22),
         borderSide: const BorderSide(width: 0.0, color: Colors.transparent)),
     enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(42),
+        borderRadius: BorderRadius.circular(22),
         borderSide: const BorderSide(width: 0.0, color: Colors.transparent)),
     focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(42),
+        borderRadius: BorderRadius.circular(22),
         borderSide: const BorderSide(width: 0.0, color: Colors.transparent)),
     hintStyle: AppTheme.body1.apply(color: AppTheme.defaultGreyLight2),
     fillColor: AppTheme.white,
@@ -168,18 +140,22 @@ final ThemeData darkTheme = ThemeData(
   inputDecorationTheme: InputDecorationTheme(
     isDense: true,
     border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(42),
+        borderRadius: BorderRadius.circular(22),
         borderSide: const BorderSide(width: 0.0, color: Colors.transparent)),
     enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(42),
+        borderRadius: BorderRadius.circular(22),
         borderSide: const BorderSide(width: 0.0, color: Colors.transparent)),
     focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(42),
+        borderRadius: BorderRadius.circular(22),
         borderSide: const BorderSide(width: 0.0, color: Colors.transparent)),
     hintStyle: AppTheme.body1.apply(color: AppTheme.defaultGreyDark2),
-    // fillColor: AppTheme.inputFieldDark,
+     fillColor: AppTheme.inputFieldDark,
     filled: true,
   ),
   dividerColor: AppTheme.dividerDark,
   disabledColor: AppTheme.disabledDark1,
+  textTheme: TextTheme(
+
+  )
+
 );

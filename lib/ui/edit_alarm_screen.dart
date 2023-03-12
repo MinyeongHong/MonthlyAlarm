@@ -47,7 +47,7 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
     Alarm alarm = ref.watch(alarmDetailViewModelProvider(widget.alarm));
     AlarmDetailViewModel vm = ref.read(alarmDetailViewModelProvider(widget.alarm).notifier);
     AlarmListViewModel listVm = ref.read(alarmListViewModelProvider.notifier);
-
+    var theme = Theme.of(context);
     return GestureDetector(
       onTap:()=> FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -78,76 +78,138 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _title('알람 설정'),
-                CustomTextField(
-                  controller: titleController,
-                  hintText: 'Title',
+                theme.brightness == Brightness.dark
+                    ? Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(22),
+                    boxShadow: const [
+                      BoxShadow(color: Color(0xFF414F5E)),
+                      BoxShadow(
+                          color: AppTheme.inputFieldDark,
+                          spreadRadius: -2.0,
+                          blurRadius: 3.0,
+                          offset: Offset(-1, 3)),
+                    ],
+                  ),
+                  child: CustomTextField(
+                    controller: titleController,
+                    hintText: 'Title',
+                  ),
+                )
+                    : Material(
+                  borderRadius: BorderRadius.circular(22),
+                  elevation: 5,
+                  child: CustomTextField(
+                    controller: titleController,
+                    hintText: 'Title',
+                  ),
                 ),
                 const SizedBox(
                   height: 20,
                 ),
-                CustomTextField(
-                  controller: contentController,
-                  hintText: 'Content',
+                theme.brightness == Brightness.dark
+                    ? Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(22),
+                    boxShadow: const [
+                      BoxShadow(color: Color(0xFF414F5E)),
+                      BoxShadow(
+                          color: AppTheme.inputFieldDark,
+                          spreadRadius: -2.0,
+                          blurRadius: 3.0,
+                          offset: Offset(-1, 3)),
+                    ],
+                  ),
+                  child: CustomTextField(
+                    controller: contentController,
+                    hintText: 'Content',
+                  ),
+                )
+                    : Material(
+                  borderRadius: BorderRadius.circular(22),
+                  elevation: 5,
+                  child: CustomTextField(
+                    controller: contentController,
+                    hintText: 'Content',
+                  ),
                 ),
                 _title('날짜 설정'),
-                CustomRadioButton(
-                  title: '매월 1일',
-                  isOn: vm.dateType == AlarmDate.first,
-                  onTap: () {
-                    FocusScope.of(context).unfocus();
-                    vm.selectDate(1);
-                  },
-                  isCustom: false,
-                ),
-                CustomRadioButton(
-                  title: '매월 말일',
-                  isOn: vm.dateType == AlarmDate.last,
-                  onTap: () {
-                    FocusScope.of(context).unfocus();
-                    vm.selectDate(-1);
-                  },
-                  isCustom: false,
-                ),
-                CustomRadioButton(
-                  title: '직접 지정',
-                  isOn: vm.dateType == AlarmDate.custom,
-                  onTap: () async {
-                    FocusScope.of(context).unfocus();
-                    vm.selectDate(DateTime.now().day);
+                SizedBox(
+                  child: Column(
+                    children: [
+                      CustomRadioButton(
+                        title: '매월 1일',
+                        isOn: vm.dateType == AlarmDate.first,
+                        onTap: () {
+                          FocusScope.of(context).unfocus();
+                          vm.selectDate(1);
+                        },
+                        isCustom: false,
+                        theme: theme,
+                      ),
+                      CustomRadioButton(
+                        title: '매월 말일',
+                        isOn: vm.dateType == AlarmDate.last,
+                        onTap: () {
+                          FocusScope.of(context).unfocus();
+                          vm.selectDate(-1);
+                        },
+                        isCustom: false,
+                        theme: theme,
+                      ),
+                      CustomRadioButton(
+                        title: '직접 지정',
+                        isOn: vm.dateType == AlarmDate.custom,
+                        onTap: () async {
+                          FocusScope.of(context).unfocus();
+                          vm.selectDate(DateTime.now().day);
 
-                    var result = await showCupertinoModalPopup<int?>(
-                        barrierDismissible: true,
-                        context: context,
-                        builder: (BuildContext context) => NumberPicker(vm: vm));
+                          var result = await showCupertinoModalPopup<int?>(
+                              barrierDismissible: true,
+                              context: context,
+                              builder: (BuildContext context) =>
+                                  NumberPicker(vm: vm));
 
-                    if(result != null) vm.selectDate(result);
-                  },
-                  isCustom: true,
-                  day: alarm.date,
+                          if (result != null) vm.selectDate(result);
+                        },
+                        isCustom: true,
+                        day: alarm.date,
+                        theme: theme,
+                      ),
+                    ],
+                  ),
                 ),
                 _title('시간 설정'),
-                TimePicker(vm: vm),
+                SizedBox(
+                  child: TimePicker(vm: vm,theme: theme,),
+                ),
                 _title('미리 알림'),
-                OptionField(
-                  onTap: () => vm.dayBeforeOneDayOn(),
-                  isOn: alarm.bfOneDayOn,
-                  title: '하루 전 알림',
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                OptionField(
-                  onTap: () => vm.dayBeforeThreeDayOn(),
-                  isOn: alarm.bfThreeDayOn,
-                  title: '3일 전 알림',
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                OptionField(
-                  onTap: () => vm.dayBeforeOneWeekOn(),
-                  isOn: alarm.bfOneWeekOn,
-                  title: '7일 전 알림',
+                SizedBox(
+                  child: Column(
+                    children: [
+                      OptionField(
+                        onTap: () => vm.dayBeforeOneDayOn(),
+                        isOn: alarm.bfOneDayOn,
+                        title: '하루 전 알림',
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      OptionField(
+                        onTap: () => vm.dayBeforeThreeDayOn(),
+                        isOn: alarm.bfThreeDayOn,
+                        title: '3일 전 알림',
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      OptionField(
+                        onTap: () => vm.dayBeforeOneWeekOn(),
+                        isOn: alarm.bfOneWeekOn,
+                        title: '7일 전 알림',
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -162,7 +224,6 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
       padding: EdgeInsets.symmetric(vertical: 16),
       child: AutoSizeText(
         title,
-        // style: AppTheme.title1,
         maxFontSize: 18,
       ),
     );

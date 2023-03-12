@@ -6,6 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:monthly_alarm_app/provider/setting_viewmodel.dart';
 import 'package:monthly_alarm_app/repository/local_notification.dart';
 import 'package:monthly_alarm_app/string.dart';
+import 'package:monthly_alarm_app/ui/alarm_list_screen.dart';
 import 'package:monthly_alarm_app/ui/splash_screen.dart';
 import 'package:timezone/data/latest.dart';
 import 'package:upgrader/upgrader.dart';
@@ -25,6 +26,7 @@ Future<void> initSetting() async {
 }
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await initSetting();
 
   runApp(

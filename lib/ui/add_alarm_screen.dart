@@ -44,7 +44,7 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
     Alarm alarm = ref.watch(alarmDetailViewModelProvider());
     AlarmDetailViewModel vm = ref.read(alarmDetailViewModelProvider().notifier);
     AlarmListViewModel listVm = ref.read(alarmListViewModelProvider.notifier);
-    bool isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
+    var theme = Theme.of(context);
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -76,10 +76,10 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _title('알람 설정'),
-                isDark
+                theme.brightness == Brightness.dark
                     ? Container(
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(42),
+                          borderRadius: BorderRadius.circular(22),
                           boxShadow: const [
                             BoxShadow(color: Color(0xFF414F5E)),
                             BoxShadow(
@@ -95,7 +95,7 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                         ),
                       )
                     : Material(
-                        borderRadius: BorderRadius.circular(42),
+                        borderRadius: BorderRadius.circular(22),
                         elevation: 5,
                         child: CustomTextField(
                           controller: titleController,
@@ -105,33 +105,33 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                 const SizedBox(
                   height: 20,
                 ),
-                SizedBox(
-                    child: isDark
-                        ? Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(42),
-                              boxShadow: const [
-                                BoxShadow(color: Color(0xFF414F5E)),
-                                BoxShadow(
-                                    color: AppTheme.inputFieldDark,
-                                    spreadRadius: -2.0,
-                                    blurRadius: 3.0,
-                                    offset: Offset(-1, 3)),
-                              ],
-                            ),
-                            child: CustomTextField(
-                              controller: contentController,
-                              hintText: 'Content',
-                            ),
-                          )
-                        : Material(
-                            borderRadius: BorderRadius.circular(42),
-                            elevation: 5,
-                            child: CustomTextField(
-                              controller: contentController,
-                              hintText: 'Content',
-                            ),
-                          )),
+                theme.brightness == Brightness.dark
+
+                    ? Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(22),
+                          boxShadow: const [
+                            BoxShadow(color: Color(0xFF414F5E)),
+                            BoxShadow(
+                                color: AppTheme.inputFieldDark,
+                                spreadRadius: -2.0,
+                                blurRadius: 3.0,
+                                offset: Offset(-1, 3)),
+                          ],
+                        ),
+                        child: CustomTextField(
+                          controller: contentController,
+                          hintText: 'Content',
+                        ),
+                      )
+                    : Material(
+                        borderRadius: BorderRadius.circular(22),
+                        elevation: 5,
+                        child: CustomTextField(
+                          controller: contentController,
+                          hintText: 'Content',
+                        ),
+                      ),
                 _title('날짜 설정'),
                 SizedBox(
                   child: Column(
@@ -144,6 +144,7 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                           vm.selectDate(1);
                         },
                         isCustom: false,
+                        theme: theme,
                       ),
                       CustomRadioButton(
                         title: '매월 말일',
@@ -153,6 +154,7 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                           vm.selectDate(-1);
                         },
                         isCustom: false,
+                        theme: theme,
                       ),
                       CustomRadioButton(
                         title: '직접 지정',
@@ -171,13 +173,14 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                         },
                         isCustom: true,
                         day: alarm.date,
+                        theme: theme,
                       ),
                     ],
                   ),
                 ),
                 _title('시간 설정'),
                 SizedBox(
-                  child: TimePicker(vm: vm),
+                  child: TimePicker(vm: vm,theme: theme,),
                 ),
                 _title('미리 알림'),
                 SizedBox(

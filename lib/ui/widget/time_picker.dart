@@ -7,45 +7,90 @@ import '../../app_theme.dart';
 
 class TimePicker extends StatefulWidget {
   final AlarmDetailViewModel vm;
+  final ThemeData theme;
 
-  const TimePicker({Key? key, required this.vm}) : super(key: key);
+  const TimePicker({Key? key, required this.vm, required this.theme})
+      : super(key: key);
 
   @override
   State<TimePicker> createState() => _TimePickerState();
 }
 
 class _TimePickerState extends State<TimePicker> {
-
   @override
   Widget build(BuildContext context) {
-    return Material(
-      elevation: 2,
-     // shadowColor: AppTheme.backgroundBlueLight,
-      borderRadius: BorderRadius.circular(22),
-      child: GestureDetector(
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 24),
-          decoration: BoxDecoration(
-            color: AppTheme.white,
-            borderRadius: BorderRadius.circular(22),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4.0,vertical: 8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(DateFormat.Hm().format(widget.vm.state.time!),style: AppTheme.title2,),
-                _toggle()
+    return widget.theme.brightness == Brightness.dark
+        ? Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(22),
+              boxShadow: const [
+                BoxShadow(color: Color(0xFF414F5E)),
+                BoxShadow(
+                    color: AppTheme.inputFieldDark,
+                    spreadRadius: -2.0,
+                    blurRadius: 3.0,
+                    offset: Offset(-1, 3)),
               ],
             ),
-          ),
-        ),
-        onTap: () {
-          FocusScope.of(context).unfocus();
-          _selectTime(context);
-        },
-      ),
-    );
+            child:  GestureDetector(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 24),
+                decoration: BoxDecoration(
+                  color: AppTheme.transparent,
+                  borderRadius: BorderRadius.circular(22),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 4.0, vertical: 8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        DateFormat.Hm().format(widget.vm.state.time!),
+                        style: AppTheme.title2,
+                      ),
+                      _toggle()
+                    ],
+                  ),
+                ),
+              ),
+              onTap: () {
+                FocusScope.of(context).unfocus();
+                _selectTime(context);
+              },
+            ),
+          )
+        : Material(
+            elevation: 2,
+            borderRadius: BorderRadius.circular(22),
+            child: GestureDetector(
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 24),
+                decoration: BoxDecoration(
+                  color: AppTheme.white,
+                  borderRadius: BorderRadius.circular(22),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 4.0, vertical: 8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        DateFormat.Hm().format(widget.vm.state.time!),
+                        style: AppTheme.title2,
+                      ),
+                      _toggle()
+                    ],
+                  ),
+                ),
+              ),
+              onTap: () {
+                FocusScope.of(context).unfocus();
+                _selectTime(context);
+              },
+            ),
+          );
   }
 
   _toggle() {
@@ -63,8 +108,15 @@ class _TimePickerState extends State<TimePicker> {
               color: isPM ? Colors.transparent : AppTheme.defaultBlueLight,
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 6),
-              child: AutoSizeText('AM',minFontSize:8,maxFontSize: 11,style: TextStyle(color: isPM ? AppTheme.defaultTextLight:AppTheme.white),),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6),
+              child: AutoSizeText(
+                'AM',
+                minFontSize: 8,
+                maxFontSize: 11,
+                style: TextStyle(
+                    color: isPM ? AppTheme.defaultTextLight : AppTheme.white),
+              ),
             ),
           ),
         ),
@@ -76,8 +128,15 @@ class _TimePickerState extends State<TimePicker> {
               color: isPM ? AppTheme.defaultBlueLight : Colors.transparent,
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 6),
-              child: AutoSizeText('PM',minFontSize:8,maxFontSize: 11,style: TextStyle(color: isPM ? AppTheme.white:AppTheme.defaultTextLight),),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6),
+              child: AutoSizeText(
+                'PM',
+                minFontSize: 8,
+                maxFontSize: 11,
+                style: TextStyle(
+                    color: isPM ? AppTheme.white : AppTheme.defaultTextLight),
+              ),
             ),
           ),
         )
@@ -87,13 +146,8 @@ class _TimePickerState extends State<TimePicker> {
 
   Future<void> _selectTime(BuildContext context) async {
     DateTime? selectedTime = widget.vm.state.time;
-    final initialTime = DateTime(DateTime
-        .now()
-        .year, DateTime
-        .now()
-        .month, DateTime
-        .now()
-        .day, 0, 0, 0);
+    final initialTime = DateTime(
+        DateTime.now().year, DateTime.now().month, DateTime.now().day, 0, 0, 0);
 
     await showCupertinoModalPopup(
       context: context,

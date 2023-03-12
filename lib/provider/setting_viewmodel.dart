@@ -10,6 +10,7 @@ import '../data/alarm.dart';
 part 'setting_viewmodel.freezed.dart';
 part 'setting_viewmodel.g.dart';
 
+
 @riverpod
 class SettingViewModel extends _$SettingViewModel {
   SettingViewModel() : super();

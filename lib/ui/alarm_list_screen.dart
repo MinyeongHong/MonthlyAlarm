@@ -32,12 +32,12 @@ class AlarmListScreen extends ConsumerWidget {
             ),
             onPressed: () {
               Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (_) => AddAlarmScreen()
-                ),
+                MaterialPageRoute(builder: (_) => AddAlarmScreen()),
               );
             }),
-        title: Text('Alarm',),
+        title: Text(
+          'Alarm',
+        ),
         actions: [
           PopupMenu(),
         ],
@@ -65,13 +65,15 @@ class AlarmListScreen extends ConsumerWidget {
                       var alarm = ref.watch(alarmListViewModelProvider)[idx];
 
                       return AlarmTile(
+                        theme: Theme.of(context),
                         idx: idx,
                         onToggle: (bool val) {
                           alarm.isOn = val;
-                          if(!val) {
+                          if (!val) {
                             LocalNotification.offNotification(alarm.alarmId);
-                          }else{
-                            LocalNotification.scheduleMonthlyNotification(alarm);
+                          } else {
+                            LocalNotification.scheduleMonthlyNotification(
+                                alarm);
                           }
                         },
                         onTap: () {
@@ -80,7 +82,7 @@ class AlarmListScreen extends ConsumerWidget {
                               context,
                               MaterialPageRoute(
                                   builder: (_) =>
-                                      EditAlarmScreen(alarm:alarm)));
+                                      EditAlarmScreen(alarm: alarm)));
                         },
                       );
                     }),
