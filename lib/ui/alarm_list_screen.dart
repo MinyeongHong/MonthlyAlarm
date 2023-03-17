@@ -20,26 +20,35 @@ class AlarmListScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+
     AlarmListViewModel vm = ref.read(alarmListViewModelProvider.notifier);
     List<Alarm> alarmList = ref.watch(alarmListViewModelProvider);
+    var isEditMode = ref.watch(editModeProvider);
     vm.loadAll();
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            icon: Icon(
-              Icons.add,
-            ),
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => AddAlarmScreen()),
-              );
-            }),
+        leading:  isEditMode ?  Center(
+          child: GestureDetector(
+            onTap: (){ref
+                .read(editModeProvider.notifier)
+                .update((state) => state = !state);},
+            child: Text('취소',style: AppTheme.title2.apply(color: Theme.of(context).primaryColor),),
+          ),
+        ) : PopupMenu(),
         title: Text(
           'Alarm',
         ),
         actions: [
-          PopupMenu(),
+          isEditMode ? SizedBox.shrink() : IconButton(
+              icon: Icon(
+                Icons.add,
+              ),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => AddAlarmScreen()),
+                );
+              }),
         ],
       ),
       body: SafeArea(
@@ -47,15 +56,15 @@ class AlarmListScreen extends ConsumerWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(children: [
+              // ElevatedButton(
+              //     onPressed: () {
+              //       AlarmRepository().clear();
+              //     },
+              //     child: Text('hive DB 클리어')),
               ElevatedButton(
                   onPressed: () {
-                    AlarmRepository().clear();
-                  },
-                  child: Text('hive DB 클리어')),
-              ElevatedButton(
-                  onPressed: () {
-                    LocalNotification.requestPermission();
-                    LocalNotification.sampleNotification();
+                    //LocalNotification.requestPermission();
+                    LocalNotificationRepository.sampleNotification();
                   },
                   child: Text('click for Noti')),
               Expanded(
@@ -64,26 +73,32 @@ class AlarmListScreen extends ConsumerWidget {
                     itemBuilder: (BuildContext ctx, int idx) {
                       var alarm = ref.watch(alarmListViewModelProvider)[idx];
 
-                      return AlarmTile(
-                        theme: Theme.of(context),
-                        idx: idx,
-                        onToggle: (bool val) {
-                          alarm.isOn = val;
-                          if (!val) {
-                            LocalNotification.offNotification(alarm.alarmId);
-                          } else {
-                            LocalNotification.scheduleMonthlyNotification(
-                                alarm);
-                          }
-                        },
-                        onTap: () {
-                          vm.load(alarm.alarmId);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) =>
-                                      EditAlarmScreen(alarm: alarm)));
-                        },
+
+
+                      return AnimatedSize(
+                        duration: Duration(milliseconds: 400),
+                        child: AlarmTile(
+                          vm: vm,
+                          theme: Theme.of(context),
+                          idx: idx,
+                          onToggle: (bool val) {
+                            alarm.isOn = val;
+                            if (!val) {
+                              LocalNotificationRepository.offNotification(alarm.alarmId);
+                            } else {
+                              LocalNotificationRepository.scheduleMonthlyNotification(
+                                  alarm);
+                            }
+                          },
+                          onTap: () {
+                            vm.load(alarm.alarmId);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) =>
+                                        EditAlarmScreen(alarm: alarm)));
+                          },
+                        ),
                       );
                     }),
               ),

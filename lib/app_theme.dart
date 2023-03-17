@@ -20,6 +20,7 @@ class AppTheme {
   static const disabledLight1 = Color(0xFFECECEC);
   static const disabledLight2 = Color(0xFFA7A7A7);
   static const dividerLight = Color(0xFFEBEBEB);
+  static const warningLight = Color(0xFFCD3E3E);
 
   static const defaultGreyLight1 = Color(0xFFDDDDE0);
   static const defaultGreyLight2 = Color(0xFF9F9FA3);
@@ -35,6 +36,7 @@ class AppTheme {
   static const disabledDark1 = Color(0xFF667688);
   static const disabledDark2 = Color(0xFFD2D2D6);
   static const dividerDark = Color(0xFF667688);
+  static const warningDark = Color(0xFFFF6666);
 
   static const defaultGreyDark1 = Color(0xFFB3B3B7);
   static const defaultGreyDark2 = Color(0xFFC7C7CC);
@@ -48,14 +50,32 @@ class AppTheme {
 
   static const title2 = TextStyle(
     fontFamily: 'AppleSDGothicNeo',
-    fontWeight: FontWeight.w200,
+    fontWeight: FontWeight.w400,
     fontSize: 16,
+  );
+
+  static const title3 = TextStyle(
+    fontFamily: 'AppleSDGothicNeo',
+    fontWeight: FontWeight.w200,
+    fontSize: 15,
   );
 
   static const body1 = TextStyle(
     fontFamily: 'AppleSDGothicNeo',
     fontWeight: FontWeight.w400,
-    fontSize: 15,
+    fontSize: 16,
+  );
+
+  static const body2 = TextStyle(
+    fontFamily: 'AppleSDGothicNeo',
+    fontWeight: FontWeight.w400,
+    fontSize: 14,
+  );
+
+  static const body3 = TextStyle(
+    fontFamily: 'AppleSDGothicNeo',
+    fontWeight: FontWeight.w400,
+    fontSize: 12,
   );
 
   static const sub1 = TextStyle(
@@ -72,90 +92,106 @@ class AppTheme {
 }
 
 final ThemeData lightTheme = ThemeData(
-  dialogTheme: DialogTheme(
-    backgroundColor: AppTheme.transparentBlueLight,
-    elevation: 5,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22.0)),
-  ),
-  brightness: Brightness.light,
-  primaryColor: AppTheme.defaultBlueLight,
-  scaffoldBackgroundColor: AppTheme.backgroundBlueLight,
-  backgroundColor: AppTheme.backgroundBlueLight,
-  shadowColor: AppTheme.backgroundBlueLight,
-  appBarTheme: AppBarTheme(
-    color: AppTheme.transparent,
-    centerTitle: true,
-    elevation: 0.0,
-    titleTextStyle: AppTheme.title1.apply(color: AppTheme.defaultTextLight),
+    dialogTheme: DialogTheme(
+      backgroundColor: AppTheme.transparentBlueLight,
+      elevation: 5,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22.0)),
+    ),
+    brightness: Brightness.light,
+    primaryColor: AppTheme.defaultBlueLight,
+    scaffoldBackgroundColor: AppTheme.backgroundBlueLight,
+    backgroundColor: AppTheme.backgroundBlueLight,
+    shadowColor: AppTheme.backgroundBlueLight,
+    appBarTheme: AppBarTheme(
+      color: AppTheme.transparent,
+      centerTitle: true,
+      elevation: 0.0,
+      titleTextStyle: AppTheme.title1.apply(color: AppTheme.defaultTextLight),
+      iconTheme: const IconThemeData(
+        color: AppTheme.accentBlueLight,
+      ),
+    ),
     iconTheme: const IconThemeData(
       color: AppTheme.accentBlueLight,
     ),
-  ),
-  iconTheme: const IconThemeData(
-    color: AppTheme.accentBlueLight,
-  ),
-  inputDecorationTheme: InputDecorationTheme(
-    isDense: true,
-    border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(22),
-        borderSide: const BorderSide(width: 0.0, color: Colors.transparent)),
-    enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(22),
-        borderSide: const BorderSide(width: 0.0, color: Colors.transparent)),
-    focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(22),
-        borderSide: const BorderSide(width: 0.0, color: Colors.transparent)),
-    hintStyle: AppTheme.body1.apply(color: AppTheme.defaultGreyLight2),
-    fillColor: AppTheme.white,
-    filled: true,
-  ),
-  dividerColor: AppTheme.dividerLight,
-  disabledColor: AppTheme.disabledLight1,
-);
+    inputDecorationTheme: InputDecorationTheme(
+      isDense: true,
+      border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(22),
+          borderSide: const BorderSide(width: 0.0, color: Colors.transparent)),
+      enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(22),
+          borderSide: const BorderSide(width: 0.0, color: Colors.transparent)),
+      focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(22),
+          borderSide: const BorderSide(width: 0.0, color: Colors.transparent)),
+      hintStyle: AppTheme.body1.apply(color: AppTheme.defaultGreyLight2),
+      fillColor: AppTheme.white,
+      filled: true,
+    ),
+    dividerColor: AppTheme.dividerLight,
+    disabledColor: AppTheme.disabledLight1,
+    errorColor: AppTheme.warningLight,
+    cardColor: AppTheme.transparentBlueLight,
+    textTheme: TextTheme(
+      titleLarge: AppTheme.title1.apply(color: AppTheme.defaultTextLight),
+      titleMedium: AppTheme.title2.apply(color: AppTheme.defaultTextLight),
+      titleSmall: AppTheme.title3.apply(color: AppTheme.defaultTextLight),
+      bodyLarge: AppTheme.body1.apply(color: AppTheme.defaultTextLight),
+      bodyMedium: AppTheme.body2.apply(color: AppTheme.defaultTextLight),
+      bodySmall: AppTheme.body3.apply(color: AppTheme.defaultTextLight),
+    ));
 
 final ThemeData darkTheme = ThemeData(
-  dialogTheme: DialogTheme(
-    backgroundColor: AppTheme.backgroundBlueDark,
-    elevation: 5,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22.0)),
-  ),
-  brightness: Brightness.dark,
-  primaryColor: AppTheme.defaultBlueDark,
-  primaryColorDark: AppTheme.defaultBlueDark,
-  scaffoldBackgroundColor: AppTheme.backgroundBlueDark,
-  shadowColor: AppTheme.backgroundBlueDark,
-  dialogBackgroundColor: AppTheme.transparentBlueDark,
-  appBarTheme: AppBarTheme(
-    color: AppTheme.transparent,
-    centerTitle: true,
-    elevation: 0.0,
-    titleTextStyle: AppTheme.title1.apply(color: AppTheme.defaultTextDark),
+    dialogTheme: DialogTheme(
+      backgroundColor: AppTheme.backgroundBlueDark,
+      elevation: 5,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22.0)),
+    ),
+    brightness: Brightness.dark,
+    primaryColor: AppTheme.defaultBlueDark,
+    primaryColorDark: AppTheme.defaultBlueDark,
+    scaffoldBackgroundColor: AppTheme.backgroundBlueDark,
+    shadowColor: AppTheme.backgroundBlueDark,
+    dialogBackgroundColor: AppTheme.transparentBlueDark,
+    appBarTheme: AppBarTheme(
+      color: AppTheme.transparent,
+      centerTitle: true,
+      elevation: 0.0,
+      titleTextStyle: AppTheme.title1.apply(color: AppTheme.defaultTextDark),
+      iconTheme: const IconThemeData(
+        color: AppTheme.accentBlueDark,
+      ),
+    ),
     iconTheme: const IconThemeData(
       color: AppTheme.accentBlueDark,
     ),
-  ),
-  iconTheme: const IconThemeData(
-    color: AppTheme.accentBlueDark,
-  ),
-  inputDecorationTheme: InputDecorationTheme(
-    isDense: true,
-    border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(22),
-        borderSide: const BorderSide(width: 0.0, color: Colors.transparent)),
-    enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(22),
-        borderSide: const BorderSide(width: 0.0, color: Colors.transparent)),
-    focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(22),
-        borderSide: const BorderSide(width: 0.0, color: Colors.transparent)),
-    hintStyle: AppTheme.body1.apply(color: AppTheme.defaultGreyDark2),
-     fillColor: AppTheme.inputFieldDark,
-    filled: true,
-  ),
-  dividerColor: AppTheme.dividerDark,
-  disabledColor: AppTheme.disabledDark1,
-  textTheme: TextTheme(
-
-  )
-
-);
+    inputDecorationTheme: InputDecorationTheme(
+      isDense: true,
+      border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(22),
+          borderSide: const BorderSide(width: 0.0, color: Colors.transparent)),
+      enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(22),
+          borderSide: const BorderSide(width: 0.0, color: Colors.transparent)),
+      focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(22),
+          borderSide: const BorderSide(width: 0.0, color: Colors.transparent)),
+      hintStyle: AppTheme.body1.apply(color: AppTheme.defaultGreyDark2),
+      fillColor: AppTheme.inputFieldDark,
+      filled: true,
+    ),
+    dividerColor: AppTheme.dividerDark,
+    disabledColor: AppTheme.disabledDark1,
+    errorColor: AppTheme.warningDark,
+    cardColor: AppTheme.transparentBlueDark,
+    textTheme: TextTheme(
+      titleLarge: AppTheme.title1.apply(color: AppTheme.defaultTextDark),
+      titleMedium: AppTheme.title2.apply(color: AppTheme.defaultTextDark),
+      titleSmall: AppTheme.title3.apply(color: AppTheme.defaultTextDark),
+      bodyLarge: AppTheme.body1.apply(color: AppTheme.defaultTextDark),
+      bodyMedium: AppTheme.body2.apply(color: AppTheme.defaultTextDark),
+      bodySmall: AppTheme.body3.apply(
+        color: AppTheme.defaultTextDark,
+      ),
+    ));

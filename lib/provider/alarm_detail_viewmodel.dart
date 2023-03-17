@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
 import 'package:monthly_alarm_app/usecase/create_alarm.dart';
+import 'package:monthly_alarm_app/usecase/delete_alarm.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../data/alarm.dart';
@@ -54,20 +55,22 @@ class AlarmDetailViewModel extends _$AlarmDetailViewModel {
     }
   }
 
-  Future<void> saveText(String title, String content) async {
+  Future<void> save(String title, String content) async {
     if(title.isEmpty) title = '새 알람';
     state = state.copyWith(title: title, content: content);
-  }
 
-  Future<void> save() async {
     await createAlarm.call(state);
-    await LocalNotification.scheduleMonthlyNotification(state);
+    await LocalNotificationRepository.scheduleMonthlyNotification(state);
   }
 
-  Future<void> update() async {
-    await LocalNotification.offNotification(state.alarmId);
+  Future<void> update(String title, String content) async {
+    if(title != state.title) state = state.copyWith(title: title);
+    if(content != state.content) state = state.copyWith(content: content);
+
+    await LocalNotificationRepository.offNotification(state.alarmId);
+
     await updateAlarm.call(state);
-    await LocalNotification.scheduleMonthlyNotification(state);
+    await LocalNotificationRepository.scheduleMonthlyNotification(state);
   }
 }
 

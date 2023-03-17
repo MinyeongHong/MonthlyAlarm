@@ -29,6 +29,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   void initState(){
     super.initState();
+    LocalNotificationRepository.requestPermission();
     Future.delayed(Duration(seconds: 1, milliseconds: 500), () {
       Navigator.pushReplacement(
         context,

@@ -71,7 +71,8 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                             children: [
                               WidgetSpan(
                                 child: Padding(
-                                  padding: const EdgeInsets.only(right: 8),
+                                  padding: const EdgeInsets.only(
+                                      right: 8, bottom: 2),
                                   child: Container(
                                       width: 15,
                                       height: 15,
@@ -100,21 +101,22 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                                 widget.title,
                                 maxFontSize: 15,
                                 style: TextStyle(
-                                    color: widget.theme.brightness ==
-                                            Brightness.dark
-                                        ? widget.isOn
-                                            ? AppTheme.defaultTextDark
-                                            : AppTheme.defaultGreyDark2
-                                        : widget.isOn
-                                            ? AppTheme.defaultTextLight
-                                            : AppTheme.defaultGreyLight2),
+                                    color: widget.isOn
+                                        ? widget.theme
+                                            .textTheme
+                                            .bodyLarge!
+                                            .color
+                                        : widget.theme
+                                            .inputDecorationTheme
+                                            .hintStyle!
+                                            .color),
                               )),
                             ],
                           ),
                         ),
                         if (widget.isOn && widget.isCustom)
                           AutoSizeText(
-                            '매월 ${widget.day}일',
+                            '매월 ${widget.day}일   ',
                             style: TextStyle(color: widget.theme.primaryColor),
                             maxFontSize: 12,
                           ),
@@ -197,7 +199,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                         ),
                         if (widget.isOn && widget.isCustom)
                           AutoSizeText(
-                            '매월 ${widget.day}일',
+                            '매월 ${widget.day}일   ',
                             style: TextStyle(color: widget.theme.primaryColor),
                             maxFontSize: 12,
                           ),

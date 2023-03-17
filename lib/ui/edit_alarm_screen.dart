@@ -24,7 +24,6 @@ class EditAlarmScreen extends ConsumerStatefulWidget {
 }
 
 class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
-
   late final TextEditingController titleController;
   late final TextEditingController contentController;
 
@@ -45,11 +44,12 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
   @override
   Widget build(BuildContext context) {
     Alarm alarm = ref.watch(alarmDetailViewModelProvider(widget.alarm));
-    AlarmDetailViewModel vm = ref.read(alarmDetailViewModelProvider(widget.alarm).notifier);
+    AlarmDetailViewModel vm =
+        ref.read(alarmDetailViewModelProvider(widget.alarm).notifier);
     AlarmListViewModel listVm = ref.read(alarmListViewModelProvider.notifier);
     var theme = Theme.of(context);
     return GestureDetector(
-      onTap:()=> FocusScope.of(context).unfocus(),
+      onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -63,11 +63,52 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
                   Icons.check,
                 ),
                 onPressed: () async {
-                    await vm.saveText(
+                  var result = await showDialog<bool>(
+                      barrierDismissible: true,
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                            title: Text('알람 저장'),
+                            content: Text('알람을 저장시겠습니까?'),
+                            actions: <Widget>[
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  TextButton(
+                                    child: Text(
+                                      '취소',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium,
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pop(false); // 다이얼로그 닫기
+                                    },
+                                  ),
+                                  TextButton(
+                                    child: Text(
+                                      '확인',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium,
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pop(true); // 다이얼로그 닫기
+                                    },
+                                  ),
+                                ],
+                              )
+                            ],
+                          ));
+
+                  if (result == true) {
+                    await vm.update(
                         titleController.text, contentController.text);
-                    await vm.update();
                     await listVm.loadAll();
                     Navigator.pop(context);
+                  }
                 },
               )
             ]),
@@ -80,59 +121,59 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
                 _title('알람 설정'),
                 theme.brightness == Brightness.dark
                     ? Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(22),
-                    boxShadow: const [
-                      BoxShadow(color: Color(0xFF414F5E)),
-                      BoxShadow(
-                          color: AppTheme.inputFieldDark,
-                          spreadRadius: -2.0,
-                          blurRadius: 3.0,
-                          offset: Offset(-1, 3)),
-                    ],
-                  ),
-                  child: CustomTextField(
-                    controller: titleController,
-                    hintText: 'Title',
-                  ),
-                )
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(22),
+                          boxShadow: const [
+                            BoxShadow(color: Color(0xFF414F5E)),
+                            BoxShadow(
+                                color: AppTheme.inputFieldDark,
+                                spreadRadius: -2.0,
+                                blurRadius: 3.0,
+                                offset: Offset(-1, 3)),
+                          ],
+                        ),
+                        child: CustomTextField(
+                          controller: titleController,
+                          hintText: 'Title',
+                        ),
+                      )
                     : Material(
-                  borderRadius: BorderRadius.circular(22),
-                  elevation: 5,
-                  child: CustomTextField(
-                    controller: titleController,
-                    hintText: 'Title',
-                  ),
-                ),
+                        borderRadius: BorderRadius.circular(22),
+                        elevation: 5,
+                        child: CustomTextField(
+                          controller: titleController,
+                          hintText: 'Title',
+                        ),
+                      ),
                 const SizedBox(
                   height: 20,
                 ),
                 theme.brightness == Brightness.dark
                     ? Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(22),
-                    boxShadow: const [
-                      BoxShadow(color: Color(0xFF414F5E)),
-                      BoxShadow(
-                          color: AppTheme.inputFieldDark,
-                          spreadRadius: -2.0,
-                          blurRadius: 3.0,
-                          offset: Offset(-1, 3)),
-                    ],
-                  ),
-                  child: CustomTextField(
-                    controller: contentController,
-                    hintText: 'Content',
-                  ),
-                )
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(22),
+                          boxShadow: const [
+                            BoxShadow(color: Color(0xFF414F5E)),
+                            BoxShadow(
+                                color: AppTheme.inputFieldDark,
+                                spreadRadius: -2.0,
+                                blurRadius: 3.0,
+                                offset: Offset(-1, 3)),
+                          ],
+                        ),
+                        child: CustomTextField(
+                          controller: contentController,
+                          hintText: 'Content',
+                        ),
+                      )
                     : Material(
-                  borderRadius: BorderRadius.circular(22),
-                  elevation: 5,
-                  child: CustomTextField(
-                    controller: contentController,
-                    hintText: 'Content',
-                  ),
-                ),
+                        borderRadius: BorderRadius.circular(22),
+                        elevation: 5,
+                        child: CustomTextField(
+                          controller: contentController,
+                          hintText: 'Content',
+                        ),
+                      ),
                 _title('날짜 설정'),
                 SizedBox(
                   child: Column(
@@ -165,7 +206,7 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
                           vm.selectDate(DateTime.now().day);
 
                           var result = await showCupertinoModalPopup<int?>(
-                              barrierDismissible: true,
+                              barrierDismissible: false,
                               context: context,
                               builder: (BuildContext context) =>
                                   NumberPicker(vm: vm));
@@ -181,7 +222,10 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
                 ),
                 _title('시간 설정'),
                 SizedBox(
-                  child: TimePicker(vm: vm,theme: theme,),
+                  child: TimePicker(
+                    vm: vm,
+                    theme: theme,
+                  ),
                 ),
                 _title('미리 알림'),
                 SizedBox(

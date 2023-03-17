@@ -33,8 +33,8 @@ class _NumberPickerState extends State<NumberPicker> {
           Container(
             height: MediaQuery.of(context).size.height * 0.4,
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
+              color: Theme.of(context).dialogBackgroundColor,
+              borderRadius: BorderRadius.circular(22),
             ),
             margin: EdgeInsets.only(
               right: 20,
@@ -49,10 +49,10 @@ class _NumberPickerState extends State<NumberPicker> {
                   TextButton(onPressed: (){
                     Navigator.pop(context);
                   }, child: Text('취소')),
-                  DefaultTextStyle(
-                    style: AppTheme.body1,
+                  Material(
+                    color: AppTheme.transparent,
                     child: Text(
-                      '매월 ${selectedDay}일',
+                      '매월 ${selectedDay}일',style: AppTheme.body1,
                     ),
                   ),
                   TextButton(onPressed: (){
@@ -71,28 +71,19 @@ class _NumberPickerState extends State<NumberPicker> {
                     children: List<Widget>.generate(
                         31,
                         (int index) => Center(
-                              child: Text('${index + 1}일'),
+                              child: Text('${index + 1}일',style: Theme.of(context).textTheme.bodyLarge,),
                             )),
                   ),
                 ),
                 if (selectedDay > 28)
-                  Material(
-                    color: Colors.transparent,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              color: AppTheme.defaultBlueLight),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              '${selectedDay}일이 없는 달에는 알람이 울리지 않습니다.',
-                              style: TextStyle(
-                                  color: AppTheme.accentBlueLight,
-                                  fontStyle: FontStyle.italic),
-                            ),
-                          )),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    child: Material(
+                      color: AppTheme.transparent,
+                      child: Text(
+                        '${selectedDay}일이 없는 달에는 알람이 울리지 않습니다.',
+                        style: AppTheme.sub1.apply(color:Theme.of(context).textTheme.bodySmall!.color),
+                      ),
                     ),
                   ),
               ],

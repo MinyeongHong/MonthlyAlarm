@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -9,6 +10,7 @@ import 'package:monthly_alarm_app/string.dart';
 import 'package:monthly_alarm_app/ui/alarm_list_screen.dart';
 import 'package:monthly_alarm_app/ui/splash_screen.dart';
 import 'package:timezone/data/latest.dart';
+import 'package:timezone/timezone.dart';
 import 'package:upgrader/upgrader.dart';
 
 import 'app_theme.dart';
@@ -20,9 +22,10 @@ Future<void> initSetting() async {
   Hive.registerAdapter(AlarmAdapter());
   await Hive.openBox<Alarm>(stringAlarm);
   setupGetIt();
-  await LocalNotification.initialize();
+  await LocalNotificationRepository.initialize();
   await Upgrader().initialize();
   initializeTimeZones();
+  print('${TimeZone.UTC}');
 }
 
 void main() async {

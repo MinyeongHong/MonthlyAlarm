@@ -5,6 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../data/alarm.dart';
 import '../repository/local_notification.dart';
+import '../usecase/delete_alarm.dart';
 import '../usecase/read_alarm.dart';
 
 part 'alarm_list_viewmodel.g.dart';
@@ -35,6 +36,7 @@ class AlarmListViewModel extends _$AlarmListViewModel {
 
   LoadAlarms loadAlarms = GetIt.I.get();
   ReadAlarm readAlarm = GetIt.I.get();
+  DeleteAlarm deleteAlarm = GetIt.I.get();
 
   @override
   List<Alarm> build() {
@@ -60,12 +62,14 @@ class AlarmListViewModel extends _$AlarmListViewModel {
     ];
   }
 
-  void delete(String id) {
+  Future<void> delete(String id) async {
     state = [
       for (final e in state)
         if (e.alarmId != id) e,
     ];
 
-    LocalNotification.offNotification(id);
+
+    await LocalNotificationRepository.offNotification(id);
+    await deleteAlarm.call(id);
   }
 }

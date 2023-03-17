@@ -16,7 +16,7 @@ class SettingModePopUp extends ConsumerWidget {
       contentPadding: EdgeInsets.symmetric(vertical: 7),
       title: Column(
         children: [
-          Text('테마 설정'),
+          Text('테마 설정', style:Theme.of(context).textTheme.titleMedium),
           SizedBox(
             height: 35,
           ),
@@ -28,7 +28,7 @@ class SettingModePopUp extends ConsumerWidget {
               children: [
                 Text(
                   '시스템 모드',
-                  style: TextStyle(
+                  style: AppTheme.body1.apply(
                     color: ref.watch(settingViewModelProvider).mode ==
                             ThemeMode.system
                         ? isDark
@@ -65,7 +65,7 @@ class SettingModePopUp extends ConsumerWidget {
               children: [
                 Text(
                   '라이트 모드',
-                  style: TextStyle(
+                  style: AppTheme.body1.apply(
                     color: ref.watch(settingViewModelProvider).mode ==
                             ThemeMode.light
                         ? isDark
@@ -97,13 +97,12 @@ class SettingModePopUp extends ConsumerWidget {
           InkWell(
             onTap: () async {
               await ref.read(settingViewModelProvider.notifier).setDarkTheme();
-              print('tetsetestsetse ${ref.read(settingViewModelProvider).mode}');
             },
             child: Row(
               children: [
                 Text(
                   '다크 모드',
-                  style: TextStyle(
+                  style: AppTheme.title2.apply(
                     color: ref.watch(settingViewModelProvider).mode ==
                             ThemeMode.dark
                         ? isDark
@@ -130,9 +129,12 @@ class SettingModePopUp extends ConsumerWidget {
             ),
           ),
           SizedBox(
-            height: 35,
+            height: 25,
           ),
-          InkWell(onTap: () {Navigator.pop(context);}, child: Text('완료'))
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5),
+            child: InkWell(onTap: () {Navigator.pop(context);}, child: Text('완료',style: Theme.of(context).textTheme.titleMedium,)),
+          )
         ],
       ),
       content: SizedBox.shrink(),

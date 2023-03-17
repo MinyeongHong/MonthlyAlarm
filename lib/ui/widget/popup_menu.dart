@@ -12,6 +12,13 @@ class PopupMenu extends ConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     return PopupMenuButton<int>(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(22.0),
+        ),
+      ),
+      elevation: 20,
+      color: Theme.of(context).cardColor,
       icon: const Icon(
         CupertinoIcons.bars,
       ),

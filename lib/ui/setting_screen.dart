@@ -11,7 +11,6 @@ class SettingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -31,7 +30,7 @@ class SettingScreen extends ConsumerWidget {
         children: [
           ListTile(
             title: Text('언어 변경'),
-           // trailing: Text(ref.watch(userViewModelProvider).language.toString()),
+            // trailing: Text(ref.watch(userViewModelProvider).language.toString()),
             onTap: () {
               showDialog(
                 context: context,
@@ -74,13 +73,14 @@ class SettingScreen extends ConsumerWidget {
           Consumer(builder: (context, ref, child) {
             return ListTile(
               title: Text('테마 변경'),
-              trailing:Text(ref.watch(settingViewModelProvider).mode.toString()),
+              trailing: Text(
+                  ref.watch(settingViewModelProvider).mode!.toStringTheme(),
+                  style: Theme.of(context).textTheme.bodySmall),
               onTap: () async {
                 await showDialog<void>(
-                  barrierColor: Colors.black26,
-                  context: context,
-                  builder: (context) => SettingModePopUp()
-                );
+                    barrierColor: Colors.black26,
+                    context: context,
+                    builder: (context) => SettingModePopUp());
               },
             );
           }),

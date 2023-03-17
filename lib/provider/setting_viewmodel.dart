@@ -67,3 +67,11 @@ class SettingViewModel extends _$SettingViewModel {
 class ThemeSettings with _$ThemeSettings {
   const factory ThemeSettings({ThemeMode? mode, AppLanguage? language}) = _ThemeSettings;
 }
+
+extension ThemeString on ThemeMode {
+   String toStringTheme() {
+     if(this == ThemeMode.system) return '시스템';
+     else if(this == ThemeMode.light) return '라이트';
+     else return '다크';
+  }
+}

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -61,11 +63,51 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                   Icons.check,
                 ),
                 onPressed: () async {
-                  await vm.saveText(
-                      titleController.text, contentController.text);
-                  await vm.save();
-                  await listVm.loadAll();
-                  Navigator.pop(context);
+                  var result = await showDialog<bool>(
+                      barrierDismissible: true,
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                            title: Text('알람 저장'),
+                            content: Text('알람을 저장시겠습니까?'),
+                            actions: <Widget>[
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  TextButton(
+                                    child: Text(
+                                      '취소',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium,
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pop(false); // 다이얼로그 닫기
+                                    },
+                                  ),
+                                  TextButton(
+                                    child: Text(
+                                      '확인',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium,
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pop(true); // 다이얼로그 닫기
+                                    },
+                                  ),
+                                ],
+                              )
+                            ],
+                          ));
+
+                  if (result == true) {
+                    await vm.save(titleController.text, contentController.text);
+                    await listVm.loadAll();
+                    Navigator.pop(context);
+                  }
                 },
               )
             ]),
@@ -94,19 +136,21 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                           hintText: 'Title',
                         ),
                       )
-                    : Material(
-                        borderRadius: BorderRadius.circular(22),
-                        elevation: 5,
-                        child: CustomTextField(
-                          controller: titleController,
-                          hintText: 'Title',
+                    : Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 1.0),
+                        child: Material(
+                          borderRadius: BorderRadius.circular(22),
+                          elevation: 5,
+                          child: CustomTextField(
+                            controller: titleController,
+                            hintText: 'Title',
+                          ),
                         ),
                       ),
                 const SizedBox(
                   height: 20,
                 ),
                 theme.brightness == Brightness.dark
-
                     ? Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(22),
@@ -124,14 +168,17 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                           hintText: 'Content',
                         ),
                       )
-                    : Material(
-                        borderRadius: BorderRadius.circular(22),
-                        elevation: 5,
-                        child: CustomTextField(
-                          controller: contentController,
-                          hintText: 'Content',
+                    : Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 1.0),
+                      child: Material(
+                          borderRadius: BorderRadius.circular(22),
+                          elevation: 5,
+                          child: CustomTextField(
+                            controller: contentController,
+                            hintText: 'Content',
+                          ),
                         ),
-                      ),
+                    ),
                 _title('날짜 설정'),
                 SizedBox(
                   child: Column(
@@ -164,7 +211,7 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                           vm.selectDate(DateTime.now().day);
 
                           var result = await showCupertinoModalPopup<int?>(
-                              barrierDismissible: true,
+                              barrierDismissible: false,
                               context: context,
                               builder: (BuildContext context) =>
                                   NumberPicker(vm: vm));
@@ -180,7 +227,10 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                 ),
                 _title('시간 설정'),
                 SizedBox(
-                  child: TimePicker(vm: vm,theme: theme,),
+                  child: TimePicker(
+                    vm: vm,
+                    theme: theme,
+                  ),
                 ),
                 _title('미리 알림'),
                 SizedBox(
@@ -210,6 +260,9 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                     ],
                   ),
                 ),
+                SizedBox(
+                  height: 32,
+                )
               ],
             ),
           ),
@@ -221,9 +274,9 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
   Padding _title(String title) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 16),
-      child: AutoSizeText(
+      child: Text(
         title,
-        maxFontSize: 18,
+        style: Theme.of(context).textTheme.titleMedium,
       ),
     );
   }

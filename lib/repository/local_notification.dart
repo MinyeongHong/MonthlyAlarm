@@ -4,8 +4,9 @@ import 'package:timezone/timezone.dart' as tz;
 
 import '../data/alarm.dart';
 
-class LocalNotification {
-  LocalNotification._();
+//TODO refactoring here
+class LocalNotificationRepository {
+  LocalNotificationRepository._();
 
   static final FlutterLocalNotificationsPlugin
       _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -57,7 +58,7 @@ class LocalNotification {
     );
 
     await _flutterLocalNotificationsPlugin.show(
-        0, "plain title", "plain body", platformChannelSpecifics,
+        0, "Monthly", "새 알람 D-1", platformChannelSpecifics,
         payload: "item x");
   }
 
@@ -89,14 +90,6 @@ class LocalNotification {
       ),
     );
 
-    tz.TZDateTime scheduledDaily(Time alarmTime) {
-      final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
-      tz.TZDateTime scheduledDate = tz.TZDateTime(
-          tz.local, now.year, now.month, now.day, alarmTime.hour, alarmTime.minute);
-      scheduledDate = scheduledDate.add(const Duration(days: 1));
-      return scheduledDate;
-    }
-
     await _flutterLocalNotificationsPlugin.zonedSchedule(
       alarm.alarmId.toIntUid(), // 알림 ID를 int형으로 변환
       alarm.title, // 알림 제목
@@ -109,6 +102,51 @@ class LocalNotification {
       payload: "item x",
       matchDateTimeComponents: DateTimeComponents.dayOfMonthAndTime,
     );
+
+    if(alarm.bfOneDayOn){
+      await _flutterLocalNotificationsPlugin.zonedSchedule(
+        alarm.alarmId.toIntUid(), // 알림 ID를 int형으로 변환
+        alarm.title, // 알림 제목
+        alarm.content, // 알림 본문
+        tz.TZDateTime.from(scheduledTime.subtract(const Duration(days: 1)), tz.local), // 알림 예약 시간
+        platformChannelSpecifics,
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+        UILocalNotificationDateInterpretation.absoluteTime,
+        payload: "item x",
+        matchDateTimeComponents: DateTimeComponents.dayOfMonthAndTime,
+      );
+    }
+
+    if(alarm.bfThreeDayOn){
+      await _flutterLocalNotificationsPlugin.zonedSchedule(
+        alarm.alarmId.toIntUid(), // 알림 ID를 int형으로 변환
+        alarm.title, // 알림 제목
+        alarm.content, // 알림 본문
+        tz.TZDateTime.from(scheduledTime.subtract(const Duration(days: 3)), tz.local), // 알림 예약 시간
+        platformChannelSpecifics,
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+        UILocalNotificationDateInterpretation.absoluteTime,
+        payload: "item x",
+        matchDateTimeComponents: DateTimeComponents.dayOfMonthAndTime,
+      );
+    }
+
+    if(alarm.bfOneWeekOn){
+      await _flutterLocalNotificationsPlugin.zonedSchedule(
+        alarm.alarmId.toIntUid(), // 알림 ID를 int형으로 변환
+        alarm.title, // 알림 제목
+        alarm.content, // 알림 본문
+        tz.TZDateTime.from(scheduledTime.subtract(const Duration(days: 7)), tz.local), // 알림 예약 시간
+        platformChannelSpecifics,
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+        UILocalNotificationDateInterpretation.absoluteTime,
+        payload: "item x",
+        matchDateTimeComponents: DateTimeComponents.dayOfMonthAndTime,
+      );
+    }
   }
 
   static Future<void> offNotification(String alarmId) async {
