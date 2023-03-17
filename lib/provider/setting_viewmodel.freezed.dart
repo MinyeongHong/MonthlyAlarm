@@ -17,7 +17,6 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ThemeSettings {
   ThemeMode? get mode => throw _privateConstructorUsedError;
-  AppLanguage? get language => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ThemeSettingsCopyWith<ThemeSettings> get copyWith =>
@@ -30,7 +29,7 @@ abstract class $ThemeSettingsCopyWith<$Res> {
           ThemeSettings value, $Res Function(ThemeSettings) then) =
       _$ThemeSettingsCopyWithImpl<$Res, ThemeSettings>;
   @useResult
-  $Res call({ThemeMode? mode, AppLanguage? language});
+  $Res call({ThemeMode? mode});
 }
 
 /// @nodoc
@@ -47,17 +46,12 @@ class _$ThemeSettingsCopyWithImpl<$Res, $Val extends ThemeSettings>
   @override
   $Res call({
     Object? mode = freezed,
-    Object? language = freezed,
   }) {
     return _then(_value.copyWith(
       mode: freezed == mode
           ? _value.mode
           : mode // ignore: cast_nullable_to_non_nullable
               as ThemeMode?,
-      language: freezed == language
-          ? _value.language
-          : language // ignore: cast_nullable_to_non_nullable
-              as AppLanguage?,
     ) as $Val);
   }
 }
@@ -70,7 +64,7 @@ abstract class _$$_ThemeSettingsCopyWith<$Res>
       __$$_ThemeSettingsCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ThemeMode? mode, AppLanguage? language});
+  $Res call({ThemeMode? mode});
 }
 
 /// @nodoc
@@ -85,17 +79,12 @@ class __$$_ThemeSettingsCopyWithImpl<$Res>
   @override
   $Res call({
     Object? mode = freezed,
-    Object? language = freezed,
   }) {
     return _then(_$_ThemeSettings(
       mode: freezed == mode
           ? _value.mode
           : mode // ignore: cast_nullable_to_non_nullable
               as ThemeMode?,
-      language: freezed == language
-          ? _value.language
-          : language // ignore: cast_nullable_to_non_nullable
-              as AppLanguage?,
     ));
   }
 }
@@ -103,16 +92,14 @@ class __$$_ThemeSettingsCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_ThemeSettings implements _ThemeSettings {
-  const _$_ThemeSettings({this.mode, this.language});
+  const _$_ThemeSettings({this.mode});
 
   @override
   final ThemeMode? mode;
-  @override
-  final AppLanguage? language;
 
   @override
   String toString() {
-    return 'ThemeSettings(mode: $mode, language: $language)';
+    return 'ThemeSettings(mode: $mode)';
   }
 
   @override
@@ -120,13 +107,11 @@ class _$_ThemeSettings implements _ThemeSettings {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ThemeSettings &&
-            (identical(other.mode, mode) || other.mode == mode) &&
-            (identical(other.language, language) ||
-                other.language == language));
+            (identical(other.mode, mode) || other.mode == mode));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, mode, language);
+  int get hashCode => Object.hash(runtimeType, mode);
 
   @JsonKey(ignore: true)
   @override
@@ -136,13 +121,10 @@ class _$_ThemeSettings implements _ThemeSettings {
 }
 
 abstract class _ThemeSettings implements ThemeSettings {
-  const factory _ThemeSettings(
-      {final ThemeMode? mode, final AppLanguage? language}) = _$_ThemeSettings;
+  const factory _ThemeSettings({final ThemeMode? mode}) = _$_ThemeSettings;
 
   @override
   ThemeMode? get mode;
-  @override
-  AppLanguage? get language;
   @override
   @JsonKey(ignore: true)
   _$$_ThemeSettingsCopyWith<_$_ThemeSettings> get copyWith =>

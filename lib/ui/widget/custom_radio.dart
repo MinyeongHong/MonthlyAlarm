@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:monthly_alarm_app/provider/alarm_detail_viewmodel.dart';
 
@@ -116,10 +117,11 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                         ),
                         if (widget.isOn && widget.isCustom)
                           AutoSizeText(
-                            '매월 ${widget.day}일   ',
+              "EveryCustom".tr(args:[widget.day.toString()]),
                             style: TextStyle(color: widget.theme.primaryColor),
                             maxFontSize: 12,
                           ),
+                        SizedBox(width: 5,)
                       ],
                     ),
                   ),
@@ -199,7 +201,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                         ),
                         if (widget.isOn && widget.isCustom)
                           AutoSizeText(
-                            '매월 ${widget.day}일   ',
+                            "EveryCustom".tr(args:[widget.day.toString()]),
                             style: TextStyle(color: widget.theme.primaryColor),
                             maxFontSize: 12,
                           ),

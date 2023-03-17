@@ -1,20 +1,9 @@
 import 'dart:core';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:uuid/uuid.dart';
 
 part 'alarm.g.dart';
-
-enum AppLanguage {
-  system,
-  ko,
-  en,
-  es,
-  zh,
-  ja,
-}
 
 enum AlarmDate { first, last, custom }
 

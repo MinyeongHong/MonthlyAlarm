@@ -29,7 +29,7 @@ class _SystemHash {
   }
 }
 
-String _$SettingViewModelHash() => r'46341559f91b84cd0934a7e97403ddbc4d0780df';
+String _$SettingViewModelHash() => r'2f93ab26da80f010755981e2a074128df1c1269c';
 
 /// See also [SettingViewModel].
 final settingViewModelProvider =

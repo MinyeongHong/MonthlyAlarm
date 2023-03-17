@@ -30,7 +30,7 @@ class _SystemHash {
 }
 
 String _$AlarmListViewModelHash() =>
-    r'c1a933d2307bc0dc16820023591272c36b99cbe6';
+    r'33dbad00e8d329c3f8975d6e8532a2bb86c0c8e7';
 
 /// See also [AlarmListViewModel].
 final alarmListViewModelProvider =

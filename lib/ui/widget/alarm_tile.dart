@@ -1,9 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:monthly_alarm_app/app_theme.dart';
-import 'package:monthly_alarm_app/ui/widget/%E3%85%8A%E3%85%8A%E3%85%8A.dart';
 
 import '../../provider/alarm_list_viewmodel.dart';
 
@@ -99,8 +99,8 @@ class AlarmTile extends ConsumerWidget {
                                     ),
                                     Text(
                                       alarmState.date == -1
-                                          ? '매월 말일'
-                                          : '매월 ${alarmState.date}일',
+                                          ? tr("Last")
+                                          : "EveryCustom".tr(args:[alarmState.date.toString()]),
                                       style: AppTheme.sub1.apply(
                                           color: alarmState.isOn
                                               ? AppTheme.defaultTextDark
@@ -180,8 +180,9 @@ class AlarmTile extends ConsumerWidget {
                                   ),
                                   Text(
                                     alarmState.date == -1
-                                        ? '매월 말일'
-                                        : '매월 ${alarmState.date}일',
+                                        ? tr("Last")
+                                        : "EveryCustom".tr(args:[alarmState.date.toString()]),
+                                    //'매월 ${alarmState.date}일',
                                     style: AppTheme.sub1.apply(
                                         color: alarmState.isOn
                                             ? AppTheme.defaultTextLight

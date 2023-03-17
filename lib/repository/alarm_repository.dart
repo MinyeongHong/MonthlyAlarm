@@ -1,6 +1,5 @@
 import 'package:hive/hive.dart';
 import 'package:monthly_alarm_app/string.dart';
-import 'package:uuid/uuid.dart';
 
 import '../data/alarm.dart';
 

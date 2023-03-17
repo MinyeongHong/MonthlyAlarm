@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -54,8 +55,8 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
             leading: const CloseButton(),
-            title: const Text(
-              'Add Alarm',
+            title: Text(
+              tr('AddAlarm'),
             ),
             actions: [
               IconButton(
@@ -67,8 +68,8 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                       barrierDismissible: true,
                       context: context,
                       builder: (BuildContext context) => AlertDialog(
-                            title: Text('알람 저장'),
-                            content: Text('알람을 저장시겠습니까?'),
+                            title: Text(tr('Save')),
+                            content: Text(tr('SaveAlert')),
                             actions: <Widget>[
                               Row(
                                 mainAxisAlignment:
@@ -76,7 +77,7 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                                 children: [
                                   TextButton(
                                     child: Text(
-                                      '취소',
+                                      tr('Cancel'),
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium,
@@ -88,7 +89,7 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                                   ),
                                   TextButton(
                                     child: Text(
-                                      '확인',
+                                      tr('Save'),
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium,
@@ -117,7 +118,7 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _title('알람 설정'),
+                _title(tr('AlarmSetting')),
                 theme.brightness == Brightness.dark
                     ? Container(
                         decoration: BoxDecoration(
@@ -179,12 +180,12 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                           ),
                         ),
                     ),
-                _title('날짜 설정'),
+                _title(tr('DateSetting')),
                 SizedBox(
                   child: Column(
                     children: [
                       CustomRadioButton(
-                        title: '매월 1일',
+                        title: tr('First'),
                         isOn: vm.dateType == AlarmDate.first,
                         onTap: () {
                           FocusScope.of(context).unfocus();
@@ -194,7 +195,7 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                         theme: theme,
                       ),
                       CustomRadioButton(
-                        title: '매월 말일',
+                        title: tr('Last'),
                         isOn: vm.dateType == AlarmDate.last,
                         onTap: () {
                           FocusScope.of(context).unfocus();
@@ -204,7 +205,7 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                         theme: theme,
                       ),
                       CustomRadioButton(
-                        title: '직접 지정',
+                        title:tr('Custom'),
                         isOn: vm.dateType == AlarmDate.custom,
                         onTap: () async {
                           FocusScope.of(context).unfocus();
@@ -225,21 +226,21 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                     ],
                   ),
                 ),
-                _title('시간 설정'),
+                _title(tr('TimeSetting')),
                 SizedBox(
                   child: TimePicker(
                     vm: vm,
                     theme: theme,
                   ),
                 ),
-                _title('미리 알림'),
+                _title(tr('AdvanceAlarm')),
                 SizedBox(
                   child: Column(
                     children: [
                       OptionField(
                         onTap: () => vm.dayBeforeOneDayOn(),
                         isOn: alarm.bfOneDayOn,
-                        title: '하루 전 알림',
+                        title: tr('Before1'),
                       ),
                       const SizedBox(
                         height: 10,
@@ -247,7 +248,7 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                       OptionField(
                         onTap: () => vm.dayBeforeThreeDayOn(),
                         isOn: alarm.bfThreeDayOn,
-                        title: '3일 전 알림',
+                        title: tr('Before3'),
                       ),
                       const SizedBox(
                         height: 10,
@@ -255,7 +256,7 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                       OptionField(
                         onTap: () => vm.dayBeforeOneWeekOn(),
                         isOn: alarm.bfOneWeekOn,
-                        title: '7일 전 알림',
+                        title: tr('Before7'),
                       ),
                     ],
                   ),

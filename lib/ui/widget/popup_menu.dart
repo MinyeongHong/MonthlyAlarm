@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -31,13 +32,13 @@ class PopupMenu extends ConsumerWidget {
         }
       },
       itemBuilder: (BuildContext context) => <PopupMenuEntry<int>>[
-        const PopupMenuItem<int>(
+        PopupMenuItem<int>(
           value: 1,
-          child: Text('편집'),
+          child: Text(tr('Edit')),
         ),
         PopupMenuItem<int>(
           value: 2,
-          child: Text('설정'),
+          child: Text(tr('Settings')),
         ),
       ],
     );

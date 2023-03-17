@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -48,16 +49,17 @@ class _NumberPickerState extends State<NumberPicker> {
                     children: [
                   TextButton(onPressed: (){
                     Navigator.pop(context);
-                  }, child: Text('취소')),
+                  }, child: Text(tr('Cancel'))),
                   Material(
                     color: AppTheme.transparent,
                     child: Text(
-                      '매월 ${selectedDay}일',style: AppTheme.body1,
+                      tr('DateSetting'),
+                      style: AppTheme.body1,
                     ),
                   ),
                   TextButton(onPressed: (){
                     Navigator.pop(context,selectedDay);
-                  }, child: Text('확인')),
+                  }, child: Text(tr('Okay'))),
                 ]),
                 Expanded(
                   child: CupertinoPicker(
@@ -70,18 +72,21 @@ class _NumberPickerState extends State<NumberPicker> {
                     },
                     children: List<Widget>.generate(
                         31,
-                        (int index) => Center(
-                              child: Text('${index + 1}일',style: Theme.of(context).textTheme.bodyLarge,),
-                            )),
+                        (int index) =>
+                            Center(
+                              child: Text(
+                                'Date'.plural(index + 1),
+                                style: Theme.of(context).textTheme.bodyLarge,
+                            ))
                   ),
-                ),
+                ),),
                 if (selectedDay > 28)
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 16.0),
                     child: Material(
                       color: AppTheme.transparent,
                       child: Text(
-                        '${selectedDay}일이 없는 달에는 알람이 울리지 않습니다.',
+                        "NoAlarmAlert".tr(args:[selectedDay.toString()]),
                         style: AppTheme.sub1.apply(color:Theme.of(context).textTheme.bodySmall!.color),
                       ),
                     ),

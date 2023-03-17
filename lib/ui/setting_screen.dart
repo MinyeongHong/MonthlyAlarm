@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:monthly_alarm_app/ui/widget/setting_popup.dart';
+import 'package:monthly_alarm_app/ui/widget/language_selector.dart';
+import 'package:monthly_alarm_app/ui/widget/mode_selector.dart';
 
 import '../app_theme.dart';
 import '../provider/setting_viewmodel.dart';
@@ -16,7 +18,7 @@ class SettingScreen extends ConsumerWidget {
         automaticallyImplyLeading: false,
         elevation: 0,
         title: Text(
-          "설정",
+          tr('Settings'),
           //style: TextStyle(color: Colors.grey[800]),
         ),
         leading: IconButton(
@@ -29,50 +31,19 @@ class SettingScreen extends ConsumerWidget {
       body: Column(
         children: [
           ListTile(
-            title: Text('언어 변경'),
-            // trailing: Text(ref.watch(userViewModelProvider).language.toString()),
+            title: Text(tr('Language')),
+             trailing: Text(context.locale.toString().toLangName(),style: Theme.of(context).textTheme.bodySmall,),
             onTap: () {
               showDialog(
                 context: context,
-                builder: (ctx) => AlertDialog(
-                  title: Text("Show Alert Dialog Box"),
-                  content: Column(
-                    children: [
-                      Text("You have raised a Alert Dialog Box"),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(ctx).pop();
-                        },
-                        child: Text("Ok"),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(ctx).pop();
-                        },
-                        child: Text("Ok"),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(ctx).pop();
-                        },
-                        child: Text("Ok"),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(ctx).pop();
-                        },
-                        child: Text("Ok"),
-                      ),
-                    ],
-                  ),
-                ),
+                builder: (ctx) => LanguageSelector(),
               );
             },
           ),
           Divider(),
           Consumer(builder: (context, ref, child) {
             return ListTile(
-              title: Text('테마 변경'),
+              title: Text(tr('Theme')),
               trailing: Text(
                   ref.watch(settingViewModelProvider).mode!.toStringTheme(),
                   style: Theme.of(context).textTheme.bodySmall),
@@ -80,23 +51,24 @@ class SettingScreen extends ConsumerWidget {
                 await showDialog<void>(
                     barrierColor: Colors.black26,
                     context: context,
-                    builder: (context) => SettingModePopUp());
+                    builder: (context) =>
+                        ModeSelector());
               },
             );
           }),
           Divider(),
           ListTile(
-            title: Text('서비스 이용약관'),
+            title: Text(tr('ServiceTerms')),
             onTap: () {},
           ),
           Divider(),
           ListTile(
-            title: Text('개인정보 이용방침'),
+            title: Text(tr('PrivacyPolicy')),
             onTap: () {},
           ),
           Divider(),
           ListTile(
-            title: Text('오픈소스 라이센스'),
+            title: Text(tr('OpenSourceLicenses')),
             onTap: () {},
           ),
         ],

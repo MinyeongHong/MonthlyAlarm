@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
@@ -5,11 +6,9 @@ import 'package:monthly_alarm_app/repository/setting_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../data/alarm.dart';
-
 part 'setting_viewmodel.freezed.dart';
-part 'setting_viewmodel.g.dart';
 
+part 'setting_viewmodel.g.dart';
 
 @riverpod
 class SettingViewModel extends _$SettingViewModel {
@@ -19,59 +18,51 @@ class SettingViewModel extends _$SettingViewModel {
 
   @override
   ThemeSettings build() {
+
     return ThemeSettings(
       mode: _repo.prefsAppTheme ?? ThemeMode.system,
-      language: AppLanguage.system,
     );
   }
 
-
-  // Future<void> init() async{
-  //   await _repo.init();
-  //   _repo.getTheme();
-  // }
-
- // void getTheme() {
- //   _repo.getTheme();
- //
- //   //var mode = SettingRepository().getTheme();
- //   // state = state.copyWith(mode: mode);
- //  }
-
-  Future<void> setDarkTheme() async{
+  Future<void> setDarkTheme() async {
     state = state.copyWith(mode: ThemeMode.dark);
-  await _repo.setDarkTheme();
+    await _repo.setDarkTheme();
   }
 
-  Future<void> setLightTheme() async{
+  Future<void> setLightTheme() async {
     state = state.copyWith(mode: ThemeMode.light);
-   await  _repo.setLightTheme();
+    await _repo.setLightTheme();
   }
 
-  Future<void> setSystemTheme() async{
+  Future<void> setSystemTheme() async {
     state = state.copyWith(mode: ThemeMode.system);
-    await _repo.setSystemLanguage();
+    await _repo.setSystemTheme();
   }
 
-  void setLanguage(AppLanguage newLang) {
-    state = state.copyWith(language:newLang);
-  }
-
-  void setSystemLanguage() {
-    state = state.copyWith(language: AppLanguage.system);
-  }
-
+  // void getLanguage(BuildContext context) {
+  //   var languageCode = context.locale.toString();
+  //   state = state.copyWith(language: languageCode.toAppLanguage());
+  // }
+  //
+  // Future<void> setLanguage(BuildContext context, AppLanguage newLan) async {
+  //   await context.setLocale(Locale(newLan.toLangName()));
+  //   state = state.copyWith(language: newLan);
+  // }
 }
 
 @freezed
 class ThemeSettings with _$ThemeSettings {
-  const factory ThemeSettings({ThemeMode? mode, AppLanguage? language}) = _ThemeSettings;
+  const factory ThemeSettings({ThemeMode? mode}) =
+      _ThemeSettings;
 }
 
 extension ThemeString on ThemeMode {
-   String toStringTheme() {
-     if(this == ThemeMode.system) return '시스템';
-     else if(this == ThemeMode.light) return '라이트';
-     else return '다크';
+  String toStringTheme() {
+    if (this == ThemeMode.system)
+      return tr('System');
+    else if (this == ThemeMode.light)
+      return tr('Light');
+    else
+      return tr('Dark');
   }
 }

@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -25,16 +26,31 @@ Future<void> initSetting() async {
   await LocalNotificationRepository.initialize();
   await Upgrader().initialize();
   initializeTimeZones();
-  print('${TimeZone.UTC}');
 }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   await initSetting();
 
   runApp(
-    const ProviderScope(
-      child: MyApp(),
+    EasyLocalization(
+      saveLocale: true,
+      useOnlyLangCode: true,
+      supportedLocales: [
+        Locale('en'),
+        Locale('ko'),
+        Locale('es'),
+        Locale('ja'),
+        Locale('zh'),
+        Locale('vi'),
+        Locale('hi')
+      ],
+      path: 'assets/translations',
+      fallbackLocale: Locale('en'),
+      child: const ProviderScope(
+        child: MyApp(),
+      ),
     ),
   );
 }
@@ -45,6 +61,9 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
       debugShowCheckedModeBanner: false,
       theme: lightTheme,
       darkTheme: darkTheme,

@@ -1,3 +1,5 @@
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -29,15 +31,24 @@ class AlarmListScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         leading:  isEditMode ?  Center(
-          child: GestureDetector(
-            onTap: (){ref
-                .read(editModeProvider.notifier)
-                .update((state) => state = !state);},
-            child: Text('취소',style: AppTheme.title2.apply(color: Theme.of(context).primaryColor),),
+          child: Padding(
+            padding: EdgeInsets.only(left: 5),
+            child: GestureDetector(
+              onTap: (){ref
+                  .read(editModeProvider.notifier)
+                  .update((state) => state = !state);},
+              child: AutoSizeText(
+                tr('Cancel'),
+               style: TextStyle(color:Theme.of(context).primaryColor),
+               // style: AppTheme.body2.apply(color: Theme.of(context).primaryColor),
+                maxLines: 1,
+                minFontSize: 8,
+              ),
+            ),
           ),
         ) : PopupMenu(),
         title: Text(
-          'Alarm',
+          tr('AppName'),
         ),
         actions: [
           isEditMode ? SizedBox.shrink() : IconButton(

@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:monthly_alarm_app/provider/alarm_detail_viewmodel.dart';
@@ -163,17 +164,17 @@ class _TimePickerState extends State<TimePicker> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     TextButton(
-                      child: Text('취소', style: AppTheme.body1),
+                      child: Text(tr('Cancel'), style: AppTheme.body1),
                       onPressed: () {
                         Navigator.pop(context);
                       },
                     ),
                     Text(
-                      '시간 설정',
+                      tr('TimeSetting'),
                       style: AppTheme.body1,
                     ),
                     TextButton(
-                      child: Text('확인', style: AppTheme.body1),
+                      child: Text(tr('Okay'), style: AppTheme.body1),
                       onPressed: () {
                         widget.vm.selectTime(selectedTime ?? initialTime);
                         Navigator.pop(context);

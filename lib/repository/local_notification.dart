@@ -106,7 +106,7 @@ class LocalNotificationRepository {
     if(alarm.bfOneDayOn){
       await _flutterLocalNotificationsPlugin.zonedSchedule(
         alarm.alarmId.toIntUid(), // 알림 ID를 int형으로 변환
-        alarm.title, // 알림 제목
+        'D-1 ${alarm.title}', // 알림 제목
         alarm.content, // 알림 본문
         tz.TZDateTime.from(scheduledTime.subtract(const Duration(days: 1)), tz.local), // 알림 예약 시간
         platformChannelSpecifics,
@@ -121,7 +121,7 @@ class LocalNotificationRepository {
     if(alarm.bfThreeDayOn){
       await _flutterLocalNotificationsPlugin.zonedSchedule(
         alarm.alarmId.toIntUid(), // 알림 ID를 int형으로 변환
-        alarm.title, // 알림 제목
+        'D-3 ${alarm.title}', // 알림 제목
         alarm.content, // 알림 본문
         tz.TZDateTime.from(scheduledTime.subtract(const Duration(days: 3)), tz.local), // 알림 예약 시간
         platformChannelSpecifics,
@@ -136,7 +136,7 @@ class LocalNotificationRepository {
     if(alarm.bfOneWeekOn){
       await _flutterLocalNotificationsPlugin.zonedSchedule(
         alarm.alarmId.toIntUid(), // 알림 ID를 int형으로 변환
-        alarm.title, // 알림 제목
+        'D-7 ${alarm.title}', // 알림 제목
         alarm.content, // 알림 본문
         tz.TZDateTime.from(scheduledTime.subtract(const Duration(days: 7)), tz.local), // 알림 예약 시간
         platformChannelSpecifics,
