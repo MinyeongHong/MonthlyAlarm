@@ -103,25 +103,22 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                                 maxFontSize: 15,
                                 style: TextStyle(
                                     color: widget.isOn
-                                        ? widget.theme
-                                            .textTheme
-                                            .bodyLarge!
-                                            .color
-                                        : widget.theme
-                                            .inputDecorationTheme
-                                            .hintStyle!
-                                            .color),
+                                        ? widget
+                                            .theme.textTheme.bodyLarge!.color
+                                        : widget.theme.inputDecorationTheme
+                                            .hintStyle!.color),
                               )),
                             ],
                           ),
                         ),
-                        if (widget.isOn && widget.isCustom)
-                          AutoSizeText(
-              "EveryCustom".tr(args:[widget.day.toString()]),
+                        Visibility(
+                          visible: widget.isOn && widget.isCustom,
+                          child: AutoSizeText(
+                            "EveryCustom".tr(args: [widget.day.toString()]),
                             style: TextStyle(color: widget.theme.primaryColor),
                             maxFontSize: 12,
                           ),
-                        SizedBox(width: 5,)
+                        ),
                       ],
                     ),
                   ),
@@ -201,7 +198,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                         ),
                         if (widget.isOn && widget.isCustom)
                           AutoSizeText(
-                            "EveryCustom".tr(args:[widget.day.toString()]),
+                            "EveryCustom".tr(args: [widget.day.toString()]),
                             style: TextStyle(color: widget.theme.primaryColor),
                             maxFontSize: 12,
                           ),

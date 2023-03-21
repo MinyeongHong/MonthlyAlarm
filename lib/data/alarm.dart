@@ -1,5 +1,4 @@
 import 'dart:core';
-import 'package:equatable/equatable.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 

@@ -92,6 +92,7 @@ class AppTheme {
 }
 
 final ThemeData lightTheme = ThemeData(
+
     dialogTheme: DialogTheme(
       backgroundColor: AppTheme.transparentBlueLight,
       elevation: 5,

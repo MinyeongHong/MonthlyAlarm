@@ -7,19 +7,11 @@ import '../data/alarm.dart';
 import '../repository/local_notification.dart';
 import '../usecase/delete_alarm.dart';
 import '../usecase/read_alarm.dart';
+import '../usecase/update_alarm.dart';
 
 part 'alarm_list_viewmodel.g.dart';
 
 final editModeProvider = StateProvider<bool>((ref) => false);
-//final menuProvider = Provider<int>((ref) => 0);
-// @riverpod
-// bool editMode(EditModeRef ref) {
-//   bool isEditMode = ref.state;
-//   print('new state ${ref.state}');
-//
-//   return isEditMode;
-//
-// }
 
 @riverpod
 int menuMode(MenuModeRef ref,int? item) {
@@ -37,6 +29,7 @@ class AlarmListViewModel extends _$AlarmListViewModel {
   LoadAlarms loadAlarms = GetIt.I.get();
   ReadAlarm readAlarm = GetIt.I.get();
   DeleteAlarm deleteAlarm = GetIt.I.get();
+  UpdateAlarm updateAlarm = GetIt.I.get();
 
   @override
   List<Alarm> build() {
@@ -47,7 +40,6 @@ class AlarmListViewModel extends _$AlarmListViewModel {
     isEditMode = !isEditMode;
   }
 
-
   Future<Alarm?> load(String id) async {
     return await readAlarm.call(id);
   }
@@ -56,10 +48,18 @@ class AlarmListViewModel extends _$AlarmListViewModel {
     state = await loadAlarms.call();
   }
 
-  void toggle(String id, bool val) {
+  Future<void> toggle(String id, bool val) async {
     state = [
       for (final e in state) e.alarmId == id ? e.copyWith(isOn: val) : e
     ];
+    await updateAlarm.call(state.firstWhere((e) => e.alarmId == id));
+
+    if (val) {
+      await LocalNotificationRepository.scheduleMonthlyNotification(state.firstWhere((e) => e.alarmId == id));
+    } else {
+      await LocalNotificationRepository.offNotification(id);
+    }
+
   }
 
   Future<void> delete(String id) async {
@@ -67,7 +67,6 @@ class AlarmListViewModel extends _$AlarmListViewModel {
       for (final e in state)
         if (e.alarmId != id) e,
     ];
-
 
     await LocalNotificationRepository.offNotification(id);
     await deleteAlarm.call(id);

@@ -134,7 +134,7 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                         ),
                         child: CustomTextField(
                           controller: titleController,
-                          hintText: 'Title',
+                          hintText: 'title',
                         ),
                       )
                     : Padding(
@@ -144,7 +144,7 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                           elevation: 5,
                           child: CustomTextField(
                             controller: titleController,
-                            hintText: 'Title',
+                            hintText: 'title',
                           ),
                         ),
                       ),
@@ -166,7 +166,7 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                         ),
                         child: CustomTextField(
                           controller: contentController,
-                          hintText: 'Content',
+                          hintText: 'content',
                         ),
                       )
                     : Padding(
@@ -176,7 +176,7 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                           elevation: 5,
                           child: CustomTextField(
                             controller: contentController,
-                            hintText: 'Content',
+                            hintText: 'content',
                           ),
                         ),
                     ),

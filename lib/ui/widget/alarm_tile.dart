@@ -34,8 +34,50 @@ class AlarmTile extends ConsumerWidget {
             duration: Duration(milliseconds: 150),
             width: isEditMode ?50 :0,
             child: IconButton(
-                onPressed: () async {
-                  await vm.delete(alarmState.alarmId);
+                onPressed: () async{
+                  var result = await showDialog<bool>(
+                      barrierDismissible: false,
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: Text(tr('Delete')),
+                        content: Text(tr('DeleteAlert')),
+                        actions: <Widget>[
+                          Row(
+                            mainAxisAlignment:
+                            MainAxisAlignment.spaceEvenly,
+                            children: [
+                              TextButton(
+                                child: Text(
+                                  tr('Cancel'),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium,
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context)
+                                      .pop(false); // 다이얼로그 닫기
+                                },
+                              ),
+                              TextButton(
+                                child: Text(
+                                  tr('Delete'),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium,
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context)
+                                      .pop(true); // 다이얼로그 닫기
+                                },
+                              ),
+                            ],
+                          )
+                        ],
+                      ));
+
+                  if (result == true) {
+                    await vm.delete(alarmState.alarmId);
+                  }
                 },
                 icon: Icon(
                   CupertinoIcons.minus_circle_fill,
@@ -46,6 +88,51 @@ class AlarmTile extends ConsumerWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 6.0),
             child: InkWell(
+              onLongPress: () async{
+                var result = await showDialog<bool>(
+                    barrierDismissible: false,
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: Text(tr('Delete')),
+                      content: Text(tr('DeleteAlert')),
+                      actions: <Widget>[
+                        Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceEvenly,
+                          children: [
+                            TextButton(
+                              child: Text(
+                                tr('Cancel'),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium,
+                              ),
+                              onPressed: () {
+                                Navigator.of(context)
+                                    .pop(false); // 다이얼로그 닫기
+                              },
+                            ),
+                            TextButton(
+                              child: Text(
+                                tr('Delete'),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium,
+                              ),
+                              onPressed: () {
+                                Navigator.of(context)
+                                    .pop(true); // 다이얼로그 닫기
+                              },
+                            ),
+                          ],
+                        )
+                      ],
+                    ));
+
+                if (result == true) {
+                  await vm.delete(alarmState.alarmId);
+                }
+              },
               onTap: onTap,
               child: theme.brightness == Brightness.dark
                   ? DecoratedBox(
@@ -105,6 +192,7 @@ class AlarmTile extends ConsumerWidget {
                                           color: alarmState.isOn
                                               ? AppTheme.defaultTextDark
                                               : AppTheme.disabledDark2),
+                                      textAlign: TextAlign.end,
                                     ),
                                     Text(
                                       DateFormat.Hm().format(alarmState.time!),

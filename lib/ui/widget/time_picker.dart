@@ -116,7 +116,7 @@ class _TimePickerState extends State<TimePicker> {
                 minFontSize: 8,
                 maxFontSize: 11,
                 style: TextStyle(
-                    color: isPM ? AppTheme.defaultTextLight : AppTheme.white),
+                    color: isPM ? Theme.of(context).textTheme.bodySmall!.color : AppTheme.white),
               ),
             ),
           ),
@@ -136,7 +136,7 @@ class _TimePickerState extends State<TimePicker> {
                 minFontSize: 8,
                 maxFontSize: 11,
                 style: TextStyle(
-                    color: isPM ? AppTheme.white : AppTheme.defaultTextLight),
+                    color: isPM ? AppTheme.white : Theme.of(context).textTheme.bodySmall!.color),
               ),
             ),
           ),
@@ -151,15 +151,25 @@ class _TimePickerState extends State<TimePicker> {
         DateTime.now().year, DateTime.now().month, DateTime.now().day, 0, 0, 0);
 
     await showCupertinoModalPopup(
+      barrierDismissible: false,
       context: context,
       builder: (BuildContext context) {
         return Container(
-          color: Colors.white,
-          height: 300.0,
+          height: MediaQuery.of(context).size.height * 0.4,
+          decoration: BoxDecoration(
+            color: Theme.of(context).dialogBackgroundColor,
+            borderRadius: BorderRadius.circular(22),
+          ),
+          margin: EdgeInsets.only(
+            right: 20,
+            left: 20,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 20,
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Material(
+                color: AppTheme.transparent,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -184,12 +194,17 @@ class _TimePickerState extends State<TimePicker> {
                 ),
               ),
               Expanded(
-                child: CupertinoDatePicker(
-                  initialDateTime: selectedTime ?? initialTime,
-                  onDateTimeChanged: (DateTime newDateTime) {
-                    selectedTime = newDateTime;
-                  },
-                  mode: CupertinoDatePickerMode.time,
+                child: CupertinoTheme(
+                  data: CupertinoThemeData(
+                    brightness: widget.theme.brightness,
+                  ),
+                  child: CupertinoDatePicker(
+                    initialDateTime: selectedTime ?? initialTime,
+                    onDateTimeChanged: (DateTime newDateTime) {
+                      selectedTime = newDateTime;
+                    },
+                    mode: CupertinoDatePickerMode.time,
+                  ),
                 ),
               ),
             ],

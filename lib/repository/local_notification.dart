@@ -13,7 +13,7 @@ class LocalNotificationRepository {
 
   static initialize() async {
     AndroidInitializationSettings initializationSettingsAndroid =
-        const AndroidInitializationSettings("mipmap/ic_launcher");
+        const AndroidInitializationSettings("mipmap/launcher_icon");
 
     DarwinInitializationSettings initializationSettingsIOS =
         const DarwinInitializationSettings(
@@ -28,7 +28,6 @@ class LocalNotificationRepository {
     );
 
     await _flutterLocalNotificationsPlugin.initialize(initializationSettings);
-
   }
 
   static void requestPermission() {
@@ -42,25 +41,30 @@ class LocalNotificationRepository {
         );
   }
 
-  static Future<void> sampleNotification() async {
-    const AndroidNotificationDetails androidPlatformChannelSpecifics =
-        AndroidNotificationDetails("channel id", "channel name",
-            channelDescription: "channel description",
-            importance: Importance.max,
-            priority: Priority.max,
-            showWhen: false);
-
-    const NotificationDetails platformChannelSpecifics = NotificationDetails(
-      android: androidPlatformChannelSpecifics,
-      iOS: DarwinNotificationDetails(
-        badgeNumber: 1,
-      ),
-    );
-
-    await _flutterLocalNotificationsPlugin.show(
-        0, "Monthly", "새 알람 D-1", platformChannelSpecifics,
-        payload: "item x");
-  }
+  // static Future<void> sampleNotification() async {
+  //   const AndroidNotificationDetails androidPlatformChannelSpecifics =
+  //       AndroidNotificationDetails("channel id", "channel name",
+  //           channelDescription: "channel description",
+  //           importance: Importance.max,
+  //           priority: Priority.max,
+  //           showWhen: true,
+  //           largeIcon: DrawableResourceAndroidBitmap('@mipmap/launcher_icon'),
+  //   );
+  //
+  //   const NotificationDetails platformChannelSpecifics = NotificationDetails(
+  //     android: androidPlatformChannelSpecifics,
+  //     iOS: DarwinNotificationDetails(
+  //       badgeNumber: 1,
+  //     ),
+  //   );
+  //
+  //   await _flutterLocalNotificationsPlugin.show(
+  //       0,
+  //       'Duesday',
+  //       "새 알람 D-1",
+  //       platformChannelSpecifics,
+  //       payload: "hellowwwww");
+  // }
 
   static Future<void> scheduleMonthlyNotification(Alarm alarm) async {
     var alarmDate = alarm.date;
@@ -81,7 +85,9 @@ class LocalNotificationRepository {
             channelDescription: "channel description",
             importance: Importance.max,
             priority: Priority.max,
-            showWhen: false);
+          showWhen: true,
+          largeIcon: DrawableResourceAndroidBitmap('@mipmap/launcher_icon'),
+        );
 
     const NotificationDetails platformChannelSpecifics = NotificationDetails(
       android: androidPlatformChannelSpecifics,
@@ -92,8 +98,9 @@ class LocalNotificationRepository {
 
     await _flutterLocalNotificationsPlugin.zonedSchedule(
       alarm.alarmId.toIntUid(), // 알림 ID를 int형으로 변환
+      'Duesday',
       alarm.title, // 알림 제목
-      alarm.content, // 알림 본문
+
       tz.TZDateTime.from(scheduledTime, tz.local), // 알림 예약 시간
       platformChannelSpecifics,
       androidAllowWhileIdle: true,
@@ -103,46 +110,51 @@ class LocalNotificationRepository {
       matchDateTimeComponents: DateTimeComponents.dayOfMonthAndTime,
     );
 
-    if(alarm.bfOneDayOn){
+    if (alarm.bfOneDayOn) {
       await _flutterLocalNotificationsPlugin.zonedSchedule(
         alarm.alarmId.toIntUid(), // 알림 ID를 int형으로 변환
+        'Duesday',
         'D-1 ${alarm.title}', // 알림 제목
-        alarm.content, // 알림 본문
-        tz.TZDateTime.from(scheduledTime.subtract(const Duration(days: 1)), tz.local), // 알림 예약 시간
+        tz.TZDateTime.from(
+            scheduledTime.subtract(const Duration(days: 1)), tz.local),
         platformChannelSpecifics,
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation:
-        UILocalNotificationDateInterpretation.absoluteTime,
+            UILocalNotificationDateInterpretation.absoluteTime,
         payload: "item x",
         matchDateTimeComponents: DateTimeComponents.dayOfMonthAndTime,
       );
     }
 
-    if(alarm.bfThreeDayOn){
+    if (alarm.bfThreeDayOn) {
       await _flutterLocalNotificationsPlugin.zonedSchedule(
         alarm.alarmId.toIntUid(), // 알림 ID를 int형으로 변환
         'D-3 ${alarm.title}', // 알림 제목
         alarm.content, // 알림 본문
-        tz.TZDateTime.from(scheduledTime.subtract(const Duration(days: 3)), tz.local), // 알림 예약 시간
+        tz.TZDateTime.from(
+            scheduledTime.subtract(const Duration(days: 3)), tz.local),
+        // 알림 예약 시간
         platformChannelSpecifics,
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation:
-        UILocalNotificationDateInterpretation.absoluteTime,
+            UILocalNotificationDateInterpretation.absoluteTime,
         payload: "item x",
         matchDateTimeComponents: DateTimeComponents.dayOfMonthAndTime,
       );
     }
 
-    if(alarm.bfOneWeekOn){
+    if (alarm.bfOneWeekOn) {
       await _flutterLocalNotificationsPlugin.zonedSchedule(
         alarm.alarmId.toIntUid(), // 알림 ID를 int형으로 변환
         'D-7 ${alarm.title}', // 알림 제목
         alarm.content, // 알림 본문
-        tz.TZDateTime.from(scheduledTime.subtract(const Duration(days: 7)), tz.local), // 알림 예약 시간
+        tz.TZDateTime.from(
+            scheduledTime.subtract(const Duration(days: 7)), tz.local),
+        // 알림 예약 시간
         platformChannelSpecifics,
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation:
-        UILocalNotificationDateInterpretation.absoluteTime,
+            UILocalNotificationDateInterpretation.absoluteTime,
         payload: "item x",
         matchDateTimeComponents: DateTimeComponents.dayOfMonthAndTime,
       );

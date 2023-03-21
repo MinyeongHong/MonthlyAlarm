@@ -164,7 +164,7 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
                         ),
                         child: CustomTextField(
                           controller: contentController,
-                          hintText: 'Content',
+                          hintText: 'content',
                         ),
                       )
                     : Material(
@@ -172,7 +172,7 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
                         elevation: 5,
                         child: CustomTextField(
                           controller: contentController,
-                          hintText: 'Content',
+                          hintText: 'content',
                         ),
                       ),
                 _title(tr('DateSetting')),

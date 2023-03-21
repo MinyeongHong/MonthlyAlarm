@@ -69,7 +69,9 @@ class SettingScreen extends ConsumerWidget {
           Divider(),
           ListTile(
             title: Text(tr('OpenSourceLicenses')),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (_) => LicensePage()));
+            },
           ),
         ],
       ),
