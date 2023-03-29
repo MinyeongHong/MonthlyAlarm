@@ -14,7 +14,7 @@ part 'alarm_list_viewmodel.g.dart';
 final editModeProvider = StateProvider<bool>((ref) => false);
 
 @riverpod
-int menuMode(MenuModeRef ref,int? item) {
+int menuMode(MenuModeRef ref, int? item) {
   return item ?? 0;
 }
 
@@ -45,7 +45,9 @@ class AlarmListViewModel extends _$AlarmListViewModel {
   }
 
   Future<void> loadAll() async {
+    print('load all');
     state = await loadAlarms.call();
+    await updateOnAlarm();
   }
 
   Future<void> toggle(String id, bool val) async {
@@ -55,11 +57,26 @@ class AlarmListViewModel extends _$AlarmListViewModel {
     await updateAlarm.call(state.firstWhere((e) => e.alarmId == id));
 
     if (val) {
-      await LocalNotificationRepository.scheduleMonthlyNotification(state.firstWhere((e) => e.alarmId == id));
+      await LocalNotificationRepository.scheduleMonthlyNotification(
+          state.firstWhere((e) => e.alarmId == id));
     } else {
       await LocalNotificationRepository.offNotification(id);
     }
+  }
 
+  Future<bool> updateOnAlarm() async {
+    try {
+      for (final e in state) {
+        if (e.isOn) {
+          await LocalNotificationRepository.scheduleMonthlyNotification(e);
+        }
+      }
+    } catch (e) {
+      print(e.toString());
+      return false;
+    }
+    print('success ${state.length}');
+      return true;
   }
 
   Future<void> delete(String id) async {

@@ -31,6 +31,7 @@ Future<void> initSetting() async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
+  await Upgrader.clearSavedSettings();
   await initSetting();
 
   runApp(

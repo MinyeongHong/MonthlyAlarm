@@ -56,16 +56,16 @@ class SettingScreen extends ConsumerWidget {
               },
             );
           }),
-          Divider(),
-          ListTile(
-            title: Text(tr('ServiceTerms')),
-            onTap: () {},
-          ),
-          Divider(),
-          ListTile(
-            title: Text(tr('PrivacyPolicy')),
-            onTap: () {},
-          ),
+          // Divider(),
+          // ListTile(
+          //   title: Text(tr('ServiceTerms')),
+          //   onTap: () {},
+          // ),
+          // Divider(),
+          // ListTile(
+          //   title: Text(tr('PrivacyPolicy')),
+          //   onTap: () {},
+          // ),
           Divider(),
           ListTile(
             title: Text(tr('OpenSourceLicenses')),
