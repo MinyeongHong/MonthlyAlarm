@@ -44,9 +44,7 @@ class _AlarmListScreenState extends ConsumerState<AlarmListScreen> {
       },
       child: UpgradeAlert(
         upgrader: Upgrader(
-          debugDisplayAlways: true,
           messages: UpgraderMessages(code: context.locale.toString()),
-          minAppVersion: '1.0.0',
         ),
         child: Scaffold(
           appBar: AppBar(

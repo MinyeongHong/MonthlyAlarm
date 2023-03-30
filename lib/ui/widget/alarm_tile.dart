@@ -260,7 +260,7 @@ class AlarmTile extends ConsumerWidget {
                                           : AppTheme.disabledLight2),
                                 ),
                               ),
-                              Spacer(),
+                              //Spacer(),
                               Column(
                                 children: [
                                   SizedBox(

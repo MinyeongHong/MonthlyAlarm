@@ -130,7 +130,7 @@ class LocalNotificationRepository {
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
       payload: "item x",
-      matchDateTimeComponents: DateTimeComponents.dayOfMonthAndTime
+      matchDateTimeComponents: DateTimeComponents.dayOfMonthAndTime,
     );
 
     if (alarm.bfOneDayOn) {

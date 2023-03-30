@@ -82,11 +82,12 @@ class _NumberPickerState extends State<NumberPicker> {
                 ),),
                 if (selectedDay > 28)
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    padding: const EdgeInsets.symmetric(vertical: 10.0),
                     child: Material(
                       color: AppTheme.transparent,
                       child: Text(
                         "NoAlarmAlert".tr(args:[selectedDay.toString()]),
+                        textAlign: TextAlign.center,
                         style: AppTheme.sub1.apply(color:Theme.of(context).textTheme.bodySmall!.color),
                       ),
                     ),
