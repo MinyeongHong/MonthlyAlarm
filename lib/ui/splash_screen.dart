@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -27,10 +28,10 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
         const Duration(
           seconds: 2,
         ), () {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const AlarmListScreen()),
-        );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const AlarmListScreen()),
+      );
     });
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 700),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class AppTheme {
   const AppTheme();
@@ -92,7 +93,6 @@ class AppTheme {
 }
 
 final ThemeData lightTheme = ThemeData(
-
     dialogTheme: DialogTheme(
       backgroundColor: AppTheme.transparentBlueLight,
       elevation: 5,
@@ -104,6 +104,11 @@ final ThemeData lightTheme = ThemeData(
     backgroundColor: AppTheme.backgroundBlueLight,
     shadowColor: AppTheme.backgroundBlueLight,
     appBarTheme: AppBarTheme(
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarColor: AppTheme.transparent, // <-- SEE HERE
+        statusBarIconBrightness: Brightness.dark, //<-- For Android SEE HERE (dark icons)
+        statusBarBrightness: Brightness.light, //<-- For iOS SEE HERE (dark icons)
+      ),
       color: AppTheme.transparent,
       centerTitle: true,
       elevation: 0.0,
@@ -156,6 +161,11 @@ final ThemeData darkTheme = ThemeData(
     shadowColor: AppTheme.backgroundBlueDark,
     dialogBackgroundColor: AppTheme.transparentBlueDark,
     appBarTheme: AppBarTheme(
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarColor: AppTheme.transparent, // <-- SEE HERE
+        statusBarIconBrightness: Brightness.light, //<-- For Android SEE HERE (dark icons)
+        statusBarBrightness: Brightness.dark, //<-- For iOS SEE HERE (dark icons)
+      ),
       color: AppTheme.transparent,
       centerTitle: true,
       elevation: 0.0,

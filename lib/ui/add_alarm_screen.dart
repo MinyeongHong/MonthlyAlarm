@@ -112,14 +112,15 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                 },
               )
             ]),
-        body: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 5),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _title(tr('AlarmSetting')),
-                theme.brightness == Brightness.dark
+        body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _title(tr('AlarmSetting')),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: theme.brightness == Brightness.dark
                     ? Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(22),
@@ -148,10 +149,13 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                           ),
                         ),
                       ),
-                const SizedBox(
-                  height: 20,
-                ),
-                theme.brightness == Brightness.dark
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: theme.brightness == Brightness.dark
                     ? Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(22),
@@ -170,8 +174,8 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                         ),
                       )
                     : Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 1.0),
-                      child: Material(
+                        padding: const EdgeInsets.symmetric(horizontal: 1.0),
+                        child: Material(
                           borderRadius: BorderRadius.circular(22),
                           elevation: 5,
                           child: CustomTextField(
@@ -179,12 +183,18 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                             hintText: 'content',
                           ),
                         ),
-                    ),
-                _title(tr('DateSetting')),
-                SizedBox(
-                  child: Column(
-                    children: [
-                      CustomRadioButton(
+                      ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              _title(tr('DateSetting')),
+              SizedBox(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: CustomRadioButton(
                         title: tr('First'),
                         isOn: vm.dateType == AlarmDate.first,
                         onTap: () {
@@ -194,7 +204,10 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                         isCustom: false,
                         theme: theme,
                       ),
-                      CustomRadioButton(
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: CustomRadioButton(
                         title: tr('Last'),
                         isOn: vm.dateType == AlarmDate.last,
                         onTap: () {
@@ -204,8 +217,11 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                         isCustom: false,
                         theme: theme,
                       ),
-                      CustomRadioButton(
-                        title:tr('Custom'),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: CustomRadioButton(
+                        title: tr('Custom'),
                         isOn: vm.dateType == AlarmDate.custom,
                         onTap: () async {
                           FocusScope.of(context).unfocus();
@@ -223,49 +239,57 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                         day: alarm.date,
                         theme: theme,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                _title(tr('TimeSetting')),
-                SizedBox(
-                  child: TimePicker(
-                    vm: vm,
-                    theme: theme,
-                  ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              _title(tr('TimeSetting')),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: TimePicker(
+                  vm: vm,
+                  theme: theme,
                 ),
-                _title(tr('AdvanceAlarm')),
-                SizedBox(
-                  child: Column(
-                    children: [
-                      OptionField(
-                        onTap: () => vm.dayBeforeOneDayOn(),
-                        isOn: alarm.bfOneDayOn,
-                        title: tr('Before1'),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      OptionField(
-                        onTap: () => vm.dayBeforeThreeDayOn(),
-                        isOn: alarm.bfThreeDayOn,
-                        title: tr('Before3'),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      OptionField(
-                        onTap: () => vm.dayBeforeOneWeekOn(),
-                        isOn: alarm.bfOneWeekOn,
-                        title: tr('Before7'),
-                      ),
-                    ],
-                  ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              _title(tr('AdvanceAlarm')),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  children: [
+                    OptionField(
+                      onTap: () => vm.dayBeforeOneDayOn(),
+                      isOn: alarm.bfOneDayOn,
+                      title: tr('Before1'),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    OptionField(
+                      onTap: () => vm.dayBeforeThreeDayOn(),
+                      isOn: alarm.bfThreeDayOn,
+                      title: tr('Before3'),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    OptionField(
+                      onTap: () => vm.dayBeforeOneWeekOn(),
+                      isOn: alarm.bfOneWeekOn,
+                      title: tr('Before7'),
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  height: 32,
-                )
-              ],
-            ),
+              ),
+              SizedBox(
+                height: 40,
+              )
+            ],
           ),
         ),
       ),
@@ -274,7 +298,7 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
 
   Padding _title(String title) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 16),
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
       child: Text(
         title,
         style: Theme.of(context).textTheme.titleMedium,

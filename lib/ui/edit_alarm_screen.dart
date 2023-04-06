@@ -49,6 +49,7 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
         ref.read(alarmDetailViewModelProvider(widget.alarm).notifier);
     AlarmListViewModel listVm = ref.read(alarmListViewModelProvider.notifier);
     var theme = Theme.of(context);
+
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
@@ -68,8 +69,8 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
                       barrierDismissible: true,
                       context: context,
                       builder: (BuildContext context) => AlertDialog(
-                        title: Text(tr('Save')),
-                        content: Text(tr('SaveAlert')),
+                            title: Text(tr('Save')),
+                            content: Text(tr('SaveAlert')),
                             actions: <Widget>[
                               Row(
                                 mainAxisAlignment:
@@ -113,14 +114,15 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
                 },
               )
             ]),
-        body: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 0, 20, 5),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _title(tr('AlarmSetting')),
-                theme.brightness == Brightness.dark
+        body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _title(tr('AlarmSetting')),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: theme.brightness == Brightness.dark
                     ? Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(22),
@@ -146,10 +148,13 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
                           hintText: 'Title',
                         ),
                       ),
-                const SizedBox(
-                  height: 20,
-                ),
-                theme.brightness == Brightness.dark
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: theme.brightness == Brightness.dark
                     ? Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(22),
@@ -175,12 +180,15 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
                           hintText: 'content',
                         ),
                       ),
-                _title(tr('DateSetting')),
-                SizedBox(
-                  child: Column(
-                    children: [
-                      CustomRadioButton(
-                        title:tr('First'),
+              ),
+              _title(tr('DateSetting')),
+              SizedBox(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: CustomRadioButton(
+                        title: tr('First'),
                         isOn: vm.dateType == AlarmDate.first,
                         onTap: () {
                           FocusScope.of(context).unfocus();
@@ -189,8 +197,11 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
                         isCustom: false,
                         theme: theme,
                       ),
-                      CustomRadioButton(
-                        title:tr('Last'),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: CustomRadioButton(
+                        title: tr('Last'),
                         isOn: vm.dateType == AlarmDate.last,
                         onTap: () {
                           FocusScope.of(context).unfocus();
@@ -199,7 +210,10 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
                         isCustom: false,
                         theme: theme,
                       ),
-                      CustomRadioButton(
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: CustomRadioButton(
                         title: tr('Custom'),
                         isOn: vm.dateType == AlarmDate.custom,
                         onTap: () async {
@@ -218,46 +232,57 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
                         day: alarm.date,
                         theme: theme,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                _title(tr('TimeSetting')),
-                SizedBox(
-                  child: TimePicker(
-                    vm: vm,
-                    theme: theme,
-                  ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              _title(tr('TimeSetting')),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: TimePicker(
+                  vm: vm,
+                  theme: theme,
                 ),
-                _title(tr('AdvanceAlarm')),
-                SizedBox(
-                  child: Column(
-                    children: [
-                      OptionField(
-                        onTap: () => vm.dayBeforeOneDayOn(),
-                        isOn: alarm.bfOneDayOn,
-                        title: tr('Before1'),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      OptionField(
-                        onTap: () => vm.dayBeforeThreeDayOn(),
-                        isOn: alarm.bfThreeDayOn,
-                        title: tr('Before3'),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      OptionField(
-                        onTap: () => vm.dayBeforeOneWeekOn(),
-                        isOn: alarm.bfOneWeekOn,
-                        title: tr('Before7'),
-                      ),
-                    ],
-                  ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              _title(tr('AdvanceAlarm')),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  children: [
+                    OptionField(
+                      onTap: () => vm.dayBeforeOneDayOn(),
+                      isOn: alarm.bfOneDayOn,
+                      title: tr('Before1'),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    OptionField(
+                      onTap: () => vm.dayBeforeThreeDayOn(),
+                      isOn: alarm.bfThreeDayOn,
+                      title: tr('Before3'),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    OptionField(
+                      onTap: () => vm.dayBeforeOneWeekOn(),
+                      isOn: alarm.bfOneWeekOn,
+                      title: tr('Before7'),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              SizedBox(
+                height: 40,
+              )
+            ],
           ),
         ),
       ),
@@ -266,7 +291,7 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
 
   Padding _title(String title) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 16),
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
       child: AutoSizeText(
         title,
         maxFontSize: 18,

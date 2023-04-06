@@ -89,53 +89,53 @@ class _AlarmListScreenState extends ConsumerState<AlarmListScreen> {
           ),
           body: SafeArea(
             child: Center(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Column(children: [
-                  // ElevatedButton(
-                  //     onPressed: () {
-                  //       AlarmRepository().clear();
-                  //     },
-                  //     child: Text('hive DB 클리어')),
-                  // ElevatedButton(
-                  //     onPressed: () {
-                  //       //LocalNotification.requestPermission();
-                  //       LocalNotificationRepository.sampleNotification();
-                  //     },
-                  //     child: Text('click for Noti')),
-                  alarmList.isEmpty
-                      ? Padding(
-                          padding: EdgeInsets.fromLTRB(20, 150, 20, 0),
-                          child: Column(
-                            children: [
-                              Icon(
-                                Icons.edit_notifications,
-                                size: 160,
-                                color: Theme.of(context).dividerColor,
-                              ),
-                              SizedBox(
-                                height: 40,
-                              ),
-                              Text(
-                                "EmptyList".tr(),
-                                style: TextStyle(
-                                    fontSize: 17,
-                                    color: Theme.of(context)
-                                        .inputDecorationTheme
-                                        .hintStyle!
-                                        .color),
-                              ),
-                            ],
-                          ))
-                      : Expanded(
-                          child: ListView.builder(
-                              itemCount: alarmList.length,
-                              itemBuilder: (BuildContext ctx, int idx) {
-                                var alarm =
-                                    ref.watch(alarmListViewModelProvider)[idx];
+              child: Column(children: [
+                // ElevatedButton(
+                //     onPressed: () {
+                //       AlarmRepository().clear();
+                //     },
+                //     child: Text('hive DB 클리어')),
+                // ElevatedButton(
+                //     onPressed: () {
+                //       //LocalNotification.requestPermission();
+                //       LocalNotificationRepository.sampleNotification();
+                //     },
+                //     child: Text('click for Noti')),
+                alarmList.isEmpty
+                    ? Padding(
+                        padding: EdgeInsets.fromLTRB(20, 150, 20, 0),
+                        child: Column(
+                          children: [
+                            Icon(
+                              Icons.edit_notifications,
+                              size: 160,
+                              color: Theme.of(context).dividerColor,
+                            ),
+                            SizedBox(
+                              height: 40,
+                            ),
+                            Text(
+                              "EmptyList".tr(),
+                              style: TextStyle(
+                                  fontSize: 17,
+                                  color: Theme.of(context)
+                                      .inputDecorationTheme
+                                      .hintStyle!
+                                      .color),
+                            ),
+                          ],
+                        ))
+                    : Expanded(
+                        child: ListView.builder(
+                            itemCount: alarmList.length,
+                            itemBuilder: (BuildContext ctx, int idx) {
+                              var alarm =
+                                  ref.watch(alarmListViewModelProvider)[idx];
 
-                                return AnimatedSize(
-                                  duration: Duration(milliseconds: 400),
+                              return AnimatedSize(
+                                duration: Duration(milliseconds: 400),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
                                   child: AlarmTile(
                                     vm: vm,
                                     theme: Theme.of(context),
@@ -168,11 +168,11 @@ class _AlarmListScreenState extends ConsumerState<AlarmListScreen> {
                                       );
                                     },
                                   ),
-                                );
-                              }),
-                        ),
-                ]),
-              ),
+                                ),
+                              );
+                            }),
+                      ),
+              ]),
             ),
           ),
         ),
