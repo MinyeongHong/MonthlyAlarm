@@ -45,10 +45,10 @@ SPEC CHECKSUMS:
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
   flutter_local_notifications: 0c0b1ae97e741e1521e4c1629a459d04b9aec743
   package_info_plus: 6c92f08e1f853dc01228d6f553146438dafcd14e
-  path_provider_foundation: 37748e03f12783f9de2cb2c4eadfaa25fe6d4852
+  path_provider_foundation: c68054786f1b4f3343858c1e1d0caaded73f0be9
   shared_preferences_foundation: 986fc17f3d3251412d18b0265f9c64113a8c2472
   url_launcher_ios: ae1517e5e344f5544fb090b079e11f399dfbe4d2
 
-PODFILE CHECKSUM: 57c8aed26fba39d3ec9424816221f294a07c58eb
+PODFILE CHECKSUM: 30517025a2fecca2d72dac25f08abb5b9a8f1a56
 
 COCOAPODS: 1.11.3
