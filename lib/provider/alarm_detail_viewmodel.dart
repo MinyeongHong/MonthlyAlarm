@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
 import 'package:monthly_alarm_app/usecase/create_alarm.dart';
@@ -56,7 +57,7 @@ class AlarmDetailViewModel extends _$AlarmDetailViewModel {
   }
 
   Future<void> save(String title, String content) async {
-    if(title.isEmpty) title = '새 알람';
+    if(title.isEmpty) title = tr("NewAlarm");
     state = state.copyWith(title: title, content: content);
 
     await createAlarm.call(state);
