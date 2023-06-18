@@ -84,7 +84,7 @@ class LanguageSelector extends ConsumerWidget {
               },
               child: Text(
                 tr('Okay'),
-                style: Theme.of(context).textTheme.titleMedium,
+                style: Theme.of(context).textTheme.titleLarge,
               )),
         )
       ],

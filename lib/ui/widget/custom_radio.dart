@@ -183,7 +183,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                                   child: AutoSizeText(
                                 widget.title,
                                 maxFontSize: 15,
-                                style: TextStyle(
+                                style: Theme.of(context).textTheme.titleSmall!.apply(
                                     color: widget.theme.brightness ==
                                             Brightness.dark
                                         ? widget.isOn

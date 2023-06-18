@@ -30,7 +30,7 @@ class _OptionFieldState extends State<OptionField> {
               child: AutoSizeText(
                 widget.title,
                 maxFontSize: 14,
-                style: AppTheme.body1.apply(color: widget.isOn ? AppTheme.defaultBlueLight : AppTheme.disabledLight2),
+                style: Theme.of(context).textTheme.titleSmall!.apply(color: widget.isOn ? AppTheme.defaultBlueLight : AppTheme.disabledLight2),
               ),
             ),
             Icon(

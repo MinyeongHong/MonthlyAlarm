@@ -69,8 +69,8 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
                       barrierDismissible: true,
                       context: context,
                       builder: (BuildContext context) => AlertDialog(
-                            title: Text(tr('Save')),
-                            content: Text(tr('SaveAlert')),
+                            title: Text(tr('Save'),style: Theme.of(context).textTheme.titleLarge,),
+                            content: Text(tr('SaveAlert'), style:Theme.of(context).textTheme.bodyMedium,),
                             actions: <Widget>[
                               Row(
                                 mainAxisAlignment:
@@ -81,7 +81,7 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
                                       tr('Cancel'),
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyMedium,
+                                          .bodyLarge,
                                     ),
                                     onPressed: () {
                                       Navigator.of(context)
@@ -93,7 +93,7 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
                                       tr('Save'),
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyMedium,
+                                          .bodyLarge,
                                     ),
                                     onPressed: () {
                                       Navigator.of(context)
@@ -181,9 +181,13 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
                         ),
                       ),
               ),
+              const SizedBox(
+                height: 10,
+              ),
               _title(tr('DateSetting')),
               SizedBox(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -240,6 +244,7 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
                 height: 5,
               ),
               _title(tr('TimeSetting')),
+              SizedBox(height: 8,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: TimePicker(
@@ -251,6 +256,7 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
                 height: 10,
               ),
               _title(tr('AdvanceAlarm')),
+              SizedBox(height: 8,),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
@@ -291,10 +297,11 @@ class _EditAlarmScreenState extends ConsumerState<EditAlarmScreen> {
 
   Padding _title(String title) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+      padding: const EdgeInsets.fromLTRB(20,16,20,8),
       child: AutoSizeText(
         title,
         maxFontSize: 18,
+        style: Theme.of(context).textTheme.bodyLarge!.apply(fontWeightDelta: 2),
       ),
     );
   }

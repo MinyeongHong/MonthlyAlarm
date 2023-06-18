@@ -39,8 +39,8 @@ class AlarmTile extends ConsumerWidget {
                       barrierDismissible: false,
                       context: context,
                       builder: (BuildContext context) => AlertDialog(
-                        title: Text(tr('Delete')),
-                        content: Text(tr('DeleteAlert')),
+                        title: Text(tr('Delete'),style: Theme.of(context).textTheme.titleLarge,),
+                        content: Text(tr('DeleteAlert'),style: Theme.of(context).textTheme.bodyMedium,),
                         actions: <Widget>[
                           Row(
                             mainAxisAlignment:
@@ -51,7 +51,7 @@ class AlarmTile extends ConsumerWidget {
                                   tr('Cancel'),
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodyMedium,
+                                      .bodyLarge,
                                 ),
                                 onPressed: () {
                                   Navigator.of(context)
@@ -63,7 +63,7 @@ class AlarmTile extends ConsumerWidget {
                                   tr('Delete'),
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodyMedium,
+                                      .bodyLarge,
                                 ),
                                 onPressed: () {
                                   Navigator.of(context)
@@ -93,8 +93,8 @@ class AlarmTile extends ConsumerWidget {
                     barrierDismissible: false,
                     context: context,
                     builder: (BuildContext context) => AlertDialog(
-                      title: Text(tr('Delete')),
-                      content: Text(tr('DeleteAlert')),
+                      title: Text(tr('Delete'),style: Theme.of(context).textTheme.titleLarge,),
+                      content: Text(tr('DeleteAlert'),style: Theme.of(context).textTheme.bodyMedium,),
                       actions: <Widget>[
                         Row(
                           mainAxisAlignment:
@@ -105,7 +105,7 @@ class AlarmTile extends ConsumerWidget {
                                 tr('Cancel'),
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyMedium,
+                                    .bodyLarge,
                               ),
                               onPressed: () {
                                 Navigator.of(context)
@@ -117,7 +117,7 @@ class AlarmTile extends ConsumerWidget {
                                 tr('Delete'),
                                 style: Theme.of(context)
                                     .textTheme
-                                    .bodyMedium,
+                                    .bodyLarge,
                               ),
                               onPressed: () {
                                 Navigator.of(context)
@@ -188,7 +188,7 @@ class AlarmTile extends ConsumerWidget {
                                       alarmState.date == -1
                                           ? tr("Last")
                                           : "EveryCustom".tr(args:[alarmState.date.toString()]),
-                                      style: AppTheme.sub1.apply(
+                                      style: AppTheme.body2.apply(
                                           color: alarmState.isOn
                                               ? AppTheme.defaultTextDark
                                               : AppTheme.disabledDark2),
@@ -196,7 +196,7 @@ class AlarmTile extends ConsumerWidget {
                                     ),
                                     Text(
                                       DateFormat.Hm().format(alarmState.time!),
-                                      style: AppTheme.sub2.apply(
+                                      style: AppTheme.body3.apply(
                                           color: alarmState.isOn
                                               ? AppTheme.defaultTextDark
                                               : AppTheme.disabledDark2),
@@ -271,14 +271,14 @@ class AlarmTile extends ConsumerWidget {
                                         ? tr("Last")
                                         : "EveryCustom".tr(args:[alarmState.date.toString()]),
                                     //'매월 ${alarmState.date}일',
-                                    style: AppTheme.sub1.apply(
+                                    style: AppTheme.body2.apply(
                                         color: alarmState.isOn
                                             ? AppTheme.defaultTextLight
                                             : AppTheme.disabledLight2),
                                   ),
                                   Text(
                                     DateFormat.Hm().format(alarmState.time!),
-                                    style: AppTheme.sub2.apply(
+                                    style: AppTheme.body3.apply(
                                         color: alarmState.isOn
                                             ? AppTheme.defaultTextLight
                                             : AppTheme.disabledLight2),

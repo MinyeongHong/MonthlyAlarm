@@ -116,8 +116,8 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                         barrierDismissible: true,
                         context: context,
                         builder: (BuildContext context) => AlertDialog(
-                              title: Text(tr('Save')),
-                              content: Text(tr('SaveAlert')),
+                              title: Text(tr('Save'),style: Theme.of(context).textTheme.titleLarge,),
+                              content: Text(tr('SaveAlert'),style: Theme.of(context).textTheme.bodyMedium,),
                               actions: <Widget>[
                                 Row(
                                   mainAxisAlignment:
@@ -128,7 +128,7 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                                         tr('Cancel'),
                                         style: Theme.of(context)
                                             .textTheme
-                                            .bodyMedium,
+                                            .bodyLarge,
                                       ),
                                       onPressed: () {
                                         Navigator.of(context)
@@ -140,7 +140,7 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
                                         tr('Save'),
                                         style: Theme.of(context)
                                             .textTheme
-                                            .bodyMedium,
+                                            .bodyLarge,
                                       ),
                                       onPressed: () {
                                         Navigator.of(context)
@@ -341,6 +341,7 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
           ),
         ),
       ),
+    ),
     );
   }
 
