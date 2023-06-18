@@ -49,60 +49,108 @@ class _AddAlarmScreenState extends ConsumerState<AddAlarmScreen> {
     AlarmListViewModel listVm = ref.read(alarmListViewModelProvider.notifier);
     var theme = Theme.of(context);
 
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).unfocus(),
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-            leading: const CloseButton(),
-            title: Text(
-              tr('AddAlarm'),
-            ),
-            actions: [
-              IconButton(
-                icon: const Icon(
-                  Icons.check,
-                ),
-                onPressed: () async {
-                  var result = await showDialog<bool>(
-                      barrierDismissible: true,
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                            title: Text(tr('Save')),
-                            content: Text(tr('SaveAlert')),
-                            actions: <Widget>[
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  TextButton(
-                                    child: Text(
-                                      tr('Cancel'),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium,
+    return WillPopScope(
+      onWillPop: () async {
+          var result = await showDialog(
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                title: Text(tr('LeaveAlert'),style: Theme.of(context)
+                    .textTheme
+                    .titleLarge,),
+                content: Text(tr('NoSaveContent'),style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium,),
+                actions: <Widget>[
+                  Row(
+                    mainAxisAlignment:
+                    MainAxisAlignment.spaceEvenly,
+                    children: [
+                      TextButton(
+                        child: Text(
+                          tr('Cancel'),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pop(false); // 다이얼로그 닫기
+                        },
+                      ),
+                      TextButton(
+                        child: Text(
+                          tr('Leave'),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pop(true); // 다이얼로그 닫기
+                        },
+                      ),
+                    ],
+                  )
+                ],
+              ));
+
+          if(result) return true;
+          else return false;
+      },
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+              leading: const CloseButton(),
+              title: Text(
+                tr('AddAlarm'),
+              ),
+              actions: [
+                IconButton(
+                  icon: const Icon(
+                    Icons.check,
+                  ),
+                  onPressed: () async {
+                    var result = await showDialog<bool>(
+                        barrierDismissible: true,
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                              title: Text(tr('Save')),
+                              content: Text(tr('SaveAlert')),
+                              actions: <Widget>[
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    TextButton(
+                                      child: Text(
+                                        tr('Cancel'),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium,
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context)
+                                            .pop(false); // 다이얼로그 닫기
+                                      },
                                     ),
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .pop(false); // 다이얼로그 닫기
-                                    },
-                                  ),
-                                  TextButton(
-                                    child: Text(
-                                      tr('Save'),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium,
+                                    TextButton(
+                                      child: Text(
+                                        tr('Save'),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium,
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context)
+                                            .pop(true); // 다이얼로그 닫기
+                                      },
                                     ),
-                                    onPressed: () {
-                                      Navigator.of(context)
-                                          .pop(true); // 다이얼로그 닫기
-                                    },
-                                  ),
-                                ],
-                              )
-                            ],
-                          ));
+                                  ],
+                                )
+                              ],
+                            ));
 
                   if (result == true) {
                     await vm.save(titleController.text, contentController.text);
