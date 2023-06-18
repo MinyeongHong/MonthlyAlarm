@@ -13,6 +13,7 @@ class AppTheme {
 
   static const accentBlueLight = Color(0xFF007AFF);
   static const defaultBlueLight = Color(0xFF46A2FD);
+  static const defaultBlueLight2 = Color(0xFF96C7FF);
   static const lightBlueLight = Color(0xFFE8F0F8);
   static const transparentBlueLight = Color(0xFFF2F3F3);
   static const backgroundBlueLight = Color(0xFFF6F7F8);
@@ -25,11 +26,11 @@ class AppTheme {
 
   static const defaultGreyLight1 = Color(0xFFDDDDE0);
   static const defaultGreyLight2 = Color(0xFF9F9FA3);
-  static const defaultTextLight = Color(0xFF272728);
+  static const defaultTextLight = Color(0xFF474747);
 
   static const accentBlueDark = Color(0xFFCAE3FF);
   static const defaultBlueDark = Color(0xFF85C0FB);
-  static const lightBlueDark = Color(0xFF70A3DC);
+  static const lightBlueDark = Color(0xFF6681A1);
   static const transparentBlueDark = Color(0xFF506175);
   static const backgroundBlueDark = Color(0xFF55677B);
   static const inputFieldDark = Color(0xFF4A596B);
@@ -44,55 +45,44 @@ class AppTheme {
   static const defaultTextDark = Color(0xFFFFFFFF);
 
   static const title1 = TextStyle(
-    fontFamily: 'AppleSDGothicNeo',
-    fontWeight: FontWeight.w400,
-    fontSize: 18,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w200,
+    fontSize: 20,
   );
 
   static const title2 = TextStyle(
-    fontFamily: 'AppleSDGothicNeo',
-    fontWeight: FontWeight.w400,
-    fontSize: 16,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w300,
+    fontSize: 18,
   );
 
   static const title3 = TextStyle(
-    fontFamily: 'AppleSDGothicNeo',
-    fontWeight: FontWeight.w200,
-    fontSize: 15,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w300,
+    fontSize: 16,
   );
 
   static const body1 = TextStyle(
-    fontFamily: 'AppleSDGothicNeo',
-    fontWeight: FontWeight.w400,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w200,
     fontSize: 16,
   );
 
   static const body2 = TextStyle(
-    fontFamily: 'AppleSDGothicNeo',
-    fontWeight: FontWeight.w400,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w200,
     fontSize: 14,
   );
 
   static const body3 = TextStyle(
-    fontFamily: 'AppleSDGothicNeo',
-    fontWeight: FontWeight.w400,
+    fontFamily: 'Pretendard',
+    fontWeight: FontWeight.w200,
     fontSize: 12,
-  );
-
-  static const sub1 = TextStyle(
-    fontFamily: 'AppleSDGothicNeo',
-    fontWeight: FontWeight.w400,
-    fontSize: 12,
-  );
-
-  static const sub2 = TextStyle(
-    fontFamily: 'AppleSDGothicNeo',
-    fontWeight: FontWeight.w300,
-    fontSize: 10,
   );
 }
 
 final ThemeData lightTheme = ThemeData(
+    fontFamily: 'Pretendard',
     dialogTheme: DialogTheme(
       backgroundColor: AppTheme.transparentBlueLight,
       elevation: 5,
@@ -105,16 +95,18 @@ final ThemeData lightTheme = ThemeData(
     shadowColor: AppTheme.backgroundBlueLight,
     appBarTheme: AppBarTheme(
       systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: AppTheme.transparent, // <-- SEE HERE
-        statusBarIconBrightness: Brightness.dark, //<-- For Android SEE HERE (dark icons)
-        statusBarBrightness: Brightness.light, //<-- For iOS SEE HERE (dark icons)
+        statusBarColor: AppTheme.transparent,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness:
+            Brightness.light, //<-- For iOS SEE HERE (dark icons)
       ),
       color: AppTheme.transparent,
       centerTitle: true,
       elevation: 0.0,
       titleTextStyle: AppTheme.title1.apply(color: AppTheme.defaultTextLight),
-      iconTheme: const IconThemeData(
+      iconTheme: IconThemeData(
         color: AppTheme.accentBlueLight,
+         // color: Colors.amber[700]
       ),
     ),
     iconTheme: const IconThemeData(
@@ -149,6 +141,7 @@ final ThemeData lightTheme = ThemeData(
     ));
 
 final ThemeData darkTheme = ThemeData(
+    fontFamily: 'Pretendard',
     dialogTheme: DialogTheme(
       backgroundColor: AppTheme.backgroundBlueDark,
       elevation: 5,
@@ -163,15 +156,18 @@ final ThemeData darkTheme = ThemeData(
     appBarTheme: AppBarTheme(
       systemOverlayStyle: SystemUiOverlayStyle(
         statusBarColor: AppTheme.transparent, // <-- SEE HERE
-        statusBarIconBrightness: Brightness.light, //<-- For Android SEE HERE (dark icons)
-        statusBarBrightness: Brightness.dark, //<-- For iOS SEE HERE (dark icons)
+        statusBarIconBrightness:
+            Brightness.light, //<-- For Android SEE HERE (dark icons)
+        statusBarBrightness:
+            Brightness.dark, //<-- For iOS SEE HERE (dark icons)
       ),
       color: AppTheme.transparent,
       centerTitle: true,
       elevation: 0.0,
       titleTextStyle: AppTheme.title1.apply(color: AppTheme.defaultTextDark),
-      iconTheme: const IconThemeData(
+      iconTheme: IconThemeData(
         color: AppTheme.accentBlueDark,
+         // color: Colors.amber[700]
       ),
     ),
     iconTheme: const IconThemeData(
