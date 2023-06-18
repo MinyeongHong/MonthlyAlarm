@@ -88,7 +88,7 @@ class _NumberPickerState extends State<NumberPicker> {
                       child: Text(
                         "NoAlarmAlert".tr(args:[selectedDay.toString()]),
                         textAlign: TextAlign.center,
-                        style: AppTheme.sub1.apply(color:Theme.of(context).textTheme.bodySmall!.color),
+                        style: AppTheme.body3.apply(color:Theme.of(context).textTheme.bodySmall!.color),
                       ),
                     ),
                   ),

@@ -20,8 +20,8 @@ class PopupMenu extends ConsumerWidget {
       ),
       elevation: 20,
       color: Theme.of(context).cardColor,
-      icon: const Icon(
-        CupertinoIcons.bars,
+      icon: Icon(
+        CupertinoIcons.bars,color: Theme.of(context).appBarTheme.iconTheme!.color,
       ),
       onSelected: (int item) {
         if (ref.watch(menuModeProvider(item)) == 1) {
