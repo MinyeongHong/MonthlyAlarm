@@ -28,7 +28,7 @@ class ModeSelector extends ConsumerWidget {
               children: [
                 Text(
                   tr('System'),
-                  style: AppTheme.body1.apply(
+                  style: Theme.of(context).textTheme.titleMedium!.apply(
                     color: ref.watch(settingViewModelProvider).mode ==
                         ThemeMode.system
                         ? isDark
@@ -65,7 +65,7 @@ class ModeSelector extends ConsumerWidget {
               children: [
                 Text(
                   tr('Light'),
-                  style: AppTheme.body1.apply(
+                  style: Theme.of(context).textTheme.titleMedium!.apply(
                     color: ref.watch(settingViewModelProvider).mode ==
                         ThemeMode.light
                         ? isDark
@@ -102,7 +102,7 @@ class ModeSelector extends ConsumerWidget {
               children: [
                 Text(
                   tr('Dark'),
-                  style: AppTheme.title2.apply(
+                  style: Theme.of(context).textTheme.titleMedium!.apply(
                     color: ref.watch(settingViewModelProvider).mode ==
                         ThemeMode.dark
                         ? isDark
@@ -138,7 +138,7 @@ class ModeSelector extends ConsumerWidget {
             },
             child: Text(
               tr('Okay'),
-              style: Theme.of(context).textTheme.titleMedium,
+              style: Theme.of(context).textTheme.titleLarge
             )),
       )],
       actionsAlignment: MainAxisAlignment.spaceAround,
