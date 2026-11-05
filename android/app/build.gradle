@@ -30,14 +30,21 @@ android {
     // 👇 네 실제 패키지명으로 유지
     namespace "com.oyoung.duesday"
 
-    // 신식 표기
-    compileSdk 35
-    ndkVersion flutter.ndkVersion
+    compileSdk 36
+    // NDK r28 defaults to 16 KB ELF alignment (matches Flutter 3.38.8).
+    ndkVersion "28.2.13676358"
+
+    // AGP 8.5.1+ aligns uncompressed native libraries to 16 KB in APKs/AABs.
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging = false
+        }
+    }
 
     defaultConfig {
         applicationId "com.oyoung.duesday"
         minSdk flutter.minSdkVersion
-        targetSdk 35
+        targetSdk 36
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }

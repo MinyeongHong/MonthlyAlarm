@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="Duesday"
+        android:enableOnBackInvokedCallback="false"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <receiver android:name=".MonthlyAlarmReceiver" android:exported="false">
