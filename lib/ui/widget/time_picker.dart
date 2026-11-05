@@ -2,16 +2,14 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:monthly_alarm_app/app_theme.dart';
 import 'package:monthly_alarm_app/provider/alarm_detail_viewmodel.dart';
-import 'package:intl/intl.dart';
-import '../../app_theme.dart';
 
 class TimePicker extends StatefulWidget {
   final AlarmDetailViewModel vm;
   final ThemeData theme;
 
-  const TimePicker({Key? key, required this.vm, required this.theme})
-      : super(key: key);
+  const TimePicker({Key? key, required this.vm, required this.theme}) : super(key: key);
 
   @override
   State<TimePicker> createState() => _TimePickerState();
@@ -33,7 +31,7 @@ class _TimePickerState extends State<TimePicker> {
                     offset: Offset(-1, 3)),
               ],
             ),
-            child:  GestureDetector(
+            child: GestureDetector(
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 24),
                 decoration: BoxDecoration(
@@ -41,8 +39,7 @@ class _TimePickerState extends State<TimePicker> {
                   borderRadius: BorderRadius.circular(22),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 4.0, vertical: 8.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -72,8 +69,7 @@ class _TimePickerState extends State<TimePicker> {
                   borderRadius: BorderRadius.circular(22),
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 4.0, vertical: 8.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 4.0, vertical: 8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -96,8 +92,7 @@ class _TimePickerState extends State<TimePicker> {
 
   _toggle() {
     bool isPM = (widget.vm.state.time!.hour > 12 ||
-        (widget.vm.state.time!.hour == 12 &&
-            widget.vm.state.time!.minute >= 0));
+        (widget.vm.state.time!.hour == 12 && widget.vm.state.time!.minute >= 0));
 
     return Row(
       children: [
@@ -109,8 +104,7 @@ class _TimePickerState extends State<TimePicker> {
               color: isPM ? Colors.transparent : AppTheme.defaultBlueLight,
             ),
             child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6),
               child: AutoSizeText(
                 'AM',
                 minFontSize: 8,
@@ -129,8 +123,7 @@ class _TimePickerState extends State<TimePicker> {
               color: isPM ? AppTheme.defaultBlueLight : Colors.transparent,
             ),
             child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6),
               child: AutoSizeText(
                 'PM',
                 minFontSize: 8,
@@ -147,8 +140,8 @@ class _TimePickerState extends State<TimePicker> {
 
   Future<void> _selectTime(BuildContext context) async {
     DateTime? selectedTime = widget.vm.state.time;
-    final initialTime = DateTime(
-        DateTime.now().year, DateTime.now().month, DateTime.now().day, 0, 0, 0);
+    final initialTime =
+        DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day, 0, 0, 0);
 
     await showCupertinoModalPopup(
       barrierDismissible: false,

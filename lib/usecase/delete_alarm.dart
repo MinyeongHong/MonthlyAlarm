@@ -1,5 +1,4 @@
-import '../data/alarm.dart';
-import '../repository/alarm_repository.dart';
+import 'package:monthly_alarm_app/repository/alarm_repository.dart';
 
 class DeleteAlarm {
   final AlarmRepository repository;

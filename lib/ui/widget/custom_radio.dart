@@ -1,7 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:monthly_alarm_app/provider/alarm_detail_viewmodel.dart';
 
 import '../../app_theme.dart';
 
@@ -52,14 +51,12 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                 child: Container(
                   padding: const EdgeInsets.symmetric(vertical: 4.0),
                   decoration: BoxDecoration(
-                    color: widget.isOn
-                        ? AppTheme.transparent
-                        : widget.theme.scaffoldBackgroundColor,
+                    color:
+                        widget.isOn ? AppTheme.transparent : widget.theme.scaffoldBackgroundColor,
                     borderRadius: BorderRadius.circular(22),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10.0, vertical: 6.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -72,8 +69,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                             children: [
                               WidgetSpan(
                                 child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      right: 8, bottom: 2),
+                                  padding: const EdgeInsets.only(right: 8, bottom: 2),
                                   child: Container(
                                       width: 15,
                                       height: 15,
@@ -81,8 +77,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                                           shape: BoxShape.circle,
                                           color: widget.isOn
                                               ? widget.theme.primaryColor
-                                              : widget.theme
-                                                  .scaffoldBackgroundColor,
+                                              : widget.theme.scaffoldBackgroundColor,
                                           border: Border.all(
                                             color: widget.isOn
                                                 ? widget.theme.primaryColor
@@ -103,10 +98,8 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                                 maxFontSize: 15,
                                 style: TextStyle(
                                     color: widget.isOn
-                                        ? widget
-                                            .theme.textTheme.bodyLarge!.color
-                                        : widget.theme.inputDecorationTheme
-                                            .hintStyle!.color),
+                                        ? widget.theme.textTheme.bodyLarge!.color
+                                        : widget.theme.inputDecorationTheme.hintStyle!.color),
                               )),
                             ],
                           ),
@@ -127,7 +120,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
           : Material(
               color: widget.isOn
                   ? widget.theme.inputDecorationTheme.fillColor
-                  : widget.theme.backgroundColor,
+                  : AppTheme.backgroundBlueLight,
               elevation: widget.isOn ? 3.0 : 0.0,
               borderRadius: BorderRadius.circular(22),
               child: GestureDetector(
@@ -141,8 +134,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                     borderRadius: BorderRadius.circular(22),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10.0, vertical: 6.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -163,8 +155,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                                           shape: BoxShape.circle,
                                           color: widget.isOn
                                               ? widget.theme.primaryColor
-                                              : widget.theme
-                                                  .scaffoldBackgroundColor,
+                                              : widget.theme.scaffoldBackgroundColor,
                                           border: Border.all(
                                             color: widget.isOn
                                                 ? widget.theme.primaryColor
@@ -184,8 +175,7 @@ class _CustomRadioButtonState extends State<CustomRadioButton> {
                                 widget.title,
                                 maxFontSize: 15,
                                 style: Theme.of(context).textTheme.titleSmall!.apply(
-                                    color: widget.theme.brightness ==
-                                            Brightness.dark
+                                    color: widget.theme.brightness == Brightness.dark
                                         ? widget.isOn
                                             ? AppTheme.defaultTextDark
                                             : AppTheme.defaultGreyDark2

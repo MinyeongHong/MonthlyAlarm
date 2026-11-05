@@ -2,9 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../app_theme.dart';
-import '../../provider/setting_viewmodel.dart';
+import 'package:monthly_alarm_app/app_theme.dart';
 
 class LanguageSelector extends ConsumerWidget {
   const LanguageSelector({Key? key}) : super(key: key);
@@ -46,8 +44,7 @@ class LanguageSelector extends ConsumerWidget {
                     Text(
                       appLanguages[index].toLangName(),
                       style: AppTheme.body1.apply(
-                        color: context.locale.toString() ==
-                                appLanguages[index]
+                        color: context.locale.toString() == appLanguages[index]
                             ? isDark
                                 ? AppTheme.defaultBlueDark
                                 : AppTheme.defaultBlueLight
@@ -58,8 +55,7 @@ class LanguageSelector extends ConsumerWidget {
                     ),
                     Icon(
                       CupertinoIcons.checkmark_alt,
-                      color: context.locale.toString() ==
-                              appLanguages[index]
+                      color: context.locale.toString() == appLanguages[index]
                           ? isDark
                               ? AppTheme.defaultBlueDark
                               : AppTheme.defaultBlueLight

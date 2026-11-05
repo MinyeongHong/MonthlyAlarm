@@ -28,6 +28,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
         const Duration(
           seconds: 2,
         ), () {
+      if (!mounted) return;
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const AlarmListScreen()),

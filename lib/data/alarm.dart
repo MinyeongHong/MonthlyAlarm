@@ -1,6 +1,5 @@
 import 'dart:core';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:intl/intl.dart';
 
 part 'alarm.g.dart';
 
@@ -80,8 +79,16 @@ class Alarm extends HiveObject {
           bfThreeDayOn: bfThreeDayOn ?? this.bfThreeDayOn,
           bfOneWeekOn: bfOneWeekOn ?? this.bfOneWeekOn);
 
-  static Alarm emptyAlarm() => Alarm(
-      alarmId: DateFormat('MMdHms').format(DateTime.now()),
+  static Alarm emptyAlarm() {
+    var id = DateTime.now().millisecondsSinceEpoch % 0x7fffffff;
+    if (Hive.isBoxOpen('alarm')) {
+      final box = Hive.box<Alarm>('alarm');
+      while (box.containsKey(id.toString())) {
+        id = (id + 1) % 0x7fffffff;
+      }
+    }
+    return Alarm(
+      alarmId: id.toString(),
       title: '',
       content: '',
       isOn: true,
@@ -93,6 +100,7 @@ class Alarm extends HiveObject {
       bfOneDayOn: false,
       bfThreeDayOn: false,
       bfOneWeekOn: false);
+  }
 }
 
 extension IntUid on String {

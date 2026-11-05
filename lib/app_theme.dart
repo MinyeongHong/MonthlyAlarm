@@ -83,7 +83,7 @@ class AppTheme {
 
 final ThemeData lightTheme = ThemeData(
     fontFamily: 'Pretendard',
-    dialogTheme: DialogTheme(
+    dialogTheme: DialogThemeData(
       backgroundColor: AppTheme.transparentBlueLight,
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22.0)),
@@ -91,14 +91,12 @@ final ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
     primaryColor: AppTheme.defaultBlueLight,
     scaffoldBackgroundColor: AppTheme.backgroundBlueLight,
-    backgroundColor: AppTheme.backgroundBlueLight,
     shadowColor: AppTheme.backgroundBlueLight,
     appBarTheme: AppBarTheme(
       systemOverlayStyle: SystemUiOverlayStyle(
         statusBarColor: AppTheme.transparent,
         statusBarIconBrightness: Brightness.dark,
-        statusBarBrightness:
-            Brightness.light, //<-- For iOS SEE HERE (dark icons)
+        statusBarBrightness: Brightness.light, //<-- For iOS SEE HERE (dark icons)
       ),
       color: AppTheme.transparent,
       centerTitle: true,
@@ -106,7 +104,6 @@ final ThemeData lightTheme = ThemeData(
       titleTextStyle: AppTheme.title1.apply(color: AppTheme.defaultTextLight),
       iconTheme: IconThemeData(
         color: AppTheme.accentBlueLight,
-         // color: Colors.amber[700]
       ),
     ),
     iconTheme: const IconThemeData(
@@ -129,7 +126,6 @@ final ThemeData lightTheme = ThemeData(
     ),
     dividerColor: AppTheme.dividerLight,
     disabledColor: AppTheme.disabledLight1,
-    errorColor: AppTheme.warningLight,
     cardColor: AppTheme.transparentBlueLight,
     textTheme: TextTheme(
       titleLarge: AppTheme.title1.apply(color: AppTheme.defaultTextLight),
@@ -142,7 +138,7 @@ final ThemeData lightTheme = ThemeData(
 
 final ThemeData darkTheme = ThemeData(
     fontFamily: 'Pretendard',
-    dialogTheme: DialogTheme(
+    dialogTheme: DialogThemeData(
       backgroundColor: AppTheme.backgroundBlueDark,
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22.0)),
@@ -156,18 +152,15 @@ final ThemeData darkTheme = ThemeData(
     appBarTheme: AppBarTheme(
       systemOverlayStyle: SystemUiOverlayStyle(
         statusBarColor: AppTheme.transparent, // <-- SEE HERE
-        statusBarIconBrightness:
-            Brightness.light, //<-- For Android SEE HERE (dark icons)
-        statusBarBrightness:
-            Brightness.dark, //<-- For iOS SEE HERE (dark icons)
+        statusBarIconBrightness: Brightness.light, //<-- For Android SEE HERE (dark icons)
+        statusBarBrightness: Brightness.dark, //<-- For iOS SEE HERE (dark icons)
       ),
       color: AppTheme.transparent,
       centerTitle: true,
       elevation: 0.0,
       titleTextStyle: AppTheme.title1.apply(color: AppTheme.defaultTextDark),
-      iconTheme: IconThemeData(
+      iconTheme: const IconThemeData(
         color: AppTheme.accentBlueDark,
-         // color: Colors.amber[700]
       ),
     ),
     iconTheme: const IconThemeData(
@@ -190,7 +183,6 @@ final ThemeData darkTheme = ThemeData(
     ),
     dividerColor: AppTheme.dividerDark,
     disabledColor: AppTheme.disabledDark1,
-    errorColor: AppTheme.warningDark,
     cardColor: AppTheme.transparentBlueDark,
     textTheme: TextTheme(
       titleLarge: AppTheme.title1.apply(color: AppTheme.defaultTextDark),

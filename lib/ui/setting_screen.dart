@@ -2,14 +2,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:monthly_alarm_app/provider/setting_viewmodel.dart';
 import 'package:monthly_alarm_app/ui/widget/language_selector.dart';
 import 'package:monthly_alarm_app/ui/widget/mode_selector.dart';
 
-import '../app_theme.dart';
-import '../provider/setting_viewmodel.dart';
-
 class SettingScreen extends ConsumerWidget {
-  SettingScreen({Key? key}) : super(key: key);
+  const SettingScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,7 +20,7 @@ class SettingScreen extends ConsumerWidget {
           //style: TextStyle(color: Colors.grey[800]),
         ),
         leading: IconButton(
-          icon: Icon(CupertinoIcons.chevron_back),
+          icon: const Icon(CupertinoIcons.chevron_back),
           onPressed: () {
             Navigator.maybePop(context);
           },
@@ -32,27 +30,28 @@ class SettingScreen extends ConsumerWidget {
         children: [
           ListTile(
             title: Text(tr('Language')),
-             trailing: Text(context.locale.toString().toLangName(),style: Theme.of(context).textTheme.bodySmall,),
+            trailing: Text(
+              context.locale.toString().toLangName(),
+              style: Theme.of(context).textTheme.bodySmall,
+            ),
             onTap: () {
               showDialog(
                 context: context,
-                builder: (ctx) => LanguageSelector(),
+                builder: (ctx) => const LanguageSelector(),
               );
             },
           ),
-          Divider(),
+          const Divider(),
           Consumer(builder: (context, ref, child) {
             return ListTile(
               title: Text(tr('Theme')),
-              trailing: Text(
-                  ref.watch(settingViewModelProvider).mode!.toStringTheme(),
+              trailing: Text(ref.watch(settingViewModelProvider).mode!.toStringTheme(),
                   style: Theme.of(context).textTheme.bodySmall),
               onTap: () async {
                 await showDialog<void>(
                     barrierColor: Colors.black26,
                     context: context,
-                    builder: (context) =>
-                        ModeSelector());
+                    builder: (context) => ModeSelector());
               },
             );
           }),

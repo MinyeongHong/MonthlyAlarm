@@ -33,8 +33,7 @@ class AlarmRepository {
   }
 
   Future<void> deleteAll(List<Alarm> idList) async {
-    idList.map((e) => e.alarmId);
-    await alarmBox.deleteAll(idList);
+    await alarmBox.deleteAll(idList.map((e) => e.alarmId));
   }
 
   Future<void> clear() async {

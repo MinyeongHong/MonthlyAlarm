@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:monthly_alarm_app/app_theme.dart';
 
 import '../../provider/alarm_list_viewmodel.dart';
@@ -31,103 +30,103 @@ class AlarmTile extends ConsumerWidget {
     return Row(
       children: [
         AnimatedContainer(
-            duration: Duration(milliseconds: 150),
-            width: isEditMode ?50 :0,
-            child: IconButton(
-                onPressed: () async{
-                  var result = await showDialog<bool>(
-                      barrierDismissible: false,
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                        title: Text(tr('Delete'),style: Theme.of(context).textTheme.titleLarge,),
-                        content: Text(tr('DeleteAlert'),style: Theme.of(context).textTheme.bodyMedium,),
-                        actions: <Widget>[
-                          Row(
-                            mainAxisAlignment:
-                            MainAxisAlignment.spaceEvenly,
-                            children: [
-                              TextButton(
-                                child: Text(
-                                  tr('Cancel'),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge,
-                                ),
-                                onPressed: () {
-                                  Navigator.of(context)
-                                      .pop(false); // 다이얼로그 닫기
-                                },
-                              ),
-                              TextButton(
-                                child: Text(
-                                  tr('Delete'),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge,
-                                ),
-                                onPressed: () {
-                                  Navigator.of(context)
-                                      .pop(true); // 다이얼로그 닫기
-                                },
-                              ),
-                            ],
-                          )
-                        ],
-                      ));
-
-                  if (result == true) {
-                    await vm.delete(alarmState.alarmId);
-                  }
-                },
-                icon: Icon(
-                  CupertinoIcons.minus_circle_fill,
-                  color: theme.errorColor,
-                )),
-          ),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 6.0),
-            child: InkWell(
-              onLongPress: () async{
+          duration: Duration(milliseconds: 150),
+          width: isEditMode ? 50 : 0,
+          child: IconButton(
+              onPressed: () async {
                 var result = await showDialog<bool>(
                     barrierDismissible: false,
                     context: context,
                     builder: (BuildContext context) => AlertDialog(
-                      title: Text(tr('Delete'),style: Theme.of(context).textTheme.titleLarge,),
-                      content: Text(tr('DeleteAlert'),style: Theme.of(context).textTheme.bodyMedium,),
-                      actions: <Widget>[
-                        Row(
-                          mainAxisAlignment:
-                          MainAxisAlignment.spaceEvenly,
-                          children: [
-                            TextButton(
-                              child: Text(
-                                tr('Cancel'),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge,
-                              ),
-                              onPressed: () {
-                                Navigator.of(context)
-                                    .pop(false); // 다이얼로그 닫기
-                              },
-                            ),
-                            TextButton(
-                              child: Text(
-                                tr('Delete'),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge,
-                              ),
-                              onPressed: () {
-                                Navigator.of(context)
-                                    .pop(true); // 다이얼로그 닫기
-                              },
-                            ),
+                          title: Text(
+                            tr('Delete'),
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          content: Text(
+                            tr('DeleteAlert'),
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                          actions: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                TextButton(
+                                  child: Text(
+                                    tr('Cancel'),
+                                    style: Theme.of(context).textTheme.bodyLarge,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).pop(false); // 다이얼로그 닫기
+                                  },
+                                ),
+                                TextButton(
+                                  child: Text(
+                                    tr('Delete'),
+                                    style: Theme.of(context).textTheme.bodyLarge,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).pop(true); // 다이얼로그 닫기
+                                  },
+                                ),
+                              ],
+                            )
                           ],
-                        )
-                      ],
-                    ));
+                        ));
+
+                if (result == true) {
+                  await vm.delete(alarmState.alarmId);
+                }
+              },
+              icon: Icon(
+                CupertinoIcons.minus_circle_fill,
+                color: theme.brightness == Brightness.light
+                    ? AppTheme.warningLight
+                    : AppTheme.warningDark,
+              )),
+        ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 6.0),
+            child: InkWell(
+              onLongPress: () async {
+                var result = await showDialog<bool>(
+                    barrierDismissible: false,
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                          title: Text(
+                            tr('Delete'),
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          content: Text(
+                            tr('DeleteAlert'),
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                          actions: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                TextButton(
+                                  child: Text(
+                                    tr('Cancel'),
+                                    style: Theme.of(context).textTheme.bodyLarge,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).pop(false); // 다이얼로그 닫기
+                                  },
+                                ),
+                                TextButton(
+                                  child: Text(
+                                    tr('Delete'),
+                                    style: Theme.of(context).textTheme.bodyLarge,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).pop(true); // 다이얼로그 닫기
+                                  },
+                                ),
+                              ],
+                            )
+                          ],
+                        ));
 
                 if (result == true) {
                   await vm.delete(alarmState.alarmId);
@@ -160,9 +159,7 @@ class AlarmTile extends ConsumerWidget {
                       child: DecoratedBox(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(22),
-                            color: alarmState.isOn
-                                ? AppTheme.lightBlueDark
-                                : AppTheme.transparent),
+                            color: alarmState.isOn ? AppTheme.lightBlueDark : AppTheme.transparent),
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(27, 28, 12, 28),
                           child: Row(
@@ -178,43 +175,45 @@ class AlarmTile extends ConsumerWidget {
                                           : AppTheme.disabledDark2),
                                 ),
                               ),
-                              Row(children: [
-                                Column(
-                                  children: [
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      alarmState.date == -1
-                                          ? tr("Last")
-                                          : "EveryCustom".tr(args:[alarmState.date.toString()]),
-                                      style: AppTheme.body2.apply(
-                                          color: alarmState.isOn
-                                              ? AppTheme.defaultTextDark
-                                              : AppTheme.disabledDark2),
-                                      textAlign: TextAlign.end,
-                                    ),
-                                    Text(
-                                      DateFormat.Hm().format(alarmState.time!),
-                                      style: AppTheme.body3.apply(
-                                          color: alarmState.isOn
-                                              ? AppTheme.defaultTextDark
-                                              : AppTheme.disabledDark2),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  width: 15,
-                                ),
-                                Visibility(
-                                  visible: !ref.watch(editModeProvider),
-                                  child: CupertinoSwitch(
-                                    activeColor: AppTheme.defaultBlueDark,
-                                    value: alarmState.isOn,
-                                    onChanged: (val) => onToggle.call(val),
+                              Row(
+                                children: [
+                                  Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        alarmState.date == -1
+                                            ? tr("Last")
+                                            : "EveryCustom".tr(args: [alarmState.date.toString()]),
+                                        style: AppTheme.body2.apply(
+                                            color: alarmState.isOn
+                                                ? AppTheme.defaultTextDark
+                                                : AppTheme.disabledDark2),
+                                        textAlign: TextAlign.end,
+                                      ),
+                                      Text(
+                                        DateFormat.Hm().format(alarmState.time!),
+                                        style: AppTheme.body3.apply(
+                                            color: alarmState.isOn
+                                                ? AppTheme.defaultTextDark
+                                                : AppTheme.disabledDark2),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              ],)
+                                  SizedBox(
+                                    width: 15,
+                                  ),
+                                  Visibility(
+                                    visible: !ref.watch(editModeProvider),
+                                    child: CupertinoSwitch(
+                                      activeColor: AppTheme.defaultBlueDark,
+                                      value: alarmState.isOn,
+                                      onChanged: (val) => onToggle.call(val),
+                                    ),
+                                  ),
+                                ],
+                              )
                             ],
                           ),
                         ),
@@ -243,9 +242,8 @@ class AlarmTile extends ConsumerWidget {
                       child: DecoratedBox(
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(22),
-                            color: alarmState.isOn
-                                ? AppTheme.lightBlueLight
-                                : AppTheme.transparent),
+                            color:
+                                alarmState.isOn ? AppTheme.lightBlueLight : AppTheme.transparent),
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(27, 28, 12, 28),
                           child: Row(
@@ -269,7 +267,7 @@ class AlarmTile extends ConsumerWidget {
                                   Text(
                                     alarmState.date == -1
                                         ? tr("Last")
-                                        : "EveryCustom".tr(args:[alarmState.date.toString()]),
+                                        : "EveryCustom".tr(args: [alarmState.date.toString()]),
                                     //'매월 ${alarmState.date}일',
                                     style: AppTheme.body2.apply(
                                         color: alarmState.isOn

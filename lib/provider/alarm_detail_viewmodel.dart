@@ -49,7 +49,7 @@ class AlarmDetailViewModel extends _$AlarmDetailViewModel {
   void toggleTime() {
     var preTime = state.time;
 
-    if (preTime!.hour > 12) {
+    if (preTime!.hour >= 12) {
       state = state.copyWith(time: preTime.subtract(Duration(hours: 12)));
     } else {
       state = state.copyWith(time: preTime.add(Duration(hours: 12)));
@@ -61,7 +61,9 @@ class AlarmDetailViewModel extends _$AlarmDetailViewModel {
     state = state.copyWith(title: title, content: content);
 
     await createAlarm.call(state);
-    await LocalNotificationRepository.scheduleMonthlyNotification(state);
+    if (state.isOn) {
+      await LocalNotificationRepository.scheduleMonthlyNotification(state);
+    }
   }
 
   Future<void> update(String title, String content) async {
@@ -71,7 +73,9 @@ class AlarmDetailViewModel extends _$AlarmDetailViewModel {
     await LocalNotificationRepository.offNotification(state.alarmId);
 
     await updateAlarm.call(state);
-    await LocalNotificationRepository.scheduleMonthlyNotification(state);
+    if (state.isOn) {
+      await LocalNotificationRepository.scheduleMonthlyNotification(state);
+    }
   }
 }
 
